@@ -1,0 +1,6 @@
+{
+  "name": "Comunicação Assertiva com a Liderança",
+  "description": "Plataforma PWA para capacitação executiva em alinhamento, negociação e feedback sem risco com gestores.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

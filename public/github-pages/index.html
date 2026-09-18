@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Comunicação Assertiva com a Liderança — PWA</title>
+  <meta name="description" content="Como Alinhar, Negociar e Dar Feedback Sem Risco. PWA Corporativo com 13 aulas, exercícios práticos e ferramentas executivas." />
+
+  <!-- PWA & Mobile Icons -->
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#070d18" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+  <!-- Top App Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            <polyline points="9 11 12 8 15 11"></polyline>
+            <line x1="12" y1="8" x2="12" y2="14"></line>
+          </svg>
+        </div>
+        <div class="brand-title">
+          <h1>Comunicação Assertiva com a Liderança</h1>
+          <p>Como Alinhar, Negociar e Dar Feedback Sem Risco</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="btnPWAInstall" class="btn-pwa-install" style="display: none;">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          </svg>
+          Instalar no Celular
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Barra de Progresso Global -->
+  <div class="progress-strip">
+    <div class="progress-container">
+      <div class="progress-info">
+        <span>Progresso do Curso:</span>
+        <strong id="progressLessonsCount">0 de 13 aulas concluídas</strong>
+      </div>
+      <div class="progress-track">
+        <div id="progressBarFill" class="progress-fill"></div>
+      </div>
+      <div id="progressPercentBadge" class="progress-badge">0%</div>
+    </div>
+  </div>
+
+  <!-- Layout Principal: Player + Sidebar -->
+  <main class="main-wrapper">
+    
+    <!-- Seção Central: Player e Detalhes da Aula -->
+    <section class="player-container">
+      <div class="video-responsive-box">
+        <div class="video-placeholder-overlay" id="videoOverlay">
+          <div class="video-play-pulse" id="btnPlayVideo" title="Iniciar Reprodução">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#38bdf8" stroke="none">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </div>
+          <h3 id="playerVideoTitle" style="color: #fff; font-size: 1.1rem; font-weight: 700;">Aula 01: A Mente do Gestor</h3>
+          <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 4px;">Player de vídeo corporativo responsivo</p>
+          <div class="video-src-badge" id="videoSrcLabel">src="URL_DO_VIDEO_AQUI"</div>
+        </div>
+      </div>
+
+      <!-- Barra de Metadados e Ação -->
+      <div class="lesson-meta-bar">
+        <div class="lesson-title-box">
+          <span class="lesson-tag" id="lessonModuleTag">Módulo 1</span>
+          <h2 id="lessonMainTitle">Aula 01: A Mente do Gestor</h2>
+          <p id="lessonSubtitle">Foco em soluções de negócio vs. relatar problemas.</p>
+        </div>
+
+        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+          <button id="btnToggleComplete" class="btn-complete-lesson">
+            <span>Marcar como Concluída</span>
+          </button>
+
+          <button id="btnOpenExercise" class="btn-exercise-highlight">
+            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Resolver Exercício da Aula
+          </button>
+        </div>
+      </div>
+
+      <!-- Conteúdo Técnico e Takeaways da Aula -->
+      <div class="lesson-details-body">
+        <div class="framework-card">
+          <strong>Framework Chave da Aula</strong>
+          <p id="lessonFrameworkText">Regra 1-3-1: 1 Problema, 3 Soluções Viáveis, 1 Recomendação Clara.</p>
+        </div>
+
+        <h4 style="font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 10px;">Pilares Fundamentais:</h4>
+        <ul class="key-points-list" id="lessonKeyPoints">
+        </ul>
+      </div>
+    </section>
+
+    <!-- Sidebar de 13 Aulas em 4 Módulos -->
+    <aside class="sidebar-wrapper">
+      <div class="sidebar-header">
+        <h3>Grade Curricular (13 Aulas)</h3>
+        <span style="font-size: 0.75rem; color: #38bdf8; font-family: monospace;" id="sidebarCompletedCount">0/13</span>
+      </div>
+      <div class="modules-accordion" id="modulesListContainer">
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- Modal Interativo de Exercício -->
+  <div class="modal-overlay hidden" id="exerciseModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalExerciseTitle">Exercício Prático — Aula 01</h3>
+        <button class="btn-close-modal" id="btnCloseModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="case-scenario-box">
+          <strong>Estudo de Caso Corporativo</strong>
+          <p id="modalScenarioText">Cenário situacional...</p>
+        </div>
+
+        <p style="font-weight: 600; font-size: 0.95rem; color: #fff;" id="modalQuestionText">Qual é a abordagem mais assertiva?</p>
+
+        <div class="options-container" id="modalOptionsContainer">
+        </div>
+
+        <div class="exercise-feedback-box" id="modalFeedbackBox">
+          <strong id="feedbackTitle">Análise Assertiva</strong>
+          <p id="feedbackText" style="font-size: 0.88rem; margin-top: 4px;">Explicação detalhada...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Área de Ferramental e Recursos de Apoio -->
+  <section class="resources-section">
+    <div class="section-title-wrap">
+      <h2>Ferramental Executivo e Recursos de Apoio</h2>
+      <p>Modelos prontos, matrizes de roleplay e checklist rápido para aplicação no dia a dia com a liderança.</p>
+    </div>
+
+    <!-- Abas de Navegação dos Recursos -->
+    <div class="resources-tabs">
+      <button class="tab-btn active" data-tab="tab-templates">Templates Copiáveis</button>
+      <button class="tab-btn" data-tab="tab-roleplay">Quadro de Roleplay</button>
+      <button class="tab-btn" data-tab="tab-checklist">Checklist Pré-Conversa (5 Min)</button>
+    </div>
+
+    <!-- Aba 1: Templates Copiáveis -->
+    <div class="tab-content-panel active" id="tab-templates">
+      <div id="templatesListContainer">
+      </div>
+    </div>
+
+    <!-- Aba 2: Quadro de Roleplay -->
+    <div class="tab-content-panel" id="tab-roleplay">
+      <div id="roleplayContainer">
+      </div>
+    </div>
+
+    <!-- Aba 3: Checklist Pré-Conversa -->
+    <div class="tab-content-panel" id="tab-checklist">
+      <div class="checklist-card">
+        <div class="checklist-score-gauge">
+          <div>
+            <h4 style="font-size: 1rem; color: #fff; font-weight: 700;">Prontidão para a Conversa</h4>
+            <p style="font-size: 0.85rem; color: #94a3b8;">Revise os 6 pontos antes de reuniões decisivas de alinhamento ou feedback.</p>
+          </div>
+          <div style="font-family: monospace; font-size: 1.25rem; font-weight: 800; color: #38bdf8;" id="checklistScore">0 / 6</div>
+        </div>
+
+        <div id="checklistItemsList">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Script da Aplicação -->
+  <script src="./app.js"></script>
+</body>
+</html>
