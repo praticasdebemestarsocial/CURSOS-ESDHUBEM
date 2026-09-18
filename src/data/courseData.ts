@@ -2,6 +2,56 @@ import { Module, RoleplayItem, TemplateItem, ChecklistItem } from '../types';
 
 export const COURSE_MODULES: Module[] = [
   {
+    id: 0,
+    title: 'Módulo 0: Apresentação e Boas-Vindas',
+    tagline: 'Introdução ao método e como aproveitar a plataforma.',
+    lessons: [
+      {
+        id: 'aula-00',
+        number: 0,
+        moduleId: 0,
+        title: 'Boas-Vindas ao Curso',
+        subtitle: 'Vídeo de apresentação e orientações iniciais.',
+        duration: '5 min',
+        videoSrc: 'URL_DO_VIDEO_AQUI',
+        keyFramework: 'Mindset de Aprendizado Contínuo',
+        summary: [
+          'Apresentação do instrutor e da proposta do curso.',
+          'Como navegar pelos módulos e usar os recursos extras (PDFs, templates, simulador).',
+          'Alinhamento de expectativas sobre a dedicação necessária para aplicar o aprendizado.'
+        ],
+        exercise: {
+          id: 'ex-00',
+          scenario: 'Você está começando a sua jornada de aprendizado conosco.',
+          question: 'Qual a melhor postura para absorver o conteúdo deste curso?',
+          options: [
+            {
+              id: 'a',
+              text: 'Apenas assistir aos vídeos de forma passiva, sem fazer anotações.',
+              isAssertive: false,
+              classification: 'Passiva / Reativa',
+              feedback: 'O aprendizado passivo retém muito pouco da informação a longo prazo.'
+            },
+            {
+              id: 'b',
+              text: 'Assistir, fazer anotações e aplicar as técnicas no seu dia a dia profissional imediatamente.',
+              isAssertive: true,
+              classification: 'Assertiva',
+              feedback: 'Perfeito! O aprendizado ativo e a prática constante são a chave do sucesso.'
+            },
+            {
+              id: 'c',
+              text: 'Pular os vídeos e ir direto para os exercícios sem entender o contexto.',
+              isAssertive: false,
+              classification: 'Agressiva',
+              feedback: 'Você perderá a base teórica e estratégica necessária para a evolução.'
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
     id: 1,
     title: 'Módulo 1: O Que a Liderança Realmente Espera da Sua Comunicação',
     tagline: 'Comunicação orientada a valor de negócio, perfis executivos e canais assertivos.',
