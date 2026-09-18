@@ -118,7 +118,7 @@ export const STANDALONE_STYLES_CSS = `/* styles.css - Visual Tecnológico Azulad
   --bg-card-hover: #112038;
   --border-color: #1e3a5f;
   --border-light: #2d5485;
-  --accent-cyan: #ffb703;
+  --accent-cyan: #eab308;
   --accent-blue: #2563eb;
   --accent-glow: rgba(56, 189, 248, 0.18);
   --text-main: #f1f5f9;

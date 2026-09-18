@@ -94,12 +94,12 @@ export default function App() {
   const { isInstallable, isInstalled, isIOS, install } = usePWAInstall();
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-amber-600 selection:text-black">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-yellow-600 selection:text-black">
       
       {/* Offline Status Bar Banner (PWA feature) */}
       {!isOnline && (
-        <div className="bg-amber-950/90 border-b border-amber-700/80 px-4 py-2 text-center text-xs font-semibold text-amber-200 flex items-center justify-center gap-2">
-          <WifiOff className="w-3.5 h-3.5 text-amber-400" />
+        <div className="bg-yellow-950/90 border-b border-yellow-700/80 px-4 py-2 text-center text-xs font-semibold text-amber-200 flex items-center justify-center gap-2">
+          <WifiOff className="w-3.5 h-3.5 text-yellow-400" />
           <span>Você está no modo offline. As aulas e exercícios continuam acessíveis através do cache do PWA!</span>
         </div>
       )}
@@ -152,7 +152,7 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-auto border-t border-amber-950/80 bg-[#050b14] py-6 px-4">
+      <footer className="mt-auto border-t border-yellow-950/80 bg-[#050b14] py-6 px-4">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div>
             <span className="font-semibold text-slate-300">
@@ -165,7 +165,7 @@ export default function App() {
           <div className="flex items-center gap-4">
             <button
               onClick={() => setIsExportOpen(true)}
-              className="text-amber-500 hover:text-amber-300 underline underline-offset-2"
+              className="text-yellow-500 hover:text-yellow-300 underline underline-offset-2"
             >
               Código dos 5 Arquivos para GitHub Pages
             </button>

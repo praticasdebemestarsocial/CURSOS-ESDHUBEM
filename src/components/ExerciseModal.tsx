@@ -38,18 +38,18 @@ export const ExerciseModal: React.FC<ExerciseModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div
-        className="bg-slate-900 border border-amber-800/80 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl shadow-amber-950/50 flex flex-col"
+        className="bg-slate-900 border border-yellow-800/80 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl shadow-yellow-950/50 flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         
         {/* Modal Header */}
-        <div className="p-4 sm:p-5 border-b border-amber-950 bg-[#07101d] flex items-center justify-between sticky top-0 z-10">
+        <div className="p-4 sm:p-5 border-b border-yellow-950 bg-[#07101d] flex items-center justify-between sticky top-0 z-10">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-amber-950 border border-amber-700/60 flex items-center justify-center text-amber-500">
+            <div className="w-8 h-8 rounded-lg bg-yellow-950 border border-yellow-700/60 flex items-center justify-center text-yellow-500">
               <Target className="w-4 h-4" />
             </div>
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-amber-500 font-bold">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-yellow-500 font-bold">
                 Exercício Prático • Aula {lesson.number}
               </span>
               <h2 className="text-sm sm:text-base font-bold text-white">
@@ -71,8 +71,8 @@ export const ExerciseModal: React.FC<ExerciseModalProps> = ({
         <div className="p-5 sm:p-6 space-y-5 flex-1">
           
           {/* Corporate Scenario Box */}
-          <div className="p-4 rounded-xl bg-[#071220] border border-amber-900/60">
-            <div className="flex items-center gap-2 text-amber-500 text-xs font-bold uppercase tracking-wider mb-1.5">
+          <div className="p-4 rounded-xl bg-[#071220] border border-yellow-900/60">
+            <div className="flex items-center gap-2 text-yellow-500 text-xs font-bold uppercase tracking-wider mb-1.5">
               <HelpCircle className="w-3.5 h-3.5" />
               Estudo de Caso Situacional
             </div>
@@ -91,7 +91,7 @@ export const ExerciseModal: React.FC<ExerciseModalProps> = ({
             <div className="space-y-3">
               {exercise.options.map((option, idx) => {
                 const isSelected = selectedOption === option;
-                let cardStyle = "bg-[#0d1f35] border-amber-950/80 hover:bg-[#122b4a] text-slate-200";
+                let cardStyle = "bg-[#0d1f35] border-yellow-950/80 hover:bg-[#122b4a] text-slate-200";
 
                 if (isSelected) {
                   if (option.isAssertive) {
@@ -133,7 +133,7 @@ export const ExerciseModal: React.FC<ExerciseModalProps> = ({
               className={`p-4 rounded-xl border animate-in slide-in-from-bottom-2 duration-300 ${
                 selectedOption.isAssertive
                   ? 'bg-emerald-950/50 border-emerald-700/80 text-emerald-100'
-                  : 'bg-amber-950/40 border-amber-700/80 text-amber-100'
+                  : 'bg-yellow-950/40 border-yellow-700/80 text-amber-100'
               }`}
             >
               <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider mb-1.5">
@@ -144,8 +144,8 @@ export const ExerciseModal: React.FC<ExerciseModalProps> = ({
                   </>
                 ) : (
                   <>
-                    <AlertTriangle className="w-4 h-4 text-amber-400" />
-                    <span className="text-amber-300">
+                    <AlertTriangle className="w-4 h-4 text-yellow-400" />
+                    <span className="text-yellow-300">
                       Classificação: {selectedOption.classification}
                     </span>
                   </>
@@ -170,7 +170,7 @@ export const ExerciseModal: React.FC<ExerciseModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 border-t border-amber-950 bg-[#07101d] flex items-center justify-between">
+        <div className="p-4 border-t border-yellow-950 bg-[#07101d] flex items-center justify-between">
           <span className="text-xs text-slate-400">
             {selectedOption ? (
               selectedOption.isAssertive ? "Parabéns! Padrão executivo atingido." : "Tente refinar sua resposta."
