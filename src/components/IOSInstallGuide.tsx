@@ -12,11 +12,11 @@ export const IOSInstallGuide: React.FC<IOSInstallGuideProps> = ({ isOpen, onClos
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div
-        className="bg-[#0b1626] border border-sky-800/80 rounded-2xl w-full max-w-md p-5 sm:p-6 shadow-2xl shadow-cyan-950/50 flex flex-col"
+        className="bg-[#0b1626] border border-amber-800/80 rounded-2xl w-full max-w-md p-5 sm:p-6 shadow-2xl shadow-amber-950/50 flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between pb-3 border-b border-sky-950 mb-4">
-          <div className="flex items-center gap-2 text-cyan-400">
+        <div className="flex items-center justify-between pb-3 border-b border-amber-950 mb-4">
+          <div className="flex items-center gap-2 text-amber-500">
             <Sparkles className="w-4 h-4" />
             <h3 className="text-sm sm:text-base font-bold text-white">
               Instalar no iPhone / iPad
@@ -35,8 +35,8 @@ export const IOSInstallGuide: React.FC<IOSInstallGuideProps> = ({ isOpen, onClos
         </p>
 
         <div className="space-y-3 mb-5">
-          <div className="flex items-start gap-3 p-3 rounded-xl bg-[#07111e] border border-sky-950">
-            <div className="w-7 h-7 rounded-lg bg-sky-950 border border-sky-800 flex items-center justify-center text-cyan-400 flex-shrink-0">
+          <div className="flex items-start gap-3 p-3 rounded-xl bg-[#07111e] border border-amber-950">
+            <div className="w-7 h-7 rounded-lg bg-amber-950 border border-amber-800 flex items-center justify-center text-amber-500 flex-shrink-0">
               <Share className="w-4 h-4" />
             </div>
             <div>
@@ -47,8 +47,8 @@ export const IOSInstallGuide: React.FC<IOSInstallGuideProps> = ({ isOpen, onClos
             </div>
           </div>
 
-          <div className="flex items-start gap-3 p-3 rounded-xl bg-[#07111e] border border-sky-950">
-            <div className="w-7 h-7 rounded-lg bg-sky-950 border border-sky-800 flex items-center justify-center text-cyan-400 flex-shrink-0">
+          <div className="flex items-start gap-3 p-3 rounded-xl bg-[#07111e] border border-amber-950">
+            <div className="w-7 h-7 rounded-lg bg-amber-950 border border-amber-800 flex items-center justify-center text-amber-500 flex-shrink-0">
               <PlusSquare className="w-4 h-4" />
             </div>
             <div>
@@ -62,7 +62,7 @@ export const IOSInstallGuide: React.FC<IOSInstallGuideProps> = ({ isOpen, onClos
 
         <button
           onClick={onClose}
-          className="w-full py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 border border-cyan-400/40 shadow-lg shadow-sky-500/20 transition"
+          className="w-full py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-amber-600 to-blue-600 hover:from-amber-500 hover:to-blue-500 border border-amber-500/40 shadow-lg shadow-amber-500/20 transition"
         >
           Entendi, fechar
         </button>

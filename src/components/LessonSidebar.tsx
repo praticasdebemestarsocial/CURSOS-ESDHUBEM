@@ -29,17 +29,17 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
   const totalLessons = modules.reduce((acc, m) => acc + m.lessons.length, 0);
 
   return (
-    <aside className="bg-[#0b1626] border border-sky-950/80 rounded-2xl overflow-hidden shadow-xl shadow-black/40 flex flex-col h-full max-h-[850px]">
+    <aside className="bg-[#0b1626] border border-amber-950/80 rounded-2xl overflow-hidden shadow-xl shadow-black/40 flex flex-col h-full max-h-[850px]">
       
       {/* Header */}
-      <div className="p-4 bg-[#081220] border-b border-sky-950/70 flex items-center justify-between">
+      <div className="p-4 bg-[#081220] border-b border-amber-950/70 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Layers className="w-4 h-4 text-cyan-400" />
+          <Layers className="w-4 h-4 text-amber-500" />
           <h2 className="text-sm font-bold text-white uppercase tracking-wider">
             Grade Curricular
           </h2>
         </div>
-        <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-sky-950/80 border border-sky-800/60 text-cyan-300">
+        <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-amber-950/80 border border-amber-800/60 text-amber-300">
           {completedLessons.length}/{totalLessons} Aulas
         </span>
       </div>
@@ -54,22 +54,22 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
           return (
             <div
               key={mod.id}
-              className="bg-[#07111e] border border-sky-950/80 rounded-xl overflow-hidden"
+              className="bg-[#07111e] border border-amber-950/80 rounded-xl overflow-hidden"
             >
               {/* Module Header Button */}
               <button
                 onClick={() => toggleModule(mod.id)}
                 id={`module-header-${mod.id}`}
-                className="w-full p-3 bg-[#0a182b]/60 hover:bg-[#0d2038] text-left flex items-center justify-between gap-2 transition border-b border-sky-950/50"
+                className="w-full p-3 bg-[#0a182b]/60 hover:bg-[#0d2038] text-left flex items-center justify-between gap-2 transition border-b border-amber-950/50"
               >
                 <div className="flex items-center gap-2 min-w-0">
                   {isExpanded ? (
-                    <ChevronDown className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                    <ChevronDown className="w-4 h-4 text-amber-500 flex-shrink-0" />
                   ) : (
                     <ChevronRight className="w-4 h-4 text-slate-400 flex-shrink-0" />
                   )}
                   <div className="truncate">
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-400 block">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-500 block">
                       Módulo {mod.id}
                     </span>
                     <h3 className="text-xs font-bold text-slate-200 truncate">
@@ -89,7 +89,7 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
 
               {/* Module Lessons List */}
               {isExpanded && (
-                <div className="divide-y divide-sky-950/40">
+                <div className="divide-y divide-amber-950/40">
                   {mod.lessons.map((lesson: Lesson) => {
                     const isActive = lesson.id === currentLessonId;
                     const isDone = completedLessons.includes(lesson.id);
@@ -100,7 +100,7 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
                         id={`lesson-item-${lesson.id}`}
                         className={`group relative p-2.5 sm:p-3 transition-all flex items-start gap-2.5 ${
                           isActive
-                            ? 'bg-gradient-to-r from-sky-900/30 to-blue-950/20 border-l-2 border-cyan-400'
+                            ? 'bg-gradient-to-r from-amber-900/30 to-amber-950/20 border-l-2 border-amber-500'
                             : 'hover:bg-slate-900/50'
                         }`}
                       >
@@ -110,7 +110,7 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
                             e.stopPropagation();
                             onToggleComplete(lesson.id);
                           }}
-                          className="mt-0.5 flex-shrink-0 text-slate-500 hover:text-cyan-400 transition"
+                          className="mt-0.5 flex-shrink-0 text-slate-500 hover:text-amber-500 transition"
                           title={isDone ? "Marcar como não concluída" : "Marcar como concluída"}
                         >
                           {isDone ? (
@@ -135,7 +135,7 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
                           </div>
 
                           <h4 className={`text-xs font-semibold leading-snug line-clamp-2 ${
-                            isActive ? 'text-cyan-300 font-bold' : isDone ? 'text-slate-300' : 'text-slate-200'
+                            isActive ? 'text-amber-300 font-bold' : isDone ? 'text-slate-300' : 'text-slate-200'
                           }`}>
                             {lesson.title.replace(/^Aula \d+:\s*/, '')}
                           </h4>
@@ -148,7 +148,7 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
                         {/* Active Indicator Icon */}
                         {isActive && (
                           <div className="flex-shrink-0 self-center">
-                            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#38bdf8]" />
+                            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse shadow-[0_0_8px_#38bdf8]" />
                           </div>
                         )}
                       </div>

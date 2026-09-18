@@ -36,12 +36,12 @@ export const ToolsSection: React.FC = () => {
   const checklistPercent = Math.round((checkedCount / totalChecklist) * 100);
 
   return (
-    <section className="bg-[#0b1626] border border-sky-950/80 rounded-2xl overflow-hidden shadow-xl shadow-black/40 mt-8">
+    <section className="bg-[#0b1626] border border-amber-950/80 rounded-2xl overflow-hidden shadow-xl shadow-black/40 mt-8">
       
       {/* Section Header with Tabs */}
-      <div className="p-5 sm:p-6 border-b border-sky-950/80 bg-[#081220] flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="p-5 sm:p-6 border-b border-amber-950/80 bg-[#081220] flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-amber-500 text-xs font-bold uppercase tracking-wider mb-1">
             <Sparkles className="w-3.5 h-3.5" />
             Caixa de Ferramentas do Aluno
           </div>
@@ -54,13 +54,13 @@ export const ToolsSection: React.FC = () => {
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex items-center gap-1.5 p-1 bg-[#060c17] rounded-xl border border-sky-950/80 overflow-x-auto">
+        <div className="flex items-center gap-1.5 p-1 bg-[#060c17] rounded-xl border border-amber-950/80 overflow-x-auto">
           <button
             onClick={() => setActiveTab('templates')}
             id="tab-btn-templates"
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold transition whitespace-nowrap ${
               activeTab === 'templates'
-                ? 'bg-gradient-to-r from-sky-600 to-blue-600 text-white shadow-md shadow-sky-500/20'
+                ? 'bg-gradient-to-r from-amber-600 to-blue-600 text-white shadow-md shadow-amber-500/20'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -73,7 +73,7 @@ export const ToolsSection: React.FC = () => {
             id="tab-btn-roleplay"
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold transition whitespace-nowrap ${
               activeTab === 'roleplay'
-                ? 'bg-gradient-to-r from-sky-600 to-blue-600 text-white shadow-md shadow-sky-500/20'
+                ? 'bg-gradient-to-r from-amber-600 to-blue-600 text-white shadow-md shadow-amber-500/20'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -86,7 +86,7 @@ export const ToolsSection: React.FC = () => {
             id="tab-btn-checklist"
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold transition whitespace-nowrap ${
               activeTab === 'checklist'
-                ? 'bg-gradient-to-r from-sky-600 to-blue-600 text-white shadow-md shadow-sky-500/20'
+                ? 'bg-gradient-to-r from-amber-600 to-blue-600 text-white shadow-md shadow-amber-500/20'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -109,11 +109,11 @@ export const ToolsSection: React.FC = () => {
                 return (
                   <div
                     key={tmpl.id || idx}
-                    className="bg-[#07111e] border border-sky-900/60 rounded-xl p-4 flex flex-col justify-between hover:border-cyan-700/60 transition shadow-lg"
+                    className="bg-[#07111e] border border-amber-900/60 rounded-xl p-4 flex flex-col justify-between hover:border-amber-700/60 transition shadow-lg"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 px-2 py-0.5 rounded">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-500 bg-amber-950/70 border border-amber-800/60 px-2 py-0.5 rounded">
                           {tmpl.category}
                         </span>
                         <button
@@ -122,7 +122,7 @@ export const ToolsSection: React.FC = () => {
                           className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold border transition ${
                             isCopied
                               ? 'bg-emerald-950 text-emerald-300 border-emerald-600'
-                              : 'bg-slate-800/80 text-cyan-300 border-sky-800/60 hover:bg-slate-700'
+                              : 'bg-slate-800/80 text-amber-300 border-amber-800/60 hover:bg-slate-700'
                           }`}
                         >
                           {isCopied ? (
@@ -143,7 +143,7 @@ export const ToolsSection: React.FC = () => {
                         {tmpl.title}
                       </h3>
 
-                      <div className="bg-[#030812] p-3 rounded-lg border border-sky-950 font-mono text-[11px] text-slate-300 whitespace-pre-wrap select-text leading-relaxed max-h-56 overflow-y-auto custom-scrollbar">
+                      <div className="bg-[#030812] p-3 rounded-lg border border-amber-950 font-mono text-[11px] text-slate-300 whitespace-pre-wrap select-text leading-relaxed max-h-56 overflow-y-auto custom-scrollbar">
                         {tmpl.content}
                       </div>
                     </div>
@@ -165,10 +165,10 @@ export const ToolsSection: React.FC = () => {
               {COURSE_DATA.roleplay.map((item: RoleplayItem, idx: number) => (
                 <div
                   key={item.id || idx}
-                  className="bg-[#07111e] border border-sky-900/60 rounded-xl p-4 sm:p-5"
+                  className="bg-[#07111e] border border-amber-900/60 rounded-xl p-4 sm:p-5"
                 >
-                  <div className="text-xs font-bold uppercase tracking-wider text-cyan-400 mb-3 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                  <div className="text-xs font-bold uppercase tracking-wider text-amber-500 mb-3 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-amber-500" />
                     Situação {idx + 1}: {item.context}
                   </div>
 
@@ -206,10 +206,10 @@ export const ToolsSection: React.FC = () => {
           <div className="space-y-5">
             
             {/* Score Banner */}
-            <div className="p-4 rounded-xl bg-[#071222] border border-sky-900/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="p-4 rounded-xl bg-[#071222] border border-amber-900/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
-                  <CheckSquare className="w-4 h-4 text-cyan-400" />
+                  <CheckSquare className="w-4 h-4 text-amber-500" />
                   Prontidão da Conversa Executiva
                 </h3>
                 <p className="text-xs text-slate-400 mt-0.5">
@@ -222,7 +222,7 @@ export const ToolsSection: React.FC = () => {
                   <div className="text-xs font-mono font-bold text-slate-200">
                     {checkedCount} de {totalChecklist} verificados
                   </div>
-                  <div className="text-[11px] text-cyan-400">
+                  <div className="text-[11px] text-amber-500">
                     {checkedCount === totalChecklist ? '100% Pronto!' : 'Em preparação'}
                   </div>
                 </div>
@@ -230,7 +230,7 @@ export const ToolsSection: React.FC = () => {
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-mono font-extrabold text-sm border shadow-lg ${
                   checkedCount === totalChecklist
                     ? 'bg-emerald-950 border-emerald-500 text-emerald-300 shadow-emerald-500/20'
-                    : 'bg-sky-950 border-sky-700 text-cyan-300'
+                    : 'bg-amber-950 border-amber-700 text-amber-300'
                 }`}>
                   {checklistPercent}%
                 </div>
@@ -238,7 +238,7 @@ export const ToolsSection: React.FC = () => {
             </div>
 
             {/* Checklist Items */}
-            <div className="divide-y divide-sky-950/60 bg-[#07111e] rounded-xl border border-sky-950 overflow-hidden">
+            <div className="divide-y divide-amber-950/60 bg-[#07111e] rounded-xl border border-amber-950 overflow-hidden">
               {COURSE_DATA.checklist.map((item: ChecklistItem, idx: number) => {
                 const isChecked = checklistChecks.includes(idx);
 
@@ -252,7 +252,7 @@ export const ToolsSection: React.FC = () => {
                       type="checkbox"
                       checked={isChecked}
                       onChange={() => toggleChecklistItem(idx)}
-                      className="mt-1 w-4 h-4 rounded border-sky-800 text-cyan-500 focus:ring-cyan-400 focus:ring-offset-0 bg-slate-900 accent-sky-500 cursor-pointer"
+                      className="mt-1 w-4 h-4 rounded border-amber-800 text-amber-600 focus:ring-amber-500 focus:ring-offset-0 bg-slate-900 accent-amber-500 cursor-pointer"
                     />
 
                     <div>
@@ -262,7 +262,7 @@ export const ToolsSection: React.FC = () => {
                         {item.question}
                       </span>
                       {item.tip && (
-                        <span className="text-[11px] text-cyan-400/80 mt-0.5 block">
+                        <span className="text-[11px] text-amber-500/80 mt-0.5 block">
                           Dica: {item.tip}
                         </span>
                       )}
@@ -278,7 +278,7 @@ export const ToolsSection: React.FC = () => {
                   setChecklistChecks([]);
                   localStorage.removeItem('assertiva_checklist_checks');
                 }}
-                className="text-xs text-slate-400 hover:text-cyan-400 underline underline-offset-2 transition"
+                className="text-xs text-slate-400 hover:text-amber-500 underline underline-offset-2 transition"
               >
                 Resetar checklist para nova reunião
               </button>

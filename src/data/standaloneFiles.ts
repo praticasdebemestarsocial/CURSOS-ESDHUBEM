@@ -14,7 +14,7 @@ export const STANDALONE_MANIFEST_JSON = `{
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#070d18",
+  "background_color": "#020617",
   "theme_color": "#0b1b36",
   "icons": [
     {
@@ -113,12 +113,12 @@ self.addEventListener('fetch', (event) => {
 
 export const STANDALONE_STYLES_CSS = `/* styles.css - Visual Tecnológico Azulado Padrão EdTech Corporativa */
 :root {
-  --bg-main: #070d18;
+  --bg-main: #020617;
   --bg-card: #0c1626;
   --bg-card-hover: #112038;
   --border-color: #1e3a5f;
   --border-light: #2d5485;
-  --accent-cyan: #38bdf8;
+  --accent-cyan: #ffb703;
   --accent-blue: #2563eb;
   --accent-glow: rgba(56, 189, 248, 0.18);
   --text-main: #f1f5f9;
@@ -611,7 +611,7 @@ body {
 }
 
 .modal-card {
-  background: #0b182b;
+  background: #0f172a;
   border: 1px solid var(--border-light);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px var(--accent-glow);
   border-radius: 16px;
@@ -918,7 +918,7 @@ export const STANDALONE_INDEX_HTML = `<!doctype html>
 
   <!-- PWA & Mobile Icons -->
   <link rel="manifest" href="./manifest.json" />
-  <meta name="theme-color" content="#070d18" />
+  <meta name="theme-color" content="#020617" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />

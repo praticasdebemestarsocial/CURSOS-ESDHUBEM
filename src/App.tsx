@@ -94,7 +94,7 @@ export default function App() {
   const { isInstallable, isInstalled, isIOS, install } = usePWAInstall();
 
   return (
-    <div className="min-h-screen bg-[#070d18] text-slate-100 flex flex-col font-sans selection:bg-cyan-500 selection:text-black">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-amber-600 selection:text-black">
       
       {/* Offline Status Bar Banner (PWA feature) */}
       {!isOnline && (
@@ -152,7 +152,7 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-auto border-t border-sky-950/80 bg-[#050b14] py-6 px-4">
+      <footer className="mt-auto border-t border-amber-950/80 bg-[#050b14] py-6 px-4">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div>
             <span className="font-semibold text-slate-300">
@@ -165,7 +165,7 @@ export default function App() {
           <div className="flex items-center gap-4">
             <button
               onClick={() => setIsExportOpen(true)}
-              className="text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
+              className="text-amber-500 hover:text-amber-300 underline underline-offset-2"
             >
               Código dos 5 Arquivos para GitHub Pages
             </button>
