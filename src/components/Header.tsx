@@ -4,7 +4,6 @@ import { ShieldCheck, Download, Code2, Sparkles, CheckCircle2 } from 'lucide-rea
 interface HeaderProps {
   completedCount: number;
   totalLessons: number;
-  onOpenExportModal: () => void;
   onInstallPWA: () => void;
   isInstallable: boolean;
   isIOS: boolean;
@@ -14,7 +13,6 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   completedCount,
   totalLessons,
-  onOpenExportModal,
   onInstallPWA,
   isInstallable,
   isIOS,
@@ -50,16 +48,16 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center flex-wrap gap-3">
           
           {/* Progress Bar Widget */}
-          <div className="bg-[#0b172a] border border-yellow-200 rounded-xl px-3.5 py-1.5 flex items-center gap-3">
+          <div className="bg-white border border-yellow-200 rounded-xl px-3.5 py-1.5 flex items-center gap-3">
             <div className="text-right">
               <div className="text-xs font-semibold text-slate-800">
                 {completedCount} de {totalLessons} aulas
               </div>
               <div className="text-[11px] text-slate-600">Progresso do curso</div>
             </div>
-            <div className="w-24 sm:w-32 h-2.5 bg-slate-100 rounded-full overflow-hidden border border-yellow-950 p-[1px]">
+            <div className="w-24 sm:w-32 h-2.5 bg-slate-100 rounded-full overflow-hidden border border-yellow-100 p-[1px]">
               <div
-                className="h-full bg-gradient-to-r from-yellow-500 to-yellow-500 rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(56,189,248,0.5)]"
+                className="h-full bg-gradient-to-r from-yellow-500 to-yellow-500 rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(234,179,8,0.5)]"
                 style={{ width: `${percentage}%` }}
               />
             </div>
@@ -67,17 +65,6 @@ export const Header: React.FC<HeaderProps> = ({
               {percentage}%
             </span>
           </div>
-
-          {/* GitHub Pages Code Export Button */}
-          <button
-            onClick={onOpenExportModal}
-            id="btn-export-code"
-            className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-slate-800 bg-slate-200/80 hover:bg-slate-300/80 border border-slate-400 transition shadow-sm active:scale-95"
-            title="Ver e copiar os códigos de index.html, styles.css, app.js, manifest.json e sw.js para deploy no GitHub Pages"
-          >
-            <Code2 className="w-3.5 h-3.5 text-yellow-600" />
-            <span className="hidden sm:inline">Arquivos</span> GitHub Pages
-          </button>
 
           {/* PWA Install Button (Chromium/Android or iOS) */}
           {isInstallable && (

@@ -32,14 +32,14 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
     <aside className="bg-white border border-yellow-200 rounded-2xl overflow-hidden shadow-xl shadow-slate-200 flex flex-col h-full max-h-[850px]">
       
       {/* Header */}
-      <div className="p-4 bg-[#081220] border-b border-yellow-200 flex items-center justify-between">
+      <div className="p-4 bg-white border-b border-yellow-200 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Layers className="w-4 h-4 text-yellow-600" />
           <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
             Grade Curricular
           </h2>
         </div>
-        <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-yellow-100/80 border border-yellow-300/60 text-yellow-700">
+        <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-yellow-100 border border-yellow-300/60 text-yellow-700">
           {completedLessons.length}/{totalLessons} Aulas
         </span>
       </div>
@@ -60,7 +60,7 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
               <button
                 onClick={() => toggleModule(mod.id)}
                 id={`module-header-${mod.id}`}
-                className="w-full p-3 bg-[#0a182b]/60 hover:bg-[#0d2038] text-left flex items-center justify-between gap-2 transition border-b border-yellow-950/50"
+                className="w-full p-3 bg-slate-100 hover:bg-slate-200 text-left flex items-center justify-between gap-2 transition border-b border-yellow-300"
               >
                 <div className="flex items-center gap-2 min-w-0">
                   {isExpanded ? (
@@ -80,7 +80,7 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
 
                 <div className="flex items-center gap-1.5 flex-shrink-0">
                   <span className={`text-[11px] font-mono font-medium px-1.5 py-0.5 rounded ${
-                    isAllDone ? 'bg-emerald-950 text-emerald-400 border border-emerald-800/60' : 'text-slate-600'
+                    isAllDone ? 'bg-emerald-100 text-emerald-700 border border-emerald-300' : 'text-slate-600'
                   }`}>
                     {completedInMod}/{mod.lessons.length}
                   </span>
@@ -89,7 +89,7 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
 
               {/* Module Lessons List */}
               {isExpanded && (
-                <div className="divide-y divide-yellow-950/40">
+                <div className="divide-y divide-yellow-200">
                   {mod.lessons.map((lesson: Lesson) => {
                     const isActive = lesson.id === currentLessonId;
                     const isDone = completedLessons.includes(lesson.id);
@@ -100,7 +100,7 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
                         id={`lesson-item-${lesson.id}`}
                         className={`group relative p-2.5 sm:p-3 transition-all flex items-start gap-2.5 ${
                           isActive
-                            ? 'bg-gradient-to-r from-yellow-900/30 to-yellow-950/20 border-l-2 border-yellow-500'
+                            ? 'bg-gradient-to-r from-yellow-100 to-yellow-50 border-l-2 border-yellow-500'
                             : 'hover:bg-slate-100/50'
                         }`}
                       >

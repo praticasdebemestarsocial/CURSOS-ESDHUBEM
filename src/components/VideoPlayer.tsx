@@ -138,18 +138,18 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
             id="btn-toggle-complete-lesson"
             className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold border transition active:scale-95 ${
               isCompleted
-                ? 'bg-emerald-950/50 text-emerald-300 border-emerald-700/60 hover:bg-emerald-900/50'
+                ? 'bg-emerald-100 text-emerald-700 border-emerald-300 hover:bg-emerald-200'
                 : 'bg-slate-200/80 text-slate-800 border-slate-400 hover:bg-slate-300'
             }`}
           >
-            <CheckCircle className={`w-4 h-4 ${isCompleted ? 'text-emerald-400' : 'text-slate-600'}`} />
+            <CheckCircle className={`w-4 h-4 ${isCompleted ? 'text-emerald-500' : 'text-slate-600'}`} />
             <span>{isCompleted ? 'Aula Concluída' : 'Marcar como Concluída'}</span>
           </button>
 
           <button
             onClick={onOpenExercise}
             id="btn-open-exercise-modal"
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-900 bg-gradient-to-r from-yellow-500 via-blue-600 to-indigo-600 hover:from-yellow-400 hover:to-blue-500 border border-yellow-500/40 shadow-lg shadow-yellow-500/25 active:scale-95 transition"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-yellow-500 via-blue-600 to-indigo-600 hover:from-yellow-400 hover:to-blue-500 border border-yellow-500/40 shadow-lg shadow-yellow-500/25 active:scale-95 transition"
           >
             <Target className="w-4 h-4 text-cyan-200" />
             <span>Resolver Exercício da Aula</span>
@@ -173,7 +173,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
       <div className="p-5 sm:p-6 space-y-5">
         
         {/* Framework Box */}
-        <div className="p-4 rounded-xl bg-gradient-to-r from-yellow-950/40 via-yellow-950/30 to-yellow-950/20 border-l-4 border-yellow-500 border-y border-r border-yellow-200">
+        <div className="p-4 rounded-xl bg-gradient-to-r from-yellow-50 via-white to-yellow-50 border-l-4 border-yellow-500 border-y border-r border-yellow-200">
           <div className="flex items-center gap-2 text-yellow-600 text-xs font-bold uppercase tracking-wider mb-1">
             <Sparkles className="w-3.5 h-3.5" />
             Framework Chave da Aula

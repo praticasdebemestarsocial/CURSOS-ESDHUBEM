@@ -5,7 +5,6 @@ import { VideoPlayer } from './components/VideoPlayer';
 import { LessonSidebar } from './components/LessonSidebar';
 import { ExerciseModal } from './components/ExerciseModal';
 import { ToolsSection } from './components/ToolsSection';
-import { ExportModal } from './components/ExportModal';
 import { IOSInstallGuide } from './components/IOSInstallGuide';
 import { usePWAInstall } from './hooks/usePWAInstall';
 import { Wifi, WifiOff } from 'lucide-react';
@@ -35,7 +34,6 @@ export default function App() {
 
   // Modals state
   const [isExerciseOpen, setIsExerciseOpen] = useState(false);
-  const [isExportOpen, setIsExportOpen] = useState(false);
   const [isIOSGuideOpen, setIsIOSGuideOpen] = useState(false);
 
   // Network state for PWA offline detection
@@ -108,7 +106,6 @@ export default function App() {
       <Header
         completedCount={completedLessons.length}
         totalLessons={allLessons.length}
-        onOpenExportModal={() => setIsExportOpen(true)}
         onInstallPWA={install}
         isInstallable={isInstallable && !isInstalled}
         isIOS={isIOS && !isInstalled}
@@ -163,13 +160,6 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => setIsExportOpen(true)}
-              className="text-yellow-600 hover:text-yellow-700 underline underline-offset-2"
-            >
-              Código dos 5 Arquivos para GitHub Pages
-            </button>
-            <span className="text-slate-600">•</span>
             <span className="font-mono text-slate-500">Service Worker v1.0</span>
           </div>
         </div>
@@ -182,11 +172,6 @@ export default function App() {
         onClose={() => setIsExerciseOpen(false)}
         onCompleteLesson={handleToggleComplete}
         isLessonCompleted={completedLessons.includes(currentLesson.id)}
-      />
-
-      <ExportModal
-        isOpen={isExportOpen}
-        onClose={() => setIsExportOpen(false)}
       />
 
       <IOSInstallGuide
