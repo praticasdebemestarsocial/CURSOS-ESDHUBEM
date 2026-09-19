@@ -48,6 +48,49 @@ export const COURSE_MODULES: Module[] = [
             }
           ]
         }
+      },
+      {
+        id: 'aula-00-2',
+        number: 0.1,
+        moduleId: 0,
+        title: 'Como a Comunicação Transforma',
+        subtitle: 'Entenda os pilares da comunicação no ambiente corporativo.',
+        duration: '8 min',
+        videoSrc: 'https://odysee.com/$/embed/@esdhubem:a/Descubra-como-a-comunicacao-transforma:3',
+        keyFramework: 'Pilares da Comunicação Assertiva',
+        summary: [
+          'Apresentação do instrutor e da proposta do curso.',
+          'Como navegar pelos módulos e usar os recursos extras (PDFs, templates, simulador).',
+          'Alinhamento de expectativas sobre a dedicação necessária para aplicar o aprendizado.'
+        ],
+        exercise: {
+          id: 'ex-00-2',
+          scenario: 'Durante o vídeo, discutimos o impacto da comunicação na sua trajetória.',
+          question: 'Como a comunicação assertiva age na sua carreira?',
+          options: [
+            {
+              id: 'a',
+              text: 'Serve apenas para agradar as pessoas e evitar qualquer conflito.',
+              isAssertive: false,
+              classification: 'Passiva / Reativa',
+              feedback: 'Comunicação assertiva não é sobre agradar a todos, e sim sobre transparência e respeito.'
+            },
+            {
+              id: 'b',
+              text: 'Transforma problemas e reclamações em soluções de negócio acionáveis.',
+              isAssertive: true,
+              classification: 'Assertiva',
+              feedback: 'Exatamente. Esse é o pilar que abordaremos no treinamento.'
+            },
+            {
+              id: 'c',
+              text: 'Garante que você sempre tenha a palavra final em qualquer discussão.',
+              isAssertive: false,
+              classification: 'Agressiva',
+              feedback: 'Isso é uma postura agressiva e dominadora, não assertiva.'
+            }
+          ]
+        }
       }
     ]
   },
