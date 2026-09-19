@@ -26,18 +26,12 @@ export const Header: React.FC<HeaderProps> = ({
         
         {/* Brand */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-950 via-yellow-900 to-yellow-600 p-0.5 shadow-md shadow-yellow-600/20 flex-shrink-0">
-            <div className="w-full h-full bg-slate-100 rounded-[10px] flex items-center justify-center border border-yellow-500/30">
-              <ShieldCheck className="w-5 h-5 text-yellow-600" />
-            </div>
-          </div>
+          <img 
+            src={`${import.meta.env.BASE_URL}logo-cursos.png`} 
+            alt="ESDHUBEM Logo" 
+            className="h-10 w-auto object-contain"
+          />
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-yellow-600 bg-yellow-100/70 border border-yellow-300/60 px-2 py-0.5 rounded-full">
-                PWA Corporativo
-              </span>
-              <span className="text-[11px] text-slate-600 font-medium">EdTech Executiva</span>
-            </div>
             <h1 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-tight">
               Comunicação Assertiva com a Liderança
             </h1>
