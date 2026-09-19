@@ -39,44 +39,53 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
         <div className="absolute inset-0 bg-[radial-gradient(#0e274a_1px,transparent_1px)] [background-size:20px_20px] opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0b1626] via-transparent to-transparent" />
 
-        {/* Video Simulation Screen */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10">
-          
-          {/* Animated Play Button */}
-          <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            id="video-play-button"
-            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-tr from-yellow-600/30 to-yellow-500/20 border-2 border-yellow-500/60 flex items-center justify-center text-yellow-300 shadow-[0_0_30px_rgba(56,189,248,0.35)] hover:scale-105 active:scale-95 transition-all duration-300 mb-4 group/btn"
-          >
-            {isPlaying ? (
-              <Pause className="w-7 h-7 text-yellow-300 fill-yellow-300" />
-            ) : (
-              <Play className="w-7 h-7 text-yellow-300 fill-yellow-300 ml-1 group-hover/btn:translate-x-0.5 transition-transform" />
-            )}
-          </button>
+        {/* Video Content */}
+        {lesson.videoSrc && lesson.videoSrc.startsWith('http') ? (
+          <iframe
+            src={lesson.videoSrc}
+            className="absolute inset-0 w-full h-full z-10"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title={lesson.title}
+          />
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10">
+            {/* Animated Play Button */}
+            <button
+              onClick={() => setIsPlaying(!isPlaying)}
+              id="video-play-button"
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-tr from-yellow-600/30 to-yellow-500/20 border-2 border-yellow-500/60 flex items-center justify-center text-yellow-300 shadow-[0_0_30px_rgba(56,189,248,0.35)] hover:scale-105 active:scale-95 transition-all duration-300 mb-4 group/btn"
+            >
+              {isPlaying ? (
+                <Pause className="w-7 h-7 text-yellow-300 fill-yellow-300" />
+              ) : (
+                <Play className="w-7 h-7 text-yellow-300 fill-yellow-300 ml-1 group-hover/btn:translate-x-0.5 transition-transform" />
+              )}
+            </button>
 
-          <span className="text-xs font-mono uppercase tracking-widest text-yellow-500/90 mb-1">
-            Player Corporativo HD • {lesson.duration}
-          </span>
-          <h2 className="text-base sm:text-xl font-extrabold text-white max-w-lg leading-snug">
-            {lesson.title}
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-md">
-            {lesson.subtitle}
-          </p>
+            <span className="text-xs font-mono uppercase tracking-widest text-yellow-500/90 mb-1">
+              Player Corporativo HD • {lesson.duration}
+            </span>
+            <h2 className="text-base sm:text-xl font-extrabold text-white max-w-lg leading-snug">
+              {lesson.title}
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-md">
+              {lesson.subtitle}
+            </p>
 
-          {/* Placeholder Video URL Tag */}
-          <div className="mt-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-md border border-yellow-900/60 text-[11px] font-mono text-yellow-300/80">
-            <code>video.src="{lesson.videoSrc}"</code>
-          </div>
-
-          {isPlaying && (
-            <div className="mt-3 flex items-center gap-2 text-xs font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2.5 py-1 rounded-full">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-              Reproduzindo conteúdo demonstrativo ({speed})
+            {/* Placeholder Video URL Tag */}
+            <div className="mt-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-md border border-yellow-900/60 text-[11px] font-mono text-yellow-300/80">
+              <code>video.src="{lesson.videoSrc}"</code>
             </div>
-          )}
-        </div>
+
+            {isPlaying && (
+              <div className="mt-3 flex items-center gap-2 text-xs font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2.5 py-1 rounded-full">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                Reproduzindo conteúdo demonstrativo ({speed})
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Video Bottom Progress Bar (Simulated UI) */}
         <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 to-transparent p-3 flex items-center justify-between text-xs text-slate-300 z-20">
