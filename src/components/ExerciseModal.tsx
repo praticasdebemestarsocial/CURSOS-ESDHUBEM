@@ -43,9 +43,9 @@ export const ExerciseModal: React.FC<ExerciseModalProps> = ({
       >
         
         {/* Modal Header */}
-        <div className="p-4 sm:p-5 border-b border-yellow-950 bg-[#07101d] flex items-center justify-between sticky top-0 z-10">
+        <div className="p-4 sm:p-5 border-b border-yellow-300 bg-white flex items-center justify-between sticky top-0 z-10">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-yellow-100 border border-yellow-700/60 flex items-center justify-center text-yellow-600">
+            <div className="w-8 h-8 rounded-lg bg-yellow-100 border border-yellow-300/60 flex items-center justify-center text-yellow-600">
               <Target className="w-4 h-4" />
             </div>
             <div>
@@ -71,7 +71,7 @@ export const ExerciseModal: React.FC<ExerciseModalProps> = ({
         <div className="p-5 sm:p-6 space-y-5 flex-1">
           
           {/* Corporate Scenario Box */}
-          <div className="p-4 rounded-xl bg-[#071220] border border-yellow-300">
+          <div className="p-4 rounded-xl bg-slate-50 border border-yellow-300">
             <div className="flex items-center gap-2 text-yellow-600 text-xs font-bold uppercase tracking-wider mb-1.5">
               <HelpCircle className="w-3.5 h-3.5" />
               Estudo de Caso Situacional
@@ -91,13 +91,13 @@ export const ExerciseModal: React.FC<ExerciseModalProps> = ({
             <div className="space-y-3">
               {exercise.options.map((option, idx) => {
                 const isSelected = selectedOption === option;
-                let cardStyle = "bg-[#0d1f35] border-yellow-200 hover:bg-[#122b4a] text-slate-800";
+                let cardStyle = "bg-white border-yellow-300 hover:bg-slate-50 text-slate-800";
 
                 if (isSelected) {
                   if (option.isAssertive) {
-                    cardStyle = "bg-emerald-950/40 border-emerald-600 text-emerald-100 shadow-[0_0_15px_rgba(16,185,129,0.2)]";
+                    cardStyle = "bg-emerald-50 border-emerald-400 text-emerald-900 shadow-[0_0_15px_rgba(16,185,129,0.1)]";
                   } else {
-                    cardStyle = "bg-rose-950/40 border-rose-600 text-rose-100 shadow-[0_0_15px_rgba(244,63,94,0.2)]";
+                    cardStyle = "bg-rose-50 border-rose-400 text-rose-900 shadow-[0_0_15px_rgba(244,63,94,0.1)]";
                   }
                 }
 
@@ -111,9 +111,9 @@ export const ExerciseModal: React.FC<ExerciseModalProps> = ({
                     <span className={`w-5 h-5 rounded-full border text-[11px] font-mono font-bold flex items-center justify-center flex-shrink-0 mt-0.5 ${
                       isSelected
                         ? option.isAssertive
-                          ? 'border-emerald-400 bg-emerald-900 text-emerald-300'
-                          : 'border-rose-400 bg-rose-900 text-rose-300'
-                        : 'border-slate-600 bg-slate-100 text-slate-600'
+                          ? 'border-emerald-400 bg-emerald-100 text-emerald-700'
+                          : 'border-rose-400 bg-rose-100 text-rose-700'
+                        : 'border-slate-300 bg-slate-100 text-slate-600'
                     }`}>
                       {String.fromCharCode(65 + idx)}
                     </span>
@@ -132,15 +132,15 @@ export const ExerciseModal: React.FC<ExerciseModalProps> = ({
             <div
               className={`p-4 rounded-xl border animate-in slide-in-from-bottom-2 duration-300 ${
                 selectedOption.isAssertive
-                  ? 'bg-emerald-950/50 border-emerald-700/80 text-emerald-100'
-                  : 'bg-yellow-100/40 border-yellow-300 text-amber-100'
+                  ? 'bg-emerald-50 border-emerald-300 text-emerald-900'
+                  : 'bg-yellow-50 border-yellow-300 text-amber-900'
               }`}
             >
               <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider mb-1.5">
                 {selectedOption.isAssertive ? (
                   <>
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span className="text-emerald-300">Resposta Assertiva e Recomendada</span>
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    <span className="text-emerald-700">Resposta Assertiva e Recomendada</span>
                   </>
                 ) : (
                   <>
@@ -157,9 +157,9 @@ export const ExerciseModal: React.FC<ExerciseModalProps> = ({
               </p>
 
               {selectedOption.isAssertive && (
-                <div className="mt-2.5 pt-2.5 border-t border-emerald-800/50 flex items-center justify-between text-xs text-emerald-300 font-semibold">
+                <div className="mt-2.5 pt-2.5 border-t border-emerald-200 flex items-center justify-between text-xs text-emerald-700 font-semibold">
                   <span className="flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
                     Aula marcada automaticamente como concluída!
                   </span>
                 </div>
@@ -170,8 +170,8 @@ export const ExerciseModal: React.FC<ExerciseModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 border-t border-yellow-950 bg-[#07101d] flex items-center justify-between">
-          <span className="text-xs text-slate-600">
+        <div className="p-4 border-t border-yellow-300 bg-slate-50 flex items-center justify-between rounded-b-2xl">
+          <span className="text-xs text-slate-600 font-medium">
             {selectedOption ? (
               selectedOption.isAssertive ? "Parabéns! Padrão executivo atingido." : "Tente refinar sua resposta."
             ) : (
@@ -181,7 +181,7 @@ export const ExerciseModal: React.FC<ExerciseModalProps> = ({
 
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-lg text-xs font-bold text-slate-900 bg-slate-200 hover:bg-slate-300 border border-slate-400 transition"
+            className="px-4 py-2 rounded-lg text-xs font-bold text-slate-800 bg-white hover:bg-slate-100 border border-slate-300 transition"
           >
             Fechar
           </button>
