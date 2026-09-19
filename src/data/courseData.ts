@@ -13,7 +13,7 @@ export const COURSE_MODULES: Module[] = [
         title: 'Boas-Vindas ao Curso',
         subtitle: 'Vídeo de apresentação e orientações iniciais.',
         duration: '5 min',
-        videoSrc: 'URL_DO_VIDEO_AQUI',
+        videoSrc: 'https://odysee.com/$/embed/@esdhubem:a/comunicacao-assertiva-com-a-lideranca-1:5',
         keyFramework: 'Mindset de Aprendizado Contínuo',
         summary: [
           'Apresentação do instrutor e da proposta do curso.',
