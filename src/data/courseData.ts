@@ -91,6 +91,49 @@ export const COURSE_MODULES: Module[] = [
             }
           ]
         }
+      },
+      {
+        id: 'aula-00-3',
+        number: 0.2,
+        moduleId: 0,
+        title: 'Pilares da Comunicação Assertiva',
+        subtitle: 'Os alicerces de uma comunicação eficaz e estratégica.',
+        duration: 'Em breve',
+        videoSrc: '',
+        keyFramework: 'Estrutura Base da Assertividade',
+        summary: [
+          'Visão geral sobre os pilares que sustentam a comunicação assertiva.',
+          'Diferença entre comunicação passiva, agressiva e assertiva.',
+          'Como aplicar os pilares no dia a dia corporativo.'
+        ],
+        exercise: {
+          id: 'ex-00-3',
+          scenario: 'Você está construindo as bases da sua comunicação.',
+          question: 'Qual é o principal pilar da comunicação assertiva?',
+          options: [
+            {
+              id: 'a',
+              text: 'A imposição das suas ideias sobre os outros.',
+              isAssertive: false,
+              classification: 'Agressiva',
+              feedback: 'Isso é agressividade, e não assertividade.'
+            },
+            {
+              id: 'b',
+              text: 'O equilíbrio entre expressar suas necessidades e respeitar as do outro.',
+              isAssertive: true,
+              classification: 'Assertiva',
+              feedback: 'Exatamente! A assertividade busca o equilíbrio ganha-ganha.'
+            },
+            {
+              id: 'c',
+              text: 'Evitar falar o que pensa para não gerar atritos.',
+              isAssertive: false,
+              classification: 'Passiva / Reativa',
+              feedback: 'Isso é passividade. Você precisa saber posicionar suas ideias.'
+            }
+          ]
+        }
       }
     ]
   },

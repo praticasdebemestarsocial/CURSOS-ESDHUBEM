@@ -132,27 +132,27 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
         </div>
 
         {/* Action Buttons: Mark Complete & Exercise Trigger */}
-        <div className="flex items-center flex-wrap gap-2.5">
+        <div className="flex items-center flex-wrap sm:flex-nowrap gap-2.5">
           <button
             onClick={() => onToggleComplete(lesson.id)}
             id="btn-toggle-complete-lesson"
-            className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold border transition active:scale-95 ${
+            className={`flex items-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold border transition active:scale-95 whitespace-nowrap ${
               isCompleted
                 ? 'bg-emerald-100 text-emerald-700 border-emerald-300 hover:bg-emerald-200'
                 : 'bg-slate-200/80 text-slate-800 border-slate-400 hover:bg-slate-300'
             }`}
           >
             <CheckCircle className={`w-4 h-4 ${isCompleted ? 'text-emerald-500' : 'text-slate-600'}`} />
-            <span>{isCompleted ? 'Aula Concluída' : 'Marcar como Concluída'}</span>
+            <span>{isCompleted ? 'Concluída' : 'Marcar Concluída'}</span>
           </button>
 
           <button
             onClick={onOpenExercise}
             id="btn-open-exercise-modal"
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-yellow-500 via-blue-600 to-indigo-600 hover:from-yellow-400 hover:to-blue-500 border border-yellow-500/40 shadow-lg shadow-yellow-500/25 active:scale-95 transition"
+            className="flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-yellow-500 via-blue-600 to-indigo-600 hover:from-yellow-400 hover:to-blue-500 border border-yellow-500/40 shadow-lg shadow-yellow-500/25 active:scale-95 transition whitespace-nowrap"
           >
             <Target className="w-4 h-4 text-cyan-200" />
-            <span>Resolver Exercício da Aula</span>
+            <span>Exercício da Aula</span>
           </button>
 
           {hasNextLesson && (

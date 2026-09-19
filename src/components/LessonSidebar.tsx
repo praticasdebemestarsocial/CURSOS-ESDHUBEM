@@ -17,8 +17,10 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
   onSelectLesson,
   onToggleComplete
 }) => {
-  // By default expand all modules so the user can easily jump anywhere
-  const [expandedModules, setExpandedModules] = useState<number[]>([1, 2, 3, 4]);
+  const initialExpanded = modules
+    .filter(m => m.lessons.some(l => l.id === currentLessonId))
+    .map(m => m.id);
+  const [expandedModules, setExpandedModules] = useState<number[]>(initialExpanded);
 
   const toggleModule = (moduleId: number) => {
     setExpandedModules(prev =>
