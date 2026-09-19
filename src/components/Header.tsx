@@ -42,20 +42,20 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center flex-wrap gap-3">
           
           {/* Progress Bar Widget */}
-          <div className="bg-white border border-yellow-200 rounded-xl px-3.5 py-1.5 flex items-center gap-3">
+          <div className="bg-gradient-to-r from-yellow-300 to-yellow-200 border border-yellow-400 rounded-xl px-3.5 py-1.5 flex items-center gap-3 shadow-sm">
             <div className="text-right">
-              <div className="text-xs font-semibold text-slate-800">
+              <div className="text-xs font-bold text-slate-900">
                 {completedCount} de {totalLessons} aulas
               </div>
-              <div className="text-[11px] text-slate-600">Progresso do curso</div>
+              <div className="text-[11px] text-slate-700 font-medium">Progresso do curso</div>
             </div>
-            <div className="w-24 sm:w-32 h-2.5 bg-slate-100 rounded-full overflow-hidden border border-yellow-100 p-[1px]">
+            <div className="w-24 sm:w-32 h-2.5 bg-white/60 rounded-full overflow-hidden border border-yellow-400/50 p-[1px]">
               <div
-                className="h-full bg-gradient-to-r from-yellow-500 to-yellow-500 rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(234,179,8,0.5)]"
+                className="h-full bg-green-600 rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(22,163,74,0.4)]"
                 style={{ width: `${percentage}%` }}
               />
             </div>
-            <span className="text-xs font-mono font-bold text-yellow-600 min-w-[34px]">
+            <span className="text-xs font-mono font-extrabold text-green-700 min-w-[34px]">
               {percentage}%
             </span>
           </div>
