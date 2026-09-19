@@ -39,7 +39,7 @@ export const ToolsSection: React.FC = () => {
     <section className="bg-white border border-yellow-200 rounded-2xl overflow-hidden shadow-xl shadow-slate-200 mt-8">
       
       {/* Section Header with Tabs */}
-      <div className="p-5 sm:p-6 border-b border-yellow-200 bg-[#081220] flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="p-5 sm:p-6 border-b border-yellow-200 bg-white flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 text-yellow-600 text-xs font-bold uppercase tracking-wider mb-1">
             <Sparkles className="w-3.5 h-3.5" />
@@ -54,14 +54,14 @@ export const ToolsSection: React.FC = () => {
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex items-center gap-1.5 p-1 bg-[#060c17] rounded-xl border border-yellow-200 overflow-x-auto">
+        <div className="flex items-center gap-1.5 p-1 bg-slate-50 rounded-xl border border-yellow-200 overflow-x-auto">
           <button
             onClick={() => setActiveTab('templates')}
             id="tab-btn-templates"
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold transition whitespace-nowrap ${
               activeTab === 'templates'
-                ? 'bg-gradient-to-r from-yellow-600 to-blue-600 text-slate-900 shadow-md shadow-yellow-500/20'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-gradient-to-r from-yellow-500 to-blue-600 text-white shadow-md shadow-yellow-500/20'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             <FileText className="w-3.5 h-3.5" />
@@ -73,8 +73,8 @@ export const ToolsSection: React.FC = () => {
             id="tab-btn-roleplay"
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold transition whitespace-nowrap ${
               activeTab === 'roleplay'
-                ? 'bg-gradient-to-r from-yellow-600 to-blue-600 text-slate-900 shadow-md shadow-yellow-500/20'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-gradient-to-r from-yellow-500 to-blue-600 text-white shadow-md shadow-yellow-500/20'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             <Users className="w-3.5 h-3.5" />
@@ -86,8 +86,8 @@ export const ToolsSection: React.FC = () => {
             id="tab-btn-checklist"
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold transition whitespace-nowrap ${
               activeTab === 'checklist'
-                ? 'bg-gradient-to-r from-yellow-600 to-blue-600 text-slate-900 shadow-md shadow-yellow-500/20'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-gradient-to-r from-yellow-500 to-blue-600 text-white shadow-md shadow-yellow-500/20'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
             }`}
           >
             <CheckSquare className="w-3.5 h-3.5" />
@@ -121,13 +121,13 @@ export const ToolsSection: React.FC = () => {
                           id={`btn-copy-template-${idx}`}
                           className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold border transition ${
                             isCopied
-                              ? 'bg-emerald-950 text-emerald-300 border-emerald-600'
+                              ? 'bg-emerald-100 text-emerald-700 border-emerald-300'
                               : 'bg-slate-200/80 text-yellow-700 border-yellow-300/60 hover:bg-slate-300'
                           }`}
                         >
                           {isCopied ? (
                             <>
-                              <Check className="w-3 h-3 text-emerald-400" />
+                              <Check className="w-3 h-3 text-emerald-500" />
                               Copiado!
                             </>
                           ) : (
@@ -143,7 +143,7 @@ export const ToolsSection: React.FC = () => {
                         {tmpl.title}
                       </h3>
 
-                      <div className="bg-[#030812] p-3 rounded-lg border border-yellow-950 font-mono text-[11px] text-slate-700 whitespace-pre-wrap select-text leading-relaxed max-h-56 overflow-y-auto custom-scrollbar">
+                      <div className="bg-slate-50 p-3 rounded-lg border border-yellow-200 font-mono text-[11px] text-slate-800 whitespace-pre-wrap select-text leading-relaxed max-h-56 overflow-y-auto custom-scrollbar">
                         {tmpl.content}
                       </div>
                     </div>
@@ -174,23 +174,23 @@ export const ToolsSection: React.FC = () => {
 
                   <div className="grid md:grid-cols-2 gap-3.5">
                     {/* Reativa */}
-                    <div className="bg-rose-950/20 border border-rose-900/50 rounded-lg p-3.5">
-                      <div className="flex items-center gap-1.5 text-xs font-bold text-rose-400 uppercase tracking-wider mb-1.5">
+                    <div className="bg-rose-50 border border-rose-200 rounded-lg p-3.5">
+                      <div className="flex items-center gap-1.5 text-xs font-bold text-rose-700 uppercase tracking-wider mb-1.5">
                         <ShieldAlert className="w-3.5 h-3.5" />
                         Reação Reativa / Vítima (Risco)
                       </div>
-                      <p className="text-xs sm:text-sm text-rose-200/90 leading-relaxed italic">
+                      <p className="text-xs sm:text-sm text-slate-700 leading-relaxed italic">
                         "{item.reactiveResponse}"
                       </p>
                     </div>
 
                     {/* Assertiva */}
-                    <div className="bg-emerald-950/20 border border-emerald-900/50 rounded-lg p-3.5">
-                      <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-400 uppercase tracking-wider mb-1.5">
+                    <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3.5">
+                      <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-700 uppercase tracking-wider mb-1.5">
                         <CheckCircle2 className="w-3.5 h-3.5" />
                         Resposta Estratégica / Assertiva
                       </div>
-                      <p className="text-xs sm:text-sm text-emerald-200/90 leading-relaxed font-medium">
+                      <p className="text-xs sm:text-sm text-slate-800 leading-relaxed font-medium">
                         "{item.assertiveResponse}"
                       </p>
                     </div>
@@ -206,7 +206,7 @@ export const ToolsSection: React.FC = () => {
           <div className="space-y-5">
             
             {/* Score Banner */}
-            <div className="p-4 rounded-xl bg-[#071222] border border-yellow-300 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="p-4 rounded-xl bg-slate-50 border border-yellow-300 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <h3 className="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-2">
                   <CheckSquare className="w-4 h-4 text-yellow-600" />
@@ -227,10 +227,10 @@ export const ToolsSection: React.FC = () => {
                   </div>
                 </div>
 
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-mono font-extrabold text-sm border shadow-lg ${
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-mono font-extrabold text-sm border shadow-sm ${
                   checkedCount === totalChecklist
-                    ? 'bg-emerald-950 border-emerald-500 text-emerald-300 shadow-emerald-500/20'
-                    : 'bg-yellow-100 border-yellow-700 text-yellow-700'
+                    ? 'bg-emerald-100 border-emerald-400 text-emerald-700 shadow-emerald-500/10'
+                    : 'bg-yellow-100 border-yellow-400 text-yellow-700'
                 }`}>
                   {checklistPercent}%
                 </div>
@@ -238,7 +238,7 @@ export const ToolsSection: React.FC = () => {
             </div>
 
             {/* Checklist Items */}
-            <div className="divide-y divide-yellow-950/60 bg-slate-50 rounded-xl border border-yellow-950 overflow-hidden">
+            <div className="divide-y divide-yellow-200 bg-white rounded-xl border border-yellow-300 overflow-hidden">
               {COURSE_DATA.checklist.map((item: ChecklistItem, idx: number) => {
                 const isChecked = checklistChecks.includes(idx);
 
