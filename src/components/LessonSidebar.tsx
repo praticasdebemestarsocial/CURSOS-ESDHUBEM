@@ -29,17 +29,17 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
   const totalLessons = modules.reduce((acc, m) => acc + m.lessons.length, 0);
 
   return (
-    <aside className="bg-[#0b1626] border border-yellow-950/80 rounded-2xl overflow-hidden shadow-xl shadow-black/40 flex flex-col h-full max-h-[850px]">
+    <aside className="bg-white border border-yellow-200 rounded-2xl overflow-hidden shadow-xl shadow-slate-200 flex flex-col h-full max-h-[850px]">
       
       {/* Header */}
-      <div className="p-4 bg-[#081220] border-b border-yellow-950/70 flex items-center justify-between">
+      <div className="p-4 bg-[#081220] border-b border-yellow-200 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Layers className="w-4 h-4 text-yellow-500" />
-          <h2 className="text-sm font-bold text-white uppercase tracking-wider">
+          <Layers className="w-4 h-4 text-yellow-600" />
+          <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
             Grade Curricular
           </h2>
         </div>
-        <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-yellow-950/80 border border-yellow-800/60 text-yellow-300">
+        <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-yellow-100/80 border border-yellow-300/60 text-yellow-700">
           {completedLessons.length}/{totalLessons} Aulas
         </span>
       </div>
@@ -54,7 +54,7 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
           return (
             <div
               key={mod.id}
-              className="bg-[#07111e] border border-yellow-950/80 rounded-xl overflow-hidden"
+              className="bg-slate-50 border border-yellow-200 rounded-xl overflow-hidden"
             >
               {/* Module Header Button */}
               <button
@@ -64,15 +64,15 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
               >
                 <div className="flex items-center gap-2 min-w-0">
                   {isExpanded ? (
-                    <ChevronDown className="w-4 h-4 text-yellow-500 flex-shrink-0" />
+                    <ChevronDown className="w-4 h-4 text-yellow-600 flex-shrink-0" />
                   ) : (
-                    <ChevronRight className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                    <ChevronRight className="w-4 h-4 text-slate-600 flex-shrink-0" />
                   )}
                   <div className="truncate">
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-yellow-500 block">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-yellow-600 block">
                       Módulo {mod.id}
                     </span>
-                    <h3 className="text-xs font-bold text-slate-200 truncate">
+                    <h3 className="text-xs font-bold text-slate-800 truncate">
                       {mod.title.replace(/^Módulo \d+:\s*/, '')}
                     </h3>
                   </div>
@@ -80,7 +80,7 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
 
                 <div className="flex items-center gap-1.5 flex-shrink-0">
                   <span className={`text-[11px] font-mono font-medium px-1.5 py-0.5 rounded ${
-                    isAllDone ? 'bg-emerald-950 text-emerald-400 border border-emerald-800/60' : 'text-slate-400'
+                    isAllDone ? 'bg-emerald-950 text-emerald-400 border border-emerald-800/60' : 'text-slate-600'
                   }`}>
                     {completedInMod}/{mod.lessons.length}
                   </span>
@@ -101,7 +101,7 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
                         className={`group relative p-2.5 sm:p-3 transition-all flex items-start gap-2.5 ${
                           isActive
                             ? 'bg-gradient-to-r from-yellow-900/30 to-yellow-950/20 border-l-2 border-yellow-500'
-                            : 'hover:bg-slate-900/50'
+                            : 'hover:bg-slate-100/50'
                         }`}
                       >
                         {/* Checkbox Complete Toggle Button */}
@@ -110,13 +110,13 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
                             e.stopPropagation();
                             onToggleComplete(lesson.id);
                           }}
-                          className="mt-0.5 flex-shrink-0 text-slate-500 hover:text-yellow-500 transition"
+                          className="mt-0.5 flex-shrink-0 text-slate-500 hover:text-yellow-600 transition"
                           title={isDone ? "Marcar como não concluída" : "Marcar como concluída"}
                         >
                           {isDone ? (
                             <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                           ) : (
-                            <Circle className="w-4 h-4 text-slate-600 group-hover:text-slate-400" />
+                            <Circle className="w-4 h-4 text-slate-600 group-hover:text-slate-600" />
                           )}
                         </button>
 
@@ -126,21 +126,21 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
                           className="flex-1 text-left min-w-0"
                         >
                           <div className="flex items-center justify-between gap-1 mb-0.5">
-                            <span className="text-[10px] font-mono font-semibold text-slate-400">
+                            <span className="text-[10px] font-mono font-semibold text-slate-600">
                               Aula {lesson.number < 10 ? `0${lesson.number}` : lesson.number}
                             </span>
-                            <span className="text-[10px] text-slate-400 font-mono">
+                            <span className="text-[10px] text-slate-600 font-mono">
                               {lesson.duration}
                             </span>
                           </div>
 
                           <h4 className={`text-xs font-semibold leading-snug line-clamp-2 ${
-                            isActive ? 'text-yellow-300 font-bold' : isDone ? 'text-slate-300' : 'text-slate-200'
+                            isActive ? 'text-yellow-700 font-bold' : isDone ? 'text-slate-700' : 'text-slate-800'
                           }`}>
                             {lesson.title.replace(/^Aula \d+:\s*/, '')}
                           </h4>
 
-                          <p className="text-[11px] text-slate-400 line-clamp-1 mt-0.5">
+                          <p className="text-[11px] text-slate-600 line-clamp-1 mt-0.5">
                             {lesson.subtitle}
                           </p>
                         </button>
