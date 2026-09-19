@@ -49,7 +49,7 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
               <div className="text-[11px] text-slate-700 font-medium">Progresso do curso</div>
             </div>
-            <div className="w-24 sm:w-32 h-2.5 bg-white/60 rounded-full overflow-hidden border border-yellow-400/50 p-[1px]">
+            <div className="w-24 sm:w-32 h-2.5 bg-red-600 rounded-full overflow-hidden p-[1px] shadow-inner">
               <div
                 className="h-full bg-green-600 rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(22,163,74,0.4)]"
                 style={{ width: `${percentage}%` }}
