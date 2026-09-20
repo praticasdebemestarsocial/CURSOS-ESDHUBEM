@@ -71,13 +71,6 @@ export const AffiliateShowcase: React.FC = () => {
           </a>
         ))}
       </div>
-
-      {/* Disclaimer */}
-      <div className="bg-yellow-100/50 p-4 border-t border-yellow-400/30">
-        <p className="text-xs text-yellow-800 text-center font-medium opacity-80">
-          Nossa plataforma faz sugestões de modelos de equipamentos e acessórios encontrados em lojas online mas não se responsabiliza pela venda, envio e entrega, nem eventuais danos aos equipamentos, trata-se apenas de uma parceria de acordo publicitário.
-        </p>
-      </div>
     </section>
   );
 };
