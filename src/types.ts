@@ -22,6 +22,7 @@ export interface Lesson {
   duration: string;
   videoSrc: string;
   summary: string[];
+  crossword?: { id: string; question: string; answer: string }[];
   keyPoints?: string[];
   keyFramework: string;
   framework?: string;

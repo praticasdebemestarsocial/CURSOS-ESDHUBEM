@@ -126,6 +126,11 @@ export const COURSE_MODULES: Module[] = [
             src: 'https://odysee.com/$/embed/@esdhubem:a/comunicacao-assertiva-com-a-lideranca-1:5'
           }
         ],
+        crossword: [
+          { id: 'cw1', question: 'Qualidade de expressar ideias com firmeza e respeito', answer: 'ASSERTIVIDADE' },
+          { id: 'cw2', question: 'Oposto da comunicação assertiva, foca apenas no ganho próprio', answer: 'AGRESSIVA' },
+          { id: 'cw3', question: 'Aquele que evita conflitos a qualquer custo tem postura...', answer: 'PASSIVA' }
+        ],
         exercise: {
           id: 'ex-00-3',
           scenario: 'Você está construindo as bases da sua comunicação.',

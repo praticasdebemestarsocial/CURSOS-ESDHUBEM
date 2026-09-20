@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Play, Pause, RotateCcw, Volume2, CheckCircle, ArrowRight, BookOpen, Target, Sparkles } from 'lucide-react';
 import { Lesson } from '../types';
+import { CourseCrossword } from './CourseCrossword';
 
 interface VideoPlayerProps {
   lesson: Lesson;
@@ -174,6 +175,14 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
       {/* Lesson Framework & Takeaways */}
       <div className="p-5 sm:p-6 space-y-5">
         
+        {/* Crossword Challenge (if available) */}
+        {lesson.crossword && lesson.crossword.length > 0 && (
+          <CourseCrossword 
+            lessonId={lesson.id} 
+            words={lesson.crossword} 
+          />
+        )}
+
         {/* Framework Box */}
         <div className="p-4 rounded-xl bg-gradient-to-r from-yellow-50 via-white to-yellow-50 border-l-4 border-yellow-500 border-y border-r border-yellow-200">
           <div className="flex items-center gap-2 text-yellow-600 text-xs font-bold uppercase tracking-wider mb-1">
