@@ -116,6 +116,16 @@ export const COURSE_MODULES: Module[] = [
           'Diferença entre comunicação passiva, agressiva e assertiva.',
           'Como aplicar os pilares no dia a dia corporativo.'
         ],
+        shorts: [
+          {
+            title: 'Resumo: O que é Assertividade?',
+            src: 'https://odysee.com/$/embed/@esdhubem:a/pilares-da-comunicacao-assertiva:6'
+          },
+          {
+            title: 'Dica Prática: Postura na Reunião',
+            src: 'https://odysee.com/$/embed/@esdhubem:a/comunicacao-assertiva-com-a-lideranca-1:5'
+          }
+        ],
         exercise: {
           id: 'ex-00-3',
           scenario: 'Você está construindo as bases da sua comunicação.',
