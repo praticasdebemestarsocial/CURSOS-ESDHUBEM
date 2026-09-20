@@ -180,6 +180,11 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
           <CourseCrossword 
             lessonId={lesson.id} 
             words={lesson.crossword} 
+            onComplete={() => {
+              if (!isCompleted) {
+                onToggleComplete(lesson.id);
+              }
+            }}
           />
         )}
 
