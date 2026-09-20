@@ -20,6 +20,16 @@ export const COURSE_MODULES: Module[] = [
           'Como navegar pelos módulos e usar os recursos extras (PDFs, templates, simulador).',
           'Alinhamento de expectativas sobre a dedicação necessária para aplicar o aprendizado.'
         ],
+        shorts: [
+          {
+            title: 'Resumo: O que é Assertividade?',
+            src: 'https://odysee.com/$/embed/@esdhubem:a/pilares-da-comunicacao-assertiva:6'
+          },
+          {
+            title: 'Dica Prática: Postura na Reunião',
+            src: 'https://odysee.com/$/embed/@esdhubem:a/comunicacao-assertiva-com-a-lideranca-1:5'
+          }
+        ],
         exercise: {
           id: 'ex-00',
           scenario: 'Você está começando a sua jornada de aprendizado conosco.',

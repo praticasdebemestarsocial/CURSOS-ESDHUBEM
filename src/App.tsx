@@ -8,6 +8,7 @@ import { ToolsSection } from './components/ToolsSection';
 import { IOSInstallGuide } from './components/IOSInstallGuide';
 import { AffiliateShowcase } from './components/AffiliateShowcase';
 import { CertificateModal } from './components/CertificateModal';
+import { ShortsGallery } from './components/ShortsGallery';
 import { usePWAInstall } from './hooks/usePWAInstall';
 import { Wifi, WifiOff } from 'lucide-react';
 
@@ -147,6 +148,11 @@ export default function App() {
           </div>
 
         </div>
+
+        {/* Shorts Gallery Section (if current lesson has shorts) */}
+        {currentLesson.shorts && currentLesson.shorts.length > 0 && (
+          <ShortsGallery shorts={currentLesson.shorts} />
+        )}
 
         {/* Tools Section: Templates Copiáveis, Roleplay, Checklist Pré-Conversa */}
         <ToolsSection />

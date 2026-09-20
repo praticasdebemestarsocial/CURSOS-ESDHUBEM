@@ -25,6 +25,7 @@ export interface Lesson {
   keyPoints?: string[];
   keyFramework: string;
   framework?: string;
+  shorts?: { title: string; src: string }[];
   exercise: Exercise;
 }
 
