@@ -88,29 +88,31 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
         )}
 
         {/* Video Bottom Progress Bar (Simulated UI) */}
-        <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-white/90 to-transparent p-3 flex items-center justify-between text-xs text-slate-700 z-20">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setIsPlaying(!isPlaying)}
-              className="hover:text-yellow-600 transition"
-              title={isPlaying ? "Pausar" : "Play"}
-            >
-              {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-            </button>
-            <span className="font-mono text-[11px] text-slate-600">03:42 / {lesson.duration}</span>
-          </div>
+        {(!lesson.videoSrc || !lesson.videoSrc.startsWith('http')) && (
+          <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-white/90 to-transparent p-3 flex items-center justify-between text-xs text-slate-700 z-20 pointer-events-none">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setIsPlaying(!isPlaying)}
+                className="hover:text-yellow-600 transition pointer-events-auto"
+                title={isPlaying ? "Pausar" : "Play"}
+              >
+                {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+              </button>
+              <span className="font-mono text-[11px] text-slate-600">03:42 / {lesson.duration}</span>
+            </div>
 
-          <div className="flex items-center gap-3">
-            <button
-              onClick={cycleSpeed}
-              className="px-2 py-0.5 rounded bg-slate-200/80 hover:bg-slate-300 text-[11px] font-mono font-bold text-yellow-600 border border-slate-400 transition"
-              title="Velocidade de Reprodução"
-            >
-              {speed}
-            </button>
-            <Volume2 className="w-4 h-4 text-slate-600" />
+            <div className="flex items-center gap-3">
+              <button
+                onClick={cycleSpeed}
+                className="px-2 py-0.5 rounded bg-slate-200/80 hover:bg-slate-300 text-[11px] font-mono font-bold text-yellow-600 border border-slate-400 transition pointer-events-auto"
+                title="Velocidade de Reprodução"
+              >
+                {speed}
+              </button>
+              <Volume2 className="w-4 h-4 text-slate-600" />
+            </div>
           </div>
-        </div>
+        )}
 
       </div>
 
