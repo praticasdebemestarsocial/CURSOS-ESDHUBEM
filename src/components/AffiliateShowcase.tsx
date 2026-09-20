@@ -28,8 +28,8 @@ export const AffiliateShowcase: React.FC = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-r from-yellow-300 to-yellow-200 border border-yellow-400 rounded-2xl overflow-hidden shadow-xl shadow-yellow-500/10 m-4 relative flex-shrink-0">
-      <div className="p-4 border-b border-yellow-400/30 flex flex-col gap-3">
+    <section className="bg-gradient-to-r from-yellow-300 to-yellow-200 border border-yellow-400 rounded-2xl overflow-hidden shadow-xl shadow-yellow-500/10 mt-8 relative">
+      <div className="p-5 sm:p-6 border-b border-yellow-400/30 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 text-slate-800 text-xs font-bold uppercase tracking-wider mb-1">
             <ShoppingBag className="w-3.5 h-3.5" />
@@ -47,14 +47,14 @@ export const AffiliateShowcase: React.FC = () => {
           href={affiliateLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white bg-green-600 hover:bg-green-700 transition shadow-lg whitespace-nowrap self-start w-full sm:w-auto"
+          className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-green-600 hover:bg-green-700 transition shadow-lg whitespace-nowrap"
         >
           Ver Loja Completa
-          <ExternalLink className="w-3.5 h-3.5" />
+          <ExternalLink className="w-4 h-4" />
         </a>
       </div>
 
-      <div className="p-4 grid grid-cols-2 gap-2">
+      <div className="p-5 sm:p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {products.map((prod, idx) => (
           <a
             key={idx}
@@ -66,15 +66,15 @@ export const AffiliateShowcase: React.FC = () => {
             <div className="group-hover:scale-110 transition-transform duration-300">
               {prod.icon}
             </div>
-            <h3 className="text-[10px] leading-tight font-bold text-slate-900 mb-0.5">{prod.name}</h3>
-            <p className="text-[9px] leading-tight text-slate-600">{prod.desc}</p>
+            <h3 className="text-sm font-bold text-slate-900 mb-1">{prod.name}</h3>
+            <p className="text-xs text-slate-600">{prod.desc}</p>
           </a>
         ))}
       </div>
 
       {/* Disclaimer */}
-      <div className="bg-yellow-100/50 p-3 border-t border-yellow-400/30">
-        <p className="text-[9px] leading-tight text-yellow-800 text-center font-medium opacity-80">
+      <div className="bg-yellow-100/50 p-4 border-t border-yellow-400/30">
+        <p className="text-xs text-yellow-800 text-center font-medium opacity-80">
           Nossa plataforma faz sugestões de modelos de equipamentos e acessórios encontrados em lojas online mas não se responsabiliza pela venda, envio e entrega, nem eventuais danos aos equipamentos, trata-se apenas de uma parceria de acordo publicitário.
         </p>
       </div>

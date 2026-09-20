@@ -6,6 +6,7 @@ import { LessonSidebar } from './components/LessonSidebar';
 import { ExerciseModal } from './components/ExerciseModal';
 import { ToolsSection } from './components/ToolsSection';
 import { IOSInstallGuide } from './components/IOSInstallGuide';
+import { AffiliateShowcase } from './components/AffiliateShowcase';
 import { CertificateModal } from './components/CertificateModal';
 import { usePWAInstall } from './hooks/usePWAInstall';
 import { Wifi, WifiOff } from 'lucide-react';
@@ -148,6 +149,9 @@ export default function App() {
 
         {/* Tools Section: Templates Copiáveis, Roleplay, Checklist Pré-Conversa */}
         <ToolsSection />
+
+        {/* Shopee Affiliate Showcase */}
+        <AffiliateShowcase />
 
       </main>
 
