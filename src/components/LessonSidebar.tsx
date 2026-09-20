@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CheckCircle2, Circle, ChevronDown, ChevronRight, PlayCircle, BookOpen, Layers } from 'lucide-react';
 import { CourseModule, Lesson } from '../types';
+import { AffiliateShowcase } from './AffiliateShowcase';
 
 interface LessonSidebarProps {
   modules: CourseModule[];
@@ -53,6 +54,11 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
           alt="Modelo do Certificado" 
           className="w-full max-w-[280px] h-auto object-contain rounded shadow-md border border-slate-200"
         />
+      </div>
+
+      {/* Affiliate Showcase in Sidebar */}
+      <div className="border-b border-yellow-200 bg-slate-50">
+        <AffiliateShowcase />
       </div>
 
       {/* Accordion List */}
