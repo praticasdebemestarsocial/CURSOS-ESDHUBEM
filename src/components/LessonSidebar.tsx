@@ -8,6 +8,7 @@ interface LessonSidebarProps {
   completedLessons: string[];
   onSelectLesson: (lessonId: string) => void;
   onToggleComplete: (lessonId: string) => void;
+  onOpenCertificateModal: () => void;
 }
 
 export const LessonSidebar: React.FC<LessonSidebarProps> = ({
@@ -15,7 +16,8 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
   currentLessonId,
   completedLessons,
   onSelectLesson,
-  onToggleComplete
+  onToggleComplete,
+  onOpenCertificateModal
 }) => {
   const initialExpanded = modules
     .filter(m => m.lessons.some(l => l.id === currentLessonId))
@@ -29,6 +31,7 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
   };
 
   const totalLessons = modules.reduce((acc, m) => acc + m.lessons.length, 0);
+  const is100Percent = completedLessons.length === totalLessons;
 
   return (
     <aside className="bg-white border border-yellow-200 rounded-2xl overflow-hidden shadow-xl shadow-slate-200 flex flex-col h-full max-h-[850px]">
@@ -47,12 +50,28 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
       </div>
 
       {/* Certificate Preview */}
-      <div className="p-4 border-b border-yellow-200 bg-slate-50 flex justify-center">
+      <div className="p-4 border-b border-yellow-200 bg-slate-50 flex flex-col items-center gap-3">
         <img 
           src={`${import.meta.env.BASE_URL}certificado-modelo.png`} 
           alt="Modelo do Certificado" 
           className="w-full max-w-[280px] h-auto object-contain rounded shadow-md border border-slate-200"
         />
+        
+        {is100Percent ? (
+          <button
+            onClick={onOpenCertificateModal}
+            className="w-full max-w-[280px] flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-bold text-white bg-green-600 hover:bg-green-700 border border-green-400 shadow-[0_0_15px_rgba(22,163,74,0.6)] animate-bounce transition-all"
+          >
+            🎓 Solicitar Certificado
+          </button>
+        ) : (
+          <button
+            disabled
+            className="w-full max-w-[280px] flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-bold text-white bg-red-400 border border-red-300 opacity-60 cursor-not-allowed transition-all"
+          >
+            🔒 Conclua as aulas para liberar
+          </button>
+        )}
       </div>
 
       {/* Accordion List */}

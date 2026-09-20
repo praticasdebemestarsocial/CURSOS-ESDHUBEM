@@ -142,6 +142,7 @@ export default function App() {
               completedLessons={completedLessons}
               onSelectLesson={handleSelectLesson}
               onToggleComplete={handleToggleComplete}
+              onOpenCertificateModal={() => setIsCertificateModalOpen(true)}
             />
           </div>
 
