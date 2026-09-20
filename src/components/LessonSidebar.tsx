@@ -46,6 +46,15 @@ export const LessonSidebar: React.FC<LessonSidebarProps> = ({
         </span>
       </div>
 
+      {/* Certificate Preview */}
+      <div className="p-4 border-b border-yellow-200 bg-slate-50 flex justify-center">
+        <img 
+          src={`${import.meta.env.BASE_URL}certificado-modelo.png`} 
+          alt="Modelo do Certificado" 
+          className="w-full max-w-[280px] h-auto object-contain rounded shadow-md border border-slate-200"
+        />
+      </div>
+
       {/* Accordion List */}
       <div className="overflow-y-auto p-3 space-y-3 custom-scrollbar flex-1">
         {modules.map((mod: CourseModule) => {

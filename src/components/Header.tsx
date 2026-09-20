@@ -8,6 +8,7 @@ interface HeaderProps {
   isInstallable: boolean;
   isIOS: boolean;
   onShowIOSGuide: () => void;
+  onOpenCertificateModal?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -16,7 +17,8 @@ export const Header: React.FC<HeaderProps> = ({
   onInstallPWA,
   isInstallable,
   isIOS,
-  onShowIOSGuide
+  onShowIOSGuide,
+  onOpenCertificateModal
 }) => {
   const percentage = Math.round((completedCount / totalLessons) * 100);
 
@@ -62,14 +64,12 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Botão de Certificado (Só aparece em 100%) */}
           {percentage === 100 && (
-            <a
-              href="#" // Substituiremos pelo seu link do Zapier/Forms depois
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={onOpenCertificateModal}
               className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold text-white bg-green-600 hover:bg-green-700 border border-green-400 shadow-[0_0_15px_rgba(22,163,74,0.6)] animate-bounce transition-all"
             >
               🎓 Solicitar Certificado
-            </a>
+            </button>
           )}
 
           {/* PWA Install Button (Chromium/Android or iOS) */}

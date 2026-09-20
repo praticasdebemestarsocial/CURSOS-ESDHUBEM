@@ -7,6 +7,7 @@ import { ExerciseModal } from './components/ExerciseModal';
 import { ToolsSection } from './components/ToolsSection';
 import { IOSInstallGuide } from './components/IOSInstallGuide';
 import { AffiliateShowcase } from './components/AffiliateShowcase';
+import { CertificateModal } from './components/CertificateModal';
 import { usePWAInstall } from './hooks/usePWAInstall';
 import { Wifi, WifiOff } from 'lucide-react';
 
@@ -36,6 +37,7 @@ export default function App() {
   // Modals state
   const [isExerciseOpen, setIsExerciseOpen] = useState(false);
   const [isIOSGuideOpen, setIsIOSGuideOpen] = useState(false);
+  const [isCertificateModalOpen, setIsCertificateModalOpen] = useState(false);
 
   // Network state for PWA offline detection
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -111,6 +113,7 @@ export default function App() {
         isInstallable={isInstallable && !isInstalled}
         isIOS={isIOS && !isInstalled}
         onShowIOSGuide={() => setIsIOSGuideOpen(true)}
+        onOpenCertificateModal={() => setIsCertificateModalOpen(true)}
       />
 
       {/* Main Container */}
@@ -182,6 +185,10 @@ export default function App() {
         isOpen={isIOSGuideOpen}
         onClose={() => setIsIOSGuideOpen(false)}
       />
+
+      {isCertificateModalOpen && (
+        <CertificateModal onClose={() => setIsCertificateModalOpen(false)} />
+      )}
 
     </div>
   );
