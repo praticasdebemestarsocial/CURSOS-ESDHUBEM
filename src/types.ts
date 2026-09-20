@@ -22,7 +22,6 @@ export interface Lesson {
   duration: string;
   videoSrc: string;
   summary: string[];
-  crossword?: { id: string; question: string; answer: string }[];
   keyPoints?: string[];
   keyFramework: string;
   framework?: string;
@@ -34,6 +33,7 @@ export interface Module {
   id: number;
   title: string;
   tagline: string;
+  crossword?: any; // To be typed
   lessons: Lesson[];
 }
 

@@ -1,109 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import { Trophy, CheckCircle, Brain, Target } from 'lucide-react';
-
-interface CrosswordWord {
-  id: string;
-  question: string;
-  answer: string;
-}
+import React, { useCallback, useRef, useState, useEffect } from 'react';
+import Crossword, { CrosswordImperative } from '@jaredreisinger/react-crossword';
+import { Trophy, Brain } from 'lucide-react';
+import styled from 'styled-components';
 
 interface CourseCrosswordProps {
-  lessonId: string;
-  words: CrosswordWord[];
+  moduleId: number;
+  data: any;
   onComplete?: () => void;
 }
 
-export const CourseCrossword: React.FC<CourseCrosswordProps> = ({ lessonId, words, onComplete }) => {
-  const storageKey = `assertiva_crossword_${lessonId}`;
-  
-  // State for typed inputs
-  const [inputs, setInputs] = useState<Record<string, string>>({});
-  const [solved, setSolved] = useState<Record<string, boolean>>({});
-  const [isFullySolved, setIsFullySolved] = useState(false);
+const CrosswordWrapper = styled.div`
+  /* Customize react-crossword styles to fit the Tailwind theme */
+  .crossword {
+    font-family: inherit;
+  }
+  rect {
+    fill: #f8fafc;
+    stroke: #cbd5e1;
+    stroke-width: 1px;
+  }
+  rect.highlight-background {
+    fill: #fef08a !important; /* Tailwind yellow-200 */
+  }
+  text {
+    fill: #0f172a; /* Tailwind slate-900 */
+  }
+  .clue {
+    color: #334155;
+    font-size: 0.875rem;
+  }
+  .clue.correct {
+    color: #10b981; /* Tailwind emerald-500 */
+    text-decoration: line-through;
+  }
+`;
 
-  // Load from cache
+export const CourseCrossword: React.FC<CourseCrosswordProps> = ({ moduleId, data, onComplete }) => {
+  const crosswordRef = useRef<CrosswordImperative>(null);
+  const [isCompleted, setIsCompleted] = useState(false);
+
+  // Load progress on mount
   useEffect(() => {
     try {
-      const saved = localStorage.getItem(storageKey);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        setSolved(parsed);
-        // If all words in the current props are solved
-        if (words.every(w => parsed[w.id])) {
-          setIsFullySolved(true);
-        }
+      const saved = localStorage.getItem(`assertiva_crossword_module_${moduleId}`);
+      if (saved === 'COMPLETED') {
+        setIsCompleted(true);
       }
     } catch (e) {}
-  }, [lessonId, words, storageKey]);
+  }, [moduleId]);
 
-  // Handle typing
-  const handleInputChange = (wordId: string, idx: number, value: string) => {
-    // Only accept letters
-    if (value && !/^[a-zA-Z\u00C0-\u00FF]$/.test(value)) return;
-    
-    const key = `${wordId}_${idx}`;
-    const upperValue = value.toUpperCase();
-    
-    setInputs(prev => {
-      const newInputs = { ...prev, [key]: upperValue };
-      checkWord(wordId, newInputs);
-      return newInputs;
-    });
-
-    // Auto-focus next input
-    if (value) {
-      const nextInput = document.getElementById(`cw_${wordId}_${idx + 1}`);
-      if (nextInput) nextInput.focus();
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, wordId: string, idx: number) => {
-    if (e.key === 'Backspace' && !inputs[`${wordId}_${idx}`]) {
-      const prevInput = document.getElementById(`cw_${wordId}_${idx - 1}`);
-      if (prevInput) {
-        prevInput.focus();
-        // Clear previous input
-        setInputs(prev => ({ ...prev, [`${wordId}_${idx - 1}`]: '' }));
-      }
-    }
-  };
-
-  const checkWord = (wordId: string, currentInputs: Record<string, string>) => {
-    const word = words.find(w => w.id === wordId);
-    if (!word) return;
-
-    const answer = word.answer.toUpperCase();
-    let isCorrect = true;
-    for (let i = 0; i < answer.length; i++) {
-      if (currentInputs[`${wordId}_${i}`] !== answer[i]) {
-        isCorrect = false;
-        break;
-      }
-    }
-
+  const handleCrosswordCorrect = useCallback((isCorrect: boolean) => {
     if (isCorrect) {
-      setSolved(prev => {
-        const newSolved = { ...prev, [wordId]: true };
-        
-        // Save progress
-        localStorage.setItem(storageKey, JSON.stringify(newSolved));
-        
-        // Check if all solved
-        if (words.every(w => newSolved[w.id])) {
-          setIsFullySolved(true);
-          if (onComplete) onComplete();
-        }
-        
-        return newSolved;
-      });
+      setIsCompleted(true);
+      try {
+        localStorage.setItem(`assertiva_crossword_module_${moduleId}`, 'COMPLETED');
+      } catch (e) {}
+      if (onComplete) onComplete();
     }
-  };
+  }, [moduleId, onComplete]);
 
-  if (!words || words.length === 0) return null;
+  if (!data) return null;
 
   return (
     <div className="bg-gradient-to-br from-indigo-50 to-blue-50 border-2 border-indigo-100 rounded-2xl p-6 sm:p-8 mt-6 mb-8 relative overflow-hidden shadow-inner">
-      {/* Background Decor */}
       <div className="absolute -top-10 -right-10 w-40 h-40 bg-indigo-200/40 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-200/40 rounded-full blur-3xl pointer-events-none" />
 
@@ -113,59 +72,43 @@ export const CourseCrossword: React.FC<CourseCrosswordProps> = ({ lessonId, word
             <Brain className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-xl font-black text-indigo-950 uppercase tracking-tight">Desafio da Aula</h2>
-            <p className="text-sm text-indigo-800/80 font-medium">Complete as palavras-chave para fixar o conteúdo</p>
+            <h2 className="text-xl font-black text-indigo-950 uppercase tracking-tight">
+              Palavras-Cruzadas do Módulo
+            </h2>
+            <p className="text-sm text-indigo-800/80 font-medium">
+              Preencha com o que você aprendeu nas aulas. Dica: clique nos números para começar.
+            </p>
           </div>
         </div>
 
-        {isFullySolved ? (
+        {isCompleted ? (
           <div className="flex flex-col items-center justify-center p-8 bg-white/80 backdrop-blur-sm rounded-xl border border-indigo-100 text-center animate-in fade-in zoom-in duration-500">
             <div className="w-20 h-20 bg-gradient-to-tr from-yellow-400 to-amber-300 rounded-full flex items-center justify-center shadow-lg shadow-yellow-500/30 mb-4 animate-bounce">
               <Trophy className="w-10 h-10 text-yellow-900" />
             </div>
             <h3 className="text-2xl font-black text-indigo-950 mb-2">Parabéns!</h3>
-            <p className="text-indigo-800 font-medium max-w-sm">Você completou o desafio desta aula e fixou os conceitos fundamentais.</p>
+            <p className="text-indigo-800 font-medium max-w-sm">
+              Você decifrou todas as palavras-chave do Módulo {moduleId} e garantiu seus pontos de progresso!
+            </p>
           </div>
         ) : (
-          <div className="space-y-6">
-            {words.map((word, wIdx) => {
-              const isWordSolved = solved[word.id];
-              const answerChars = word.answer.toUpperCase().split('');
-
-              return (
-                <div key={word.id} className={`p-5 rounded-xl border transition-all duration-500 ${isWordSolved ? 'bg-emerald-50 border-emerald-200' : 'bg-white/80 border-indigo-100 shadow-sm'}`}>
-                  <div className="flex items-start gap-3 mb-4">
-                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold shrink-0 mt-0.5">
-                      {wIdx + 1}
-                    </span>
-                    <p className={`text-sm sm:text-base font-semibold ${isWordSolved ? 'text-emerald-800' : 'text-indigo-950'}`}>
-                      {word.question}
-                    </p>
-                    {isWordSolved && <CheckCircle className="w-5 h-5 text-emerald-500 ml-auto shrink-0 animate-in spin-in" />}
-                  </div>
-
-                  <div className="flex flex-wrap gap-1.5 pl-9">
-                    {answerChars.map((char, cIdx) => (
-                      <input
-                        key={cIdx}
-                        id={`cw_${word.id}_${cIdx}`}
-                        type="text"
-                        maxLength={1}
-                        disabled={isWordSolved}
-                        value={isWordSolved ? char : (inputs[`${word.id}_${cIdx}`] || '')}
-                        onChange={(e) => handleInputChange(word.id, cIdx, e.target.value)}
-                        onKeyDown={(e) => handleKeyDown(e, word.id, cIdx)}
-                        className={`w-8 h-10 sm:w-10 sm:h-12 text-center text-lg font-black uppercase rounded-lg border-b-4 focus:outline-none transition-all ${
-                          isWordSolved 
-                            ? 'bg-emerald-100 border-emerald-300 text-emerald-700' 
-                            : 'bg-indigo-50/50 border-indigo-200 text-indigo-900 focus:bg-white focus:border-indigo-500 focus:shadow-[0_4px_0_0_rgba(99,102,241,1)]'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
+          <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+            <CrosswordWrapper>
+              <Crossword
+                ref={crosswordRef}
+                data={data}
+                onCrosswordCorrect={handleCrosswordCorrect}
+                theme={{
+                  gridBackground: 'transparent',
+                  cellBackground: '#ffffff',
+                  cellBorder: '#cbd5e1',
+                  textColor: '#0f172a',
+                  numberColor: '#64748b',
+                  focusBackground: '#fef08a',
+                  highlightBackground: '#fef9c3',
+                }}
+              />
+            </CrosswordWrapper>
           </div>
         )}
       </div>

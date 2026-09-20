@@ -9,6 +9,7 @@ import { IOSInstallGuide } from './components/IOSInstallGuide';
 import { AffiliateShowcase } from './components/AffiliateShowcase';
 import { CertificateModal } from './components/CertificateModal';
 import { ShortsGallery } from './components/ShortsGallery';
+import { CourseCrossword } from './components/CourseCrossword';
 import { usePWAInstall } from './hooks/usePWAInstall';
 import { Wifi, WifiOff } from 'lucide-react';
 
@@ -82,6 +83,7 @@ export default function App() {
 
   // Find active lesson object
   const currentLesson = allLessons.find((l) => l.id === currentLessonId) || allLessons[0];
+  const currentModule = COURSE_DATA.modules.find((m) => m.id === currentLesson.moduleId);
   const currentIndex = allLessons.findIndex((l) => l.id === currentLesson.id);
   const hasNextLesson = currentIndex < allLessons.length - 1;
 
@@ -133,6 +135,19 @@ export default function App() {
               onNextLesson={handleNextLesson}
               hasNextLesson={hasNextLesson}
             />
+
+            {/* Crossword Challenge for the current module */}
+            {currentModule?.crossword && (
+              <CourseCrossword 
+                moduleId={currentModule.id} 
+                data={currentModule.crossword} 
+                onComplete={() => {
+                  if (!completedLessons.includes(currentLesson.id)) {
+                    handleToggleComplete(currentLesson.id);
+                  }
+                }}
+              />
+            )}
           </div>
 
           {/* Sidebar: 4 Modules, 13 Lessons */}

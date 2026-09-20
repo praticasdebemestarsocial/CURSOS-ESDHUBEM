@@ -5,6 +5,15 @@ export const COURSE_MODULES: Module[] = [
     id: 0,
     title: 'Módulo 0: Apresentação e Boas-Vindas',
     tagline: 'Introdução ao método e como aproveitar a plataforma.',
+    crossword: {
+      across: {
+        1: { clue: 'Qualidade de expressar ideias com firmeza e respeito', answer: 'ASSERTIVA', row: 0, col: 0 },
+        3: { clue: 'Que não se altera ou que recua, evitando atrito a qualquer custo', answer: 'PASSIVA', row: 4, col: 0 },
+      },
+      down: {
+        2: { clue: 'Foca no ganho próprio ignorando o outro', answer: 'AGRESSIVA', row: 0, col: 8 },
+      }
+    },
     lessons: [
       {
         id: 'aula-00',
@@ -125,11 +134,6 @@ export const COURSE_MODULES: Module[] = [
             title: 'Dica Prática: Postura na Reunião',
             src: 'https://odysee.com/$/embed/@esdhubem:a/comunicacao-assertiva-com-a-lideranca-1:5'
           }
-        ],
-        crossword: [
-          { id: 'cw1', question: 'Qualidade de expressar ideias com firmeza e respeito', answer: 'ASSERTIVIDADE' },
-          { id: 'cw2', question: 'Oposto da comunicação assertiva, foca apenas no ganho próprio', answer: 'AGRESSIVA' },
-          { id: 'cw3', question: 'Aquele que evita conflitos a qualquer custo tem postura...', answer: 'PASSIVA' }
         ],
         exercise: {
           id: 'ex-00-3',
