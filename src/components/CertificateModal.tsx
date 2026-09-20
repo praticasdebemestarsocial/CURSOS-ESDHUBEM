@@ -17,13 +17,12 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({ onClose }) =
     e.preventDefault();
     setIsLoading(true);
 
-    const whatsappNumber = "5511999999999"; // Substitua pelo seu número
+    const whatsappNumber = "5511999999999"; // Substitua pelo seu número (apenas números, com DDI e DDD)
     const text = `Olá, concluí o curso!\n*Nome:* ${nome}\n*CPF:* ${cpf}\n*Curso:* ${curso}\n*Data:* ${dataConclusao}\n\nGostaria de solicitar meu certificado.`;
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
 
-    // Se preferir FormSubmit futuramente, descomente o bloco abaixo e adicione seu email no action do form
-    /*
-    fetch("https://formsubmit.co/ajax/SEU_EMAIL_AQUI", {
+    // Enviar dados por e-mail via FormSubmit (silenciosamente)
+    fetch("https://formsubmit.co/ajax/esdhubem@proton.me", {
       method: "POST",
       headers: { 
         'Content-Type': 'application/json',
@@ -34,19 +33,23 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({ onClose }) =
         cpf,
         curso,
         dataConclusao,
-        assunto: "Nova solicitação de certificado"
+        assunto: "Nova solicitação de certificado",
+        _subject: `Certificado: ${nome} - ${curso}`
       })
     })
     .then(response => response.json())
-    .then(data => { ... })
-    */
-
-    // Simular um pequeno delay
-    setTimeout(() => {
+    .then(data => {
+      console.log("E-mail enviado via FormSubmit:", data);
+    })
+    .catch(error => {
+      console.error("Erro ao enviar e-mail:", error);
+    })
+    .finally(() => {
+      // Independentemente de falhar ou não o e-mail, redireciona pro WhatsApp
       setIsLoading(false);
       window.open(whatsappUrl, '_blank');
       onClose();
-    }, 800);
+    });
   };
 
   return (
