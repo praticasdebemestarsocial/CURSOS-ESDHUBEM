@@ -98,8 +98,8 @@ export const COURSE_MODULES: Module[] = [
         moduleId: 0,
         title: 'Pilares da Comunicação Assertiva',
         subtitle: 'Os alicerces de uma comunicação eficaz e estratégica.',
-        duration: 'Em breve',
-        videoSrc: '',
+        duration: '10 min',
+        videoSrc: 'https://odysee.com/$/embed/@esdhubem:a/pilares-da-comunicacao-assertiva:6',
         keyFramework: 'Estrutura Base da Assertividade',
         summary: [
           'Visão geral sobre os pilares que sustentam a comunicação assertiva.',
