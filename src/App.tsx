@@ -136,7 +136,8 @@ export default function App() {
               hasNextLesson={hasNextLesson}
             />
 
-            {/* Crossword Challenge for the current module */}
+            {/* Crossword Challenge temporarily removed to fix crash */}
+            {/*
             {currentModule?.crossword && (
               <CourseCrossword 
                 moduleId={currentModule.id} 
@@ -148,6 +149,7 @@ export default function App() {
                 }}
               />
             )}
+            */}
           </div>
 
           {/* Sidebar: 4 Modules, 13 Lessons */}
