@@ -59,7 +59,7 @@ export const Header: React.FC<HeaderProps> = ({
             <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
             <div className="text-left">
               <span className="block text-[#FFC72C] font-extrabold text-xs leading-none">
-                Validar Código de Certificado
+                Solicitar a Validação do Certificado
               </span>
               <span className="text-[10px] text-slate-400 font-medium">
                 Carga horária averbada ao completar 100% das aulas

@@ -795,7 +795,7 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
                   onClick={onOpenValidator}
                   className="text-xs font-bold text-[#243042] hover:underline flex items-center gap-1 cursor-pointer pt-1"
                 >
-                  <span>Validar código de certificado</span>
+                  <span>Solicitar a validação do certificado</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </button>
               </div>
