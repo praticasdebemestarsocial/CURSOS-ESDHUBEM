@@ -10,11 +10,15 @@ import { AffiliateShowcase } from './components/AffiliateShowcase';
 import { CertificateModal } from './components/CertificateModal';
 import { ShortsGallery } from './components/ShortsGallery';
 import { CourseCrossword } from './components/CourseCrossword';
+import { StudentPortalPage } from './components/StudentPortalPage';
 import { usePWAInstall } from './hooks/usePWAInstall';
 import { Wifi, WifiOff } from 'lucide-react';
 
 export default function App() {
   const allLessons = getAllLessons();
+
+  // Active View ('course' | 'student-portal')
+  const [currentView, setCurrentView] = useState<'course' | 'student-portal'>('course');
 
   // Active Lesson state
   const [currentLessonId, setCurrentLessonId] = useState<string>(() => {
@@ -117,67 +121,76 @@ export default function App() {
         isIOS={isIOS && !isInstalled}
         onShowIOSGuide={() => setIsIOSGuideOpen(true)}
         onOpenCertificateModal={() => setIsCertificateModalOpen(true)}
+        onOpenStudentPortal={() => setCurrentView(prev => prev === 'course' ? 'student-portal' : 'course')}
+        currentView={currentView}
       />
 
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8">
-        
-        {/* Course Core Grid: Player + Sidebar */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      {currentView === 'student-portal' ? (
+        <StudentPortalPage
+          onBackToHome={() => setCurrentView('course')}
+          onOpenValidator={() => setIsCertificateModalOpen(true)}
+        />
+      ) : (
+        /* Main Container */
+        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8">
           
-          {/* Main Stage: Player & Lesson Info */}
-          <div className="lg:col-span-8 space-y-6">
-            <VideoPlayer
-              lesson={currentLesson}
-              isCompleted={completedLessons.includes(currentLesson.id)}
-              onToggleComplete={handleToggleComplete}
-              onOpenExercise={() => setIsExerciseOpen(true)}
-              onNextLesson={handleNextLesson}
-              hasNextLesson={hasNextLesson}
-            />
-
-            {/* Crossword Challenge temporarily removed to fix crash */}
-            {/*
-            {currentModule?.crossword && (
-              <CourseCrossword 
-                moduleId={currentModule.id} 
-                data={currentModule.crossword} 
-                onComplete={() => {
-                  if (!completedLessons.includes(currentLesson.id)) {
-                    handleToggleComplete(currentLesson.id);
-                  }
-                }}
+          {/* Course Core Grid: Player + Sidebar */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            
+            {/* Main Stage: Player & Lesson Info */}
+            <div className="lg:col-span-8 space-y-6">
+              <VideoPlayer
+                lesson={currentLesson}
+                isCompleted={completedLessons.includes(currentLesson.id)}
+                onToggleComplete={handleToggleComplete}
+                onOpenExercise={() => setIsExerciseOpen(true)}
+                onNextLesson={handleNextLesson}
+                hasNextLesson={hasNextLesson}
               />
-            )}
-            */}
+
+              {/* Crossword Challenge temporarily removed to fix crash */}
+              {/*
+              {currentModule?.crossword && (
+                <CourseCrossword 
+                  moduleId={currentModule.id} 
+                  data={currentModule.crossword} 
+                  onComplete={() => {
+                    if (!completedLessons.includes(currentLesson.id)) {
+                      handleToggleComplete(currentLesson.id);
+                    }
+                  }}
+                />
+              )}
+              */}
+            </div>
+
+            {/* Sidebar: 4 Modules, 13 Lessons */}
+            <div className="lg:col-span-4">
+              <LessonSidebar
+                modules={COURSE_DATA.modules}
+                currentLessonId={currentLesson.id}
+                completedLessons={completedLessons}
+                onSelectLesson={handleSelectLesson}
+                onToggleComplete={handleToggleComplete}
+                onOpenCertificateModal={() => setIsCertificateModalOpen(true)}
+              />
+            </div>
+
           </div>
 
-          {/* Sidebar: 4 Modules, 13 Lessons */}
-          <div className="lg:col-span-4">
-            <LessonSidebar
-              modules={COURSE_DATA.modules}
-              currentLessonId={currentLesson.id}
-              completedLessons={completedLessons}
-              onSelectLesson={handleSelectLesson}
-              onToggleComplete={handleToggleComplete}
-              onOpenCertificateModal={() => setIsCertificateModalOpen(true)}
-            />
-          </div>
+          {/* Shorts Gallery Section (if current lesson has shorts) */}
+          {currentLesson.shorts && currentLesson.shorts.length > 0 && (
+            <ShortsGallery shorts={currentLesson.shorts} />
+          )}
 
-        </div>
+          {/* Tools Section: Templates Copiáveis, Roleplay, Checklist Pré-Conversa */}
+          <ToolsSection />
 
-        {/* Shorts Gallery Section (if current lesson has shorts) */}
-        {currentLesson.shorts && currentLesson.shorts.length > 0 && (
-          <ShortsGallery shorts={currentLesson.shorts} />
-        )}
+          {/* Shopee Affiliate Showcase */}
+          <AffiliateShowcase />
 
-        {/* Tools Section: Templates Copiáveis, Roleplay, Checklist Pré-Conversa */}
-        <ToolsSection />
-
-        {/* Shopee Affiliate Showcase */}
-        <AffiliateShowcase />
-
-      </main>
+        </main>
+      )}
 
       {/* Footer */}
       <footer className="mt-auto border-t border-yellow-200 bg-slate-100 py-6 px-4">

@@ -68,3 +68,15 @@ export interface UserProgress {
   solvedExercises: Record<string, { optionId: string; isCorrect: boolean }>;
   checklistChecked: string[];
 }
+
+export interface Course {
+  id: string;
+  title: string;
+  category: string;
+  hours: number;
+  pillar: 'freepremium' | 'horas-complementares' | 'formacao-livre' | string;
+  image: string;
+  syllabus: string[];
+  description?: string;
+}
+

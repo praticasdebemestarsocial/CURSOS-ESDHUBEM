@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Download, Code2, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Download, Code2, Sparkles, CheckCircle2, GraduationCap } from 'lucide-react';
 
 interface HeaderProps {
   completedCount: number;
@@ -9,6 +9,8 @@ interface HeaderProps {
   isIOS: boolean;
   onShowIOSGuide: () => void;
   onOpenCertificateModal?: () => void;
+  onOpenStudentPortal?: () => void;
+  currentView?: 'course' | 'student-portal';
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -18,7 +20,9 @@ export const Header: React.FC<HeaderProps> = ({
   isInstallable,
   isIOS,
   onShowIOSGuide,
-  onOpenCertificateModal
+  onOpenCertificateModal,
+  onOpenStudentPortal,
+  currentView = 'course'
 }) => {
   const percentage = Math.round((completedCount / totalLessons) * 100);
 
@@ -61,6 +65,17 @@ export const Header: React.FC<HeaderProps> = ({
               {percentage}%
             </span>
           </div>
+
+          {/* Botão Sala de Aula Virtual / Portal do Aluno */}
+          {onOpenStudentPortal && (
+            <button
+              onClick={onOpenStudentPortal}
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold text-slate-900 bg-[#FFC72C] hover:bg-amber-400 border border-amber-500/40 shadow-sm transition active:scale-95 cursor-pointer"
+            >
+              <GraduationCap className="w-4 h-4 text-slate-950" />
+              <span>{currentView === 'student-portal' ? 'Curso Principal' : 'Sala de Aula Virtual'}</span>
+            </button>
+          )}
 
           {/* Botão de Certificado (Só aparece em 100%) */}
           {percentage === 100 && (
