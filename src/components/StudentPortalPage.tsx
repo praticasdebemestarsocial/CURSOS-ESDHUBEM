@@ -293,6 +293,26 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
           {/* Left: Video Player & Tabs Pane (8 cols) */}
           <div className="lg:col-span-8 space-y-6">
             
+            {/* Active Course Title Banner (Fixed right above video player) */}
+            <div className="bg-[#182333] border border-slate-700/80 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-lg">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-[#FFC72C] text-slate-950 font-extrabold flex items-center justify-center text-xs tracking-wider shrink-0 shadow-sm">
+                  CURSO
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-md bg-amber-400/20 text-[#FFC72C] border border-[#FFC72C]/30">
+                      {currentCourse.category}
+                    </span>
+                    <span className="text-xs text-slate-300 font-semibold">• {currentCourse.hours}h Carga Horária</span>
+                  </div>
+                  <h2 className="text-base sm:text-xl font-black text-white tracking-tight leading-snug">
+                    {currentCourse.title}
+                  </h2>
+                </div>
+              </div>
+            </div>
+
             {/* Video Player Card */}
             <div className="bg-slate-900 rounded-2xl overflow-hidden shadow-xl border border-slate-800">
               
