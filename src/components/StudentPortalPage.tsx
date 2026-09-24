@@ -240,18 +240,24 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
                 }}
                 className={`text-left p-4 rounded-2xl border transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-white border-[#243042] shadow-md ring-2 ring-[#243042]/10'
-                    : 'bg-slate-100 hover:bg-white border-slate-200 text-slate-700'
+                    ? 'bg-white border-[#243042] shadow-md ring-2 ring-[#243042]/10 text-slate-900'
+                    : 'bg-[#182333] hover:bg-slate-800/90 border-slate-700/80 text-white shadow-sm'
                 }`}
               >
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <span
                     className={`text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full ${
-                      c.pillar === 'freepremium'
-                        ? 'bg-emerald-100 text-emerald-800'
+                      isSelected
+                        ? c.pillar === 'freepremium'
+                          ? 'bg-emerald-100 text-emerald-800'
+                          : c.pillar === 'horas-complementares'
+                          ? 'bg-amber-100 text-amber-800'
+                          : 'bg-slate-800 text-white'
+                        : c.pillar === 'freepremium'
+                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
                         : c.pillar === 'horas-complementares'
-                        ? 'bg-amber-100 text-amber-800'
-                        : 'bg-slate-800 text-white'
+                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                        : 'bg-slate-700 text-slate-200 border border-slate-600'
                     }`}
                   >
                     {c.pillar === 'freepremium'
@@ -260,22 +266,22 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
                       ? 'Horas Compl.'
                       : 'Formação Livre'}
                   </span>
-                  <span className="text-xs font-bold text-slate-500">{c.hours}h</span>
+                  <span className={`text-xs font-bold ${isSelected ? 'text-slate-500' : 'text-slate-400'}`}>{c.hours}h</span>
                 </div>
 
-                <p className="text-sm font-bold text-slate-900 line-clamp-1 mb-2">
+                <p className={`text-sm font-bold line-clamp-1 mb-2 ${isSelected ? 'text-slate-900' : 'text-white'}`}>
                   {c.title}
                 </p>
 
                 {/* Progress bar */}
                 <div className="space-y-1">
-                  <div className="flex justify-between text-[11px] text-slate-500 font-medium">
+                  <div className={`flex justify-between text-[11px] font-medium ${isSelected ? 'text-slate-500' : 'text-slate-300'}`}>
                     <span>{cCompleted} de {cTotal} aulas</span>
                     <span>{cPercent}%</span>
                   </div>
-                  <div className="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+                  <div className={`w-full rounded-full h-1.5 overflow-hidden ${isSelected ? 'bg-slate-200' : 'bg-slate-800'}`}>
                     <div
-                      className="bg-[#243042] h-full rounded-full transition-all duration-300"
+                      className={`h-full rounded-full transition-all duration-300 ${isSelected ? 'bg-[#243042]' : 'bg-[#FFC72C]'}`}
                       style={{ width: `${cPercent}%` }}
                     />
                   </div>
@@ -686,7 +692,7 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
               <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-3">
                 <div>
                   <h3 className="text-sm font-bold text-slate-900">
-                    Grade de Aulas & Módulos
+                    Progresso do Curso
                   </h3>
                   <p className="text-xs text-slate-500">
                     {currentCompletedList.length} de {totalLessons} concluídas ({progressPercent}%)
@@ -704,6 +710,14 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
                   className="bg-[#243042] h-full rounded-full transition-all duration-300"
                   style={{ width: `${progressPercent}%` }}
                 />
+              </div>
+
+              {/* Conteúdo Programático Subheader */}
+              <div className="mb-2.5 flex items-center justify-between border-b border-slate-100 pb-1.5">
+                <h4 className="text-[11px] font-black uppercase tracking-wider text-slate-700">
+                  Conteúdo Programático
+                </h4>
+                <span className="text-[10px] text-slate-400 font-semibold">{totalLessons} Aulas</span>
               </div>
 
               {/* Lesson Items List */}

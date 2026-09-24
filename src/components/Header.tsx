@@ -30,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="sticky top-0 z-40 bg-[#182333] text-white border-b border-slate-700/80 shadow-lg shadow-slate-950/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         
-        {/* Brand with New Logo */}
+        {/* Brand with Seal Logo */}
         <div className="flex items-center gap-3">
           <img 
             src={`${import.meta.env.BASE_URL}logo-cursos.png`} 
@@ -47,27 +47,25 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Global Progress & Action Controls */}
+        {/* Action Controls Header */}
         <div className="flex items-center flex-wrap gap-3">
           
-          {/* Progress Bar Widget */}
-          <div className="bg-slate-800/90 border border-slate-700 rounded-xl px-3.5 py-1.5 flex items-center gap-3 shadow-sm">
-            <div className="text-right">
-              <div className="text-xs font-bold text-white">
-                {completedCount} de {totalLessons} aulas
-              </div>
-              <div className="text-[11px] text-slate-400 font-medium">Progresso do curso</div>
+          {/* Validar Código de Certificado (Substituindo o antigo Progresso do topo) */}
+          <button
+            onClick={onOpenCertificateModal}
+            className="flex items-center gap-2 bg-slate-800/90 hover:bg-slate-800 border border-slate-700 hover:border-[#FFC72C]/50 px-3.5 py-1.5 rounded-xl transition cursor-pointer text-xs shadow-xs"
+            title="Consultar Validade do Certificado ESDHUBEM"
+          >
+            <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+            <div className="text-left">
+              <span className="block text-[#FFC72C] font-extrabold text-xs leading-none">
+                Validar Código de Certificado
+              </span>
+              <span className="text-[10px] text-slate-400 font-medium">
+                Carga horária averbada ao completar 100% das aulas
+              </span>
             </div>
-            <div className="w-24 sm:w-32 h-2.5 bg-slate-900 rounded-full overflow-hidden p-[1px] border border-slate-700">
-              <div
-                className="h-full bg-emerald-500 rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"
-                style={{ width: `${percentage}%` }}
-              />
-            </div>
-            <span className="text-xs font-mono font-extrabold text-[#FFC72C] min-w-[34px]">
-              {percentage}%
-            </span>
-          </div>
+          </button>
 
           {/* Botão Sala de Aula Virtual / Portal do Aluno */}
           {onOpenStudentPortal && (
