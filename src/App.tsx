@@ -17,8 +17,16 @@ import { Wifi, WifiOff } from 'lucide-react';
 export default function App() {
   const allLessons = getAllLessons();
 
-  // Active View ('course' | 'student-portal')
-  const [currentView, setCurrentView] = useState<'course' | 'student-portal'>('course');
+  // Active View ('course' | 'student-portal') - defaults to 'student-portal' (Sala de Aula Virtual)
+  const [currentView, setCurrentView] = useState<'course' | 'student-portal'>(() => {
+    try {
+      const hash = window.location.hash.toLowerCase();
+      if (hash === '#curso' || hash === '#course') return 'course';
+    } catch (e) {
+      // ignore
+    }
+    return 'student-portal';
+  });
 
   // Active Lesson state
   const [currentLessonId, setCurrentLessonId] = useState<string>(() => {
