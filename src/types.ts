@@ -1,82 +1,87 @@
-export interface ExerciseOption {
-  id: string;
-  text: string;
-  isAssertive: boolean;
-  classification: 'Assertiva' | 'Passivo-Agressiva' | 'Agressiva' | 'Passiva / Reativa';
-  feedback: string;
-}
-
-export interface Exercise {
-  id: string;
-  scenario: string;
-  question: string;
-  options: ExerciseOption[];
-}
-
-export interface Lesson {
-  id: string;
-  number: number;
-  title: string;
-  subtitle: string;
-  moduleId: number;
-  duration: string;
-  videoSrc: string;
-  summary: string[];
-  keyPoints?: string[];
-  keyFramework: string;
-  framework?: string;
-  shorts?: { title: string; src: string }[];
-  exercise: Exercise;
-}
-
-export interface Module {
-  id: number;
-  title: string;
-  tagline: string;
-  crossword?: any; // To be typed
-  lessons: Lesson[];
-}
-
-export type CourseModule = Module;
-
-export interface RoleplayItem {
-  id: string;
-  context: string;
-  reactiveResponse: string;
-  reactiveRisk: string;
-  assertiveResponse: string;
-  assertiveAdvantage: string;
-}
-
-export interface TemplateItem {
-  id: string;
-  title: string;
-  category: '1:1' | 'Prazos' | 'Follow-up' | 'Alinhamento';
-  description: string;
-  content: string;
-}
-
-export interface ChecklistItem {
-  id: string;
-  category: string;
-  question: string;
-  tip: string;
-}
-
-export interface UserProgress {
-  completedLessons: string[];
-  solvedExercises: Record<string, { optionId: string; isCorrect: boolean }>;
-  checklistChecked: string[];
-}
-
 export interface Course {
   id: string;
   title: string;
+  subtitle: string;
   category: string;
+  pillar: 'freepremium' | 'horas-complementares' | 'formacao-livre';
   hours: number;
-  pillar: 'freepremium' | 'horas-complementares' | 'formacao-livre' | string;
+  rating: number;
+  studentsCount: number;
   image: string;
+  tag: string;
+  badge?: string;
+  description: string;
+  modulesCount: number;
   syllabus: string[];
-  description?: string;
+  targetAudience: string;
+  priceNote: string;
+  priceValue?: number;
 }
 
+export interface CategoryItem {
+  id: string;
+  title: string;
+  subtitle?: string;
+  coursesCount: number;
+  iconName: string;
+  accentColor: string;
+}
+
+export interface MethodologyPillar {
+  number: string;
+  title: string;
+  isPopular?: boolean;
+  description: string;
+  targetAudience: string;
+  type: 'freepremium' | 'horas-complementares' | 'formacao-livre';
+}
+
+export interface CertificateVerification {
+  code: string;
+  studentName: string;
+  courseTitle: string;
+  category: string;
+  hours: number;
+  completionDate: string;
+  status: 'valid' | 'invalid' | 'revoked';
+  institution: string;
+  authenticityHash: string;
+}
+
+export interface PolicySection {
+  title: string;
+  content: string[];
+}
+
+export interface PolicyDetail {
+  id: string;
+  title: string;
+  lastUpdated: string;
+  iconName: string;
+  color: string;
+  introduction: string;
+  sections: PolicySection[];
+}
+
+export interface AcademicArticle {
+  id: string;
+  title: string;
+  subtitle?: string;
+  authors: string[];
+  institution: string;
+  publicationYear: string;
+  publicationDate: string;
+  doi: string;
+  doiUrl: string;
+  zenodoUrl: string;
+  pdfUrl?: string;
+  category: string;
+  keywords: string[];
+  abstractPt: string;
+  abstractEn?: string;
+  citationAbnt: string;
+  citationApa: string;
+  viewsCount?: number;
+  downloadsCount?: number;
+  isFeatured?: boolean;
+}

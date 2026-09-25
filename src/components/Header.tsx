@@ -163,7 +163,7 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Bottom Bar: Navigation Links (Desktop/Laptop) */}
       <div className="hidden lg:block bg-[#182333]">
         <div className="max-w-[1600px] mx-auto px-3 sm:px-4 lg:px-6 overflow-x-auto scrollbar-none">
-          <nav className="flex items-center justify-center gap-3 lg:gap-4 xl:gap-5 h-12 text-xs xl:text-sm font-medium whitespace-nowrap">
+          <nav className="flex items-center justify-center gap-3 lg:gap-4 xl:gap-5 h-11 text-xs xl:text-sm font-medium whitespace-nowrap">
             <button
               onClick={() => onNavigate('inicio')}
               className={`transition-all py-1 cursor-pointer ${
@@ -195,6 +195,16 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               Políticas
+            </button>
+            <button
+              onClick={() => onNavigate('diretrizes-pedagogicas')}
+              className={`transition-all py-1 cursor-pointer ${
+                currentPage === 'diretrizes-pedagogicas'
+                  ? 'text-[#FFC72C] font-bold border-b-2 border-[#FFC72C]'
+                  : 'text-amber-300/90 hover:text-[#FFC72C] hover:border-b-2 hover:border-[#FFC72C]/50'
+              }`}
+            >
+              Diretrizes e Esclarecimento Pedagógico
             </button>
             <button
               onClick={() => onNavigate('categoria:landing-pages-biolinks')}
@@ -242,33 +252,36 @@ export const Header: React.FC<HeaderProps> = ({
             >
               Sobre Nós
             </button>
-            
-            <div className="w-px h-6 bg-white/10 mx-1.5 shrink-0"></div>
-
-            <button
-              onClick={onOpenValidator}
-              className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs px-3 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
-            >
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              Validar Certificado
-            </button>
-
-            <button
-              onClick={() => onNavigate('informacoes-legais')}
-              className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs px-3 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
-            >
-              <Scale className="w-3.5 h-3.5 text-cyan-400" />
-              Valor Legal dos Certificados
-            </button>
-
-            <button
-              onClick={() => onNavigate('regras-certificacao-merito')}
-              className="bg-[#FFC72C]/15 hover:bg-[#FFC72C]/25 text-[#FFC72C] border border-[#FFC72C]/40 font-bold text-xs px-3 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer shrink-0 shadow-xs hover:border-[#FFC72C]"
-            >
-              <Award className="w-3.5 h-3.5 text-[#FFC72C]" />
-              <span>Certificação & Escala de Mérito</span>
-            </button>
           </nav>
+        </div>
+      </div>
+
+      {/* Second Menu Bar: Action Buttons Row (Right where the arrow points!) */}
+      <div className="hidden lg:block bg-[#111927] border-t border-b border-slate-700/60 py-1.5 shadow-inner">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-end gap-3">
+          <button
+            onClick={onOpenValidator}
+            className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs px-3.5 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer shrink-0 border border-white/10"
+          >
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Validar Certificado</span>
+          </button>
+
+          <button
+            onClick={() => onNavigate('informacoes-legais')}
+            className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs px-3.5 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer shrink-0 border border-white/10"
+          >
+            <Scale className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Valor Legal dos Certificados</span>
+          </button>
+
+          <button
+            onClick={() => onNavigate('regras-certificacao-merito')}
+            className="bg-[#FFC72C]/15 hover:bg-[#FFC72C]/25 text-[#FFC72C] border border-[#FFC72C]/40 font-bold text-xs px-3.5 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer shrink-0 shadow-xs hover:border-[#FFC72C]"
+          >
+            <Award className="w-3.5 h-3.5 text-[#FFC72C]" />
+            <span>Certificação & Escala de Mérito</span>
+          </button>
         </div>
       </div>
 
@@ -293,6 +306,7 @@ export const Header: React.FC<HeaderProps> = ({
       {mobileMenuOpen && (
         <div className="lg:hidden bg-[#1E293B] border-t border-slate-700 px-4 py-4 space-y-3 shadow-2xl text-white">
           <button onClick={() => { onNavigate('inicio'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">Início</button>
+          <button onClick={() => { onNavigate('diretrizes-pedagogicas'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-bold text-amber-300 hover:bg-white/10">Diretrizes e Esclarecimento Pedagógico</button>
           <button onClick={() => { onNavigate('blog'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">Blog</button>
           <button onClick={() => { onNavigate('categorias'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10 flex justify-between">
             <span>Categorias</span>

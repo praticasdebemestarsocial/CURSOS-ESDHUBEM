@@ -18,16 +18,13 @@ import {
   ExternalLink,
   MessageSquare,
   Save,
-  Send,
   Volume2,
   Maximize2,
   ShieldCheck,
   ChevronRight,
   GraduationCap,
   Calendar,
-  QrCode,
-  PlusCircle,
-  X
+  QrCode
 } from 'lucide-react';
 
 interface StudentPortalPageProps {
@@ -41,43 +38,23 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
   onOpenValidator,
   initialCourseId = 'hc-1'
 }) => {
-  // Enrolled courses managed dynamically via localStorage
-  const [enrolledCourseIds, setEnrolledCourseIds] = useState<string[]>(() => {
-    try {
-      const saved = localStorage.getItem('esdhubem_enrolled_courses');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-      }
-    } catch (e) {
-      // fallback
-    }
-    return ['fp-assertiva']; // Default initial single enrollment
-  });
-
-  const enrolledCourses = COURSES_DATA.filter((c) => enrolledCourseIds.includes(c.id));
-
-  // Modal Catalog state
-  const [showCatalogModal, setShowCatalogModal] = useState(false);
-
-  // Selected course ID state
-  const [selectedCourseId, setSelectedCourseId] = useState<string>(() => {
-    if (initialCourseId && COURSES_DATA.some(c => c.id === initialCourseId)) {
-      return initialCourseId;
-    }
-    return enrolledCourses[0]?.id || 'fp-assertiva';
-  });
+  // Enrolled courses (prioritizing Comunicação Assertiva and popular courses)
+  const assertivaCourse = COURSES_DATA.find((c) => c.id === 'fp-assertiva');
+  const enrolledCourses = [
+    assertivaCourse || COURSES_DATA[0],
+    ...COURSES_DATA.filter((c) => c.id !== 'fp-assertiva').slice(0, 2)
+  ];
+  const [selectedCourseId, setSelectedCourseId] = useState(initialCourseId || 'fp-assertiva');
 
   useEffect(() => {
-    if (initialCourseId && COURSES_DATA.some(c => c.id === initialCourseId)) {
+    if (initialCourseId) {
       setSelectedCourseId(initialCourseId);
       setActiveLessonIndex(0);
     }
   }, [initialCourseId]);
 
-  // Fallback active course object
   const currentCourse =
-    COURSES_DATA.find((c) => c.id === selectedCourseId) || enrolledCourses[0] || COURSES_DATA[0];
+    COURSES_DATA.find((c) => c.id === selectedCourseId) || enrolledCourses[0];
 
   // Active module & lesson index
   const [activeLessonIndex, setActiveLessonIndex] = useState(0);
@@ -99,86 +76,7 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
   const [notesSavedAlert, setNotesSavedAlert] = useState(false);
 
   // Active tab in bottom pane
-  const [activeBottomTab, setActiveBottomTab] = useState<'anotacoes' | 'materiais' | 'certificado' | 'tcc'>('materiais');
-
-  // TCC state
-  const [tccTitle, setTccTitle] = useState<string>(() => {
-    try {
-      return localStorage.getItem('esdhubem_tcc_title') || '';
-    } catch {
-      return '';
-    }
-  });
-  const [tccResumo, setTccResumo] = useState<string>(() => {
-    try {
-      return localStorage.getItem('esdhubem_tcc_resumo') || '';
-    } catch {
-      return '';
-    }
-  });
-  const [tccDesenvolvimento, setTccDesenvolvimento] = useState<string>(() => {
-    try {
-      return localStorage.getItem('esdhubem_tcc_desenvolvimento') || '';
-    } catch {
-      return '';
-    }
-  });
-  const [tccConsideracoes, setTccConsideracoes] = useState<string>(() => {
-    try {
-      return localStorage.getItem('esdhubem_tcc_consideracoes') || '';
-    } catch {
-      return '';
-    }
-  });
-
-  const [tccSavedAlert, setTccSavedAlert] = useState(false);
-  const [tccSentAlert, setTccSentAlert] = useState(false);
-
-  const handleSaveTcc = () => {
-    try {
-      localStorage.setItem('esdhubem_tcc_title', tccTitle);
-      localStorage.setItem('esdhubem_tcc_resumo', tccResumo);
-      localStorage.setItem('esdhubem_tcc_desenvolvimento', tccDesenvolvimento);
-      localStorage.setItem('esdhubem_tcc_consideracoes', tccConsideracoes);
-    } catch (e) {
-      console.warn(e);
-    }
-    setTccSavedAlert(true);
-    setTimeout(() => setTccSavedAlert(false), 3500);
-  };
-
-  const handleSendTcc = () => {
-    handleSaveTcc();
-    const email = 'esdhubem@proton.me';
-    const subject = encodeURIComponent(`TCC: ${tccTitle || 'Trabalho de Conclusão de Curso'} - ${studentName}`);
-    const bodyContent = `TRABALHO DE CONCLUSÃO DE CURSO (TCC) - ESDHUBEM
-==================================================
-ALUNO(A): ${studentName}
-CURSO: ${currentCourse.title}
-DATA: ${new Date().toLocaleDateString('pt-BR')}
-
-TÍTULO DO TCC:
-${tccTitle || '(Não informado)'}
-
---------------------------------------------------
-RESUMO:
-${tccResumo || '(Não informado)'}
-
---------------------------------------------------
-DESENVOLVIMENTO:
-${tccDesenvolvimento || '(Não informado)'}
-
---------------------------------------------------
-CONSIDERAÇÕES FINAIS:
-${tccConsideracoes || '(Não informado)'}
-==================================================
-`;
-
-    const mailtoUrl = `mailto:${email}?subject=${subject}&body=${encodeURIComponent(bodyContent)}`;
-    window.location.href = mailtoUrl;
-    setTccSentAlert(true);
-    setTimeout(() => setTccSentAlert(false), 6000);
-  };
+  const [activeBottomTab, setActiveBottomTab] = useState<'anotacoes' | 'materiais' | 'certificado' | 'duvidas'>('materiais');
 
   // Student info
   const [studentName, setStudentName] = useState('Silviano S.');
@@ -206,41 +104,6 @@ ${tccConsideracoes || '(Não informado)'}
   const handleSaveNotes = () => {
     setNotesSavedAlert(true);
     setTimeout(() => setNotesSavedAlert(false), 3000);
-  };
-
-  const handleEnroll = (courseId: string) => {
-    setEnrolledCourseIds((prev) => {
-      if (prev.includes(courseId)) return prev;
-      const next = [...prev, courseId];
-      try {
-        localStorage.setItem('esdhubem_enrolled_courses', JSON.stringify(next));
-      } catch (e) {
-        console.warn(e);
-      }
-      return next;
-    });
-    setSelectedCourseId(courseId);
-    setActiveLessonIndex(0);
-  };
-
-  const handleUnenroll = (courseId: string) => {
-    if (enrolledCourseIds.length <= 1) {
-      alert('Você precisa estar matriculado em pelo menos 1 curso.');
-      return;
-    }
-    setEnrolledCourseIds((prev) => {
-      const next = prev.filter((id) => id !== courseId);
-      try {
-        localStorage.setItem('esdhubem_enrolled_courses', JSON.stringify(next));
-      } catch (e) {
-        console.warn(e);
-      }
-      if (selectedCourseId === courseId) {
-        setSelectedCourseId(next[0]);
-        setActiveLessonIndex(0);
-      }
-      return next;
-    });
   };
 
   return (
@@ -302,7 +165,7 @@ ${tccConsideracoes || '(Não informado)'}
               </div>
               <div>
                 <p className="text-xs text-slate-400 uppercase font-semibold">Meus Cursos</p>
-                <p className="text-base font-bold text-white">{enrolledCourses.length} {enrolledCourses.length === 1 ? 'em andamento' : 'em andamento'}</p>
+                <p className="text-base font-bold text-white">3 em andamento</p>
               </div>
             </div>
 
@@ -339,7 +202,7 @@ ${tccConsideracoes || '(Não informado)'}
         </div>
       </div>
 
-      {/* Course Selection Tabs (Dynamically renders enrolled courses) */}
+      {/* Course Selection Tabs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <div>
@@ -347,22 +210,21 @@ ${tccConsideracoes || '(Não informado)'}
               Selecione o Treinamento em Estudo
             </h2>
             <p className="text-xs sm:text-sm text-slate-500">
-              Alterne entre suas matrículas ativas ({enrolledCourses.length}) para retomar as aulas instantaneamente.
+              Alterne entre suas matrículas ativas para retomar as aulas instantaneamente.
             </p>
           </div>
 
           <button
-            onClick={() => setShowCatalogModal(true)}
-            className="text-xs font-bold text-[#243042] hover:text-amber-600 bg-slate-200/70 hover:bg-slate-200 px-3.5 py-2 rounded-xl border border-slate-300 flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
+            onClick={onBackToHome}
+            className="text-xs font-bold text-[#243042] hover:text-amber-600 flex items-center gap-1.5 transition-colors cursor-pointer"
           >
-            <Sparkles className="w-4 h-4 text-amber-600" />
             <span>+ Matricular-se em outros cursos do catálogo</span>
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>
 
         {/* Tabs for enrolled courses */}
-        <div className={`grid gap-3 mb-8 ${enrolledCourses.length === 1 ? 'grid-cols-1 max-w-md' : enrolledCourses.length === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-3'}`}>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
           {enrolledCourses.map((c) => {
             const isSelected = c.id === currentCourse.id;
             const cCompleted = (completedLessons[c.id] || []).length;
@@ -378,20 +240,18 @@ ${tccConsideracoes || '(Não informado)'}
                 }}
                 className={`text-left p-4 rounded-2xl border transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-gradient-to-br from-emerald-600 via-emerald-600 to-teal-700 border-emerald-400 text-white shadow-xl ring-2 ring-emerald-400/60 scale-[1.02]'
-                    : 'bg-[#182333] hover:bg-slate-800/90 border-slate-700/80 text-white shadow-sm'
+                    ? 'bg-white border-[#243042] shadow-md ring-2 ring-[#243042]/10'
+                    : 'bg-slate-100 hover:bg-white border-slate-200 text-slate-700'
                 }`}
               >
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <span
                     className={`text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full ${
-                      isSelected
-                        ? 'bg-[#FFC72C] text-slate-950 font-black shadow-xs'
-                        : c.pillar === 'freepremium'
-                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                      c.pillar === 'freepremium'
+                        ? 'bg-emerald-100 text-emerald-800'
                         : c.pillar === 'horas-complementares'
-                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                        : 'bg-slate-700 text-slate-200 border border-slate-600'
+                        ? 'bg-amber-100 text-amber-800'
+                        : 'bg-slate-800 text-white'
                     }`}
                   >
                     {c.pillar === 'freepremium'
@@ -400,22 +260,22 @@ ${tccConsideracoes || '(Não informado)'}
                       ? 'Horas Compl.'
                       : 'Formação Livre'}
                   </span>
-                  <span className={`text-xs font-bold ${isSelected ? 'text-emerald-100 font-extrabold' : 'text-slate-400'}`}>{c.hours}h</span>
+                  <span className="text-xs font-bold text-slate-500">{c.hours}h</span>
                 </div>
 
-                <p className={`text-sm font-extrabold line-clamp-1 mb-2 text-white`}>
+                <p className="text-sm font-bold text-slate-900 line-clamp-1 mb-2">
                   {c.title}
                 </p>
 
                 {/* Progress bar */}
                 <div className="space-y-1">
-                  <div className={`flex justify-between text-[11px] font-semibold ${isSelected ? 'text-emerald-100' : 'text-slate-300'}`}>
+                  <div className="flex justify-between text-[11px] text-slate-500 font-medium">
                     <span>{cCompleted} de {cTotal} aulas</span>
                     <span>{cPercent}%</span>
                   </div>
-                  <div className={`w-full rounded-full h-1.5 overflow-hidden ${isSelected ? 'bg-emerald-950/60 border border-emerald-500/30' : 'bg-slate-800'}`}>
+                  <div className="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
                     <div
-                      className={`h-full rounded-full transition-all duration-300 ${isSelected ? 'bg-[#FFC72C] shadow-[0_0_8px_rgba(255,199,44,0.6)]' : 'bg-[#FFC72C]'}`}
+                      className="bg-[#243042] h-full rounded-full transition-all duration-300"
                       style={{ width: `${cPercent}%` }}
                     />
                   </div>
@@ -433,26 +293,6 @@ ${tccConsideracoes || '(Não informado)'}
           {/* Left: Video Player & Tabs Pane (8 cols) */}
           <div className="lg:col-span-8 space-y-6">
             
-            {/* Active Course Title Banner (Fixed right above video player) */}
-            <div className="bg-[#182333] border border-slate-700/80 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-lg">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#FFC72C] text-slate-950 font-extrabold flex items-center justify-center text-xs tracking-wider shrink-0 shadow-sm">
-                  CURSO
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-md bg-amber-400/20 text-[#FFC72C] border border-[#FFC72C]/30">
-                      {currentCourse.category}
-                    </span>
-                    <span className="text-xs text-slate-300 font-semibold">• {currentCourse.hours}h Carga Horária</span>
-                  </div>
-                  <h2 className="text-base sm:text-xl font-black text-white tracking-tight leading-snug">
-                    {currentCourse.title}
-                  </h2>
-                </div>
-              </div>
-            </div>
-
             {/* Video Player Card */}
             <div className="bg-slate-900 rounded-2xl overflow-hidden shadow-xl border border-slate-800">
               
@@ -610,15 +450,15 @@ ${tccConsideracoes || '(Não informado)'}
                 </button>
 
                 <button
-                  onClick={() => setActiveBottomTab('tcc')}
+                  onClick={() => setActiveBottomTab('duvidas')}
                   className={`pb-2 border-b-2 transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
-                    activeBottomTab === 'tcc'
+                    activeBottomTab === 'duvidas'
                       ? 'border-[#243042] text-[#243042]'
                       : 'border-transparent text-slate-500 hover:text-slate-800'
                   }`}
                 >
-                  <GraduationCap className="w-4 h-4 text-[#243042]" />
-                  <span>Trabalho de Conclusão de Curso</span>
+                  <MessageSquare className="w-4 h-4" />
+                  <span>Dúvidas com Tutor</span>
                 </button>
               </div>
 
@@ -782,124 +622,35 @@ ${tccConsideracoes || '(Não informado)'}
                 </div>
               )}
 
-              {/* Tab 4: Trabalho de Conclusão de Curso (TCC) */}
-              {activeBottomTab === 'tcc' && (
-                <div className="pt-5 space-y-5">
-                  {/* Header & Actions */}
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
-                    <div>
-                      <h4 className="font-bold text-slate-900 text-sm flex items-center gap-2">
-                        <GraduationCap className="w-4 h-4 text-[#243042]" />
-                        <span>Trabalho de Conclusão de Curso (TCC)</span>
-                      </h4>
-                      <p className="text-xs text-slate-500 mt-0.5">
-                        Preencha o título, resumo, desenvolvimento e considerações finais do seu trabalho acadêmico.
-                      </p>
-                    </div>
-
-                    {/* Buttons: Salvar TCC & Enviar TCC */}
-                    <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
-                      <button
-                        onClick={handleSaveTcc}
-                        className="flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg bg-[#243042] hover:bg-[#182333] text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs"
-                      >
-                        <Save className="w-3.5 h-3.5 text-[#FFC72C]" />
-                        <span>Salvar TCC</span>
-                      </button>
-
-                      <button
-                        onClick={handleSendTcc}
-                        className="flex-1 sm:flex-none px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs"
-                      >
-                        <Send className="w-3.5 h-3.5" />
-                        <span>Enviar TCC</span>
-                      </button>
-                    </div>
+              {/* Tab 4: Dúvidas com o Tutor */}
+              {activeBottomTab === 'duvidas' && (
+                <div className="pt-5 space-y-4">
+                  <div>
+                    <h4 className="font-bold text-slate-900 text-sm">
+                      Canal Direto com a Tutoria Pedagógica
+                    </h4>
+                    <p className="text-xs text-slate-500">
+                      Envie sua pergunta técnica ou acadêmica sobre o curso "{currentCourse.title}".
+                    </p>
                   </div>
 
-                  {/* Feedback Alerts */}
-                  {tccSavedAlert && (
-                    <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 font-semibold flex items-center gap-2 animate-in fade-in">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Rascunho do TCC salvo com sucesso!</span>
-                    </div>
-                  )}
-
-                  {tccSentAlert && (
-                    <div className="p-3.5 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-900 leading-relaxed space-y-1 animate-in fade-in">
-                      <div className="font-bold flex items-center gap-1.5 text-blue-950">
-                        <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
-                        <span>Seu cliente de e-mail foi aberto com os dados do TCC formatados!</span>
-                      </div>
-                      <p className="text-[11px] text-blue-800">
-                        Destinatário: <strong>esdhubem@proton.me</strong>. Por favor, confirme o envio através da sua caixa de e-mail.
-                      </p>
-                    </div>
-                  )}
-
-                  {/* Fields Container */}
-                  <div className="space-y-4">
-                    {/* Título do TCC */}
-                    <div>
-                      <label className="block text-xs font-bold text-slate-800 mb-1.5">
-                        Título do TCC
-                      </label>
-                      <input
-                        type="text"
-                        value={tccTitle}
-                        onChange={(e) => setTccTitle(e.target.value)}
-                        placeholder="Digite o título do seu Trabalho de Conclusão de Curso..."
-                        className="w-full p-3.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#243042] text-slate-800 font-semibold shadow-xs"
-                      />
-                    </div>
-
-                    {/* Resumo */}
-                    <div>
-                      <label className="block text-xs font-bold text-slate-800 mb-1.5">
-                        Resumo
-                      </label>
-                      <textarea
-                        value={tccResumo}
-                        onChange={(e) => setTccResumo(e.target.value)}
-                        rows={3}
-                        placeholder="Escreva uma síntese do trabalho (objetivos, metodologia e resultados principais)..."
-                        className="w-full p-3.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#243042] text-slate-800 leading-relaxed shadow-xs"
-                      />
-                    </div>
-
-                    {/* Desenvolvimento */}
-                    <div>
-                      <label className="block text-xs font-bold text-slate-800 mb-1.5">
-                        Desenvolvimento
-                      </label>
-                      <textarea
-                        value={tccDesenvolvimento}
-                        onChange={(e) => setTccDesenvolvimento(e.target.value)}
-                        rows={6}
-                        placeholder="Escreva o desenvolvimento, a fundamentação teórica e as análises do seu trabalho..."
-                        className="w-full p-3.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#243042] text-slate-800 leading-relaxed shadow-xs"
-                      />
-                    </div>
-
-                    {/* Considerações Finais */}
-                    <div>
-                      <label className="block text-xs font-bold text-slate-800 mb-1.5">
-                        Considerações Finais
-                      </label>
-                      <textarea
-                        value={tccConsideracoes}
-                        onChange={(e) => setTccConsideracoes(e.target.value)}
-                        rows={4}
-                        placeholder="Escreva as considerações finais e conclusões alcançadas..."
-                        className="w-full p-3.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#243042] text-slate-800 leading-relaxed shadow-xs"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Footer info note */}
-                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-[11px] text-slate-500 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1">
-                    <span>O TCC será enviado diretamente à banca avaliadora: <strong>esdhubem@proton.me</strong></span>
-                    <span className="font-semibold text-slate-400">ESDHUBEM • Tutoria Pedagógica</span>
+                  <div className="space-y-3">
+                    <input
+                      type="text"
+                      placeholder="Título da sua dúvida..."
+                      className="w-full p-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#243042]"
+                    />
+                    <textarea
+                      rows={3}
+                      placeholder="Descreva sua dúvida com detalhes..."
+                      className="w-full p-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#243042]"
+                    />
+                    <button
+                      onClick={() => alert('Dúvida enviada ao tutor pedagógico! Você receberá a resposta em seu e-mail cadastrado.')}
+                      className="px-5 py-2.5 rounded-xl bg-[#243042] text-white text-xs font-bold hover:bg-[#182333] transition-colors cursor-pointer"
+                    >
+                      Enviar Dúvida ao Professor
+                    </button>
                   </div>
                 </div>
               )}
@@ -915,7 +666,7 @@ ${tccConsideracoes || '(Não informado)'}
               <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-3">
                 <div>
                   <h3 className="text-sm font-bold text-slate-900">
-                    Progresso do Curso
+                    Grade de Aulas & Módulos
                   </h3>
                   <p className="text-xs text-slate-500">
                     {currentCompletedList.length} de {totalLessons} concluídas ({progressPercent}%)
@@ -933,14 +684,6 @@ ${tccConsideracoes || '(Não informado)'}
                   className="bg-[#243042] h-full rounded-full transition-all duration-300"
                   style={{ width: `${progressPercent}%` }}
                 />
-              </div>
-
-              {/* Conteúdo Programático Subheader */}
-              <div className="mb-2.5 flex items-center justify-between border-b border-slate-100 pb-1.5">
-                <h4 className="text-[11px] font-black uppercase tracking-wider text-slate-700">
-                  Conteúdo Programático
-                </h4>
-                <span className="text-[10px] text-slate-400 font-semibold">{totalLessons} Aulas</span>
               </div>
 
               {/* Lesson Items List */}
@@ -1008,169 +751,31 @@ ${tccConsideracoes || '(Não informado)'}
                 })}
               </div>
 
-            </div>
-
-            {/* Quadro Informativo: Serviços Gratuitos & Conveniência Opcional */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-6">
-              
-              {/* Seção 1: Serviços 100% Gratuitos */}
-              <div className="space-y-4">
-                <div className="flex items-center justify-between border-b border-emerald-100 pb-3">
-                  <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-black">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-extrabold text-slate-900 leading-tight">
-                        Serviços 100% Gratuitos
-                      </h4>
-                      <p className="text-[11px] text-emerald-700 font-medium">
-                        Sem custo de matrícula ou mensalidade
-                      </p>
-                    </div>
-                  </div>
-                  <span className="bg-emerald-100 text-emerald-800 font-extrabold text-xs px-2.5 py-1 rounded-full border border-emerald-200">
-                    R$ 0,00
-                  </span>
+              {/* Bottom Quick Help */}
+              <div className="mt-5 pt-4 border-t border-slate-100 text-xs text-slate-500 space-y-2">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Carga horária averbada ao completar 100% das aulas.</span>
                 </div>
-
-                <div className="space-y-3 text-xs text-slate-700">
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-slate-900 font-bold block">Acesso Total ao Conteúdo Didático:</strong>
-                      <span className="text-slate-500 text-[11px] leading-relaxed block">
-                        Videoaulas, e-books em PDF, leituras recomendadas e questionários de fixação de todas as etapas.
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-slate-900 font-bold block">Inscrição e Matrícula Imediata:</strong>
-                      <span className="text-slate-500 text-[11px] leading-relaxed block">
-                        Cadastro em qualquer curso livre da plataforma sem taxas de adesão ou requisitos de aprovação de crédito.
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-slate-900 font-bold block">Painel do Aluno & Acompanhamento de Progresso:</strong>
-                      <span className="text-slate-500 text-[11px] leading-relaxed block">
-                        Visualização dinâmica da porcentagem de aulas concluídas e relatórios internos de desempenho.
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-slate-900 font-bold block">Suporte Técnico Básico:</strong>
-                      <span className="text-slate-500 text-[11px] leading-relaxed block">
-                        Atendimento para problemas de login, recuperação de senhas, erros de reprodução de vídeo ou navegação no site.
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Seção 2: Serviços Opcionais de Conveniência */}
-              <div className="pt-4 border-t border-slate-200 space-y-4">
-                <div className="flex items-center justify-between border-b border-amber-100 pb-3">
-                  <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-black">
-                      <Award className="w-4 h-4 text-amber-600" />
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-extrabold text-slate-900 leading-tight">
-                        Serviços Opcionais de Conveniência
-                      </h4>
-                      <p className="text-[11px] text-slate-500 font-medium">
-                        Solicitados conforme necessidade do aluno
-                      </p>
-                    </div>
-                  </div>
-                  <span className="bg-amber-100 text-amber-900 font-extrabold text-[10px] uppercase px-2.5 py-1 rounded-full border border-amber-200 tracking-wider">
-                    CONVENIÊNCIA
-                  </span>
-                </div>
-
-                <div className="space-y-2.5 text-xs text-slate-700">
-                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                    <div>
-                      <strong className="text-slate-900 font-bold block text-xs">Emissão de Certificado Oficial Digital (PDF + QR Code)</strong>
-                      <span className="text-slate-500 text-[11px] block">Com registro alfanumérico, código Hash antifraude e ementa no verso.</span>
-                    </div>
-                    <span className="bg-amber-100/80 text-amber-900 font-bold text-[11px] px-2.5 py-1 rounded-lg border border-amber-200 shrink-0">
-                      R$ 29,90 - R$ 49,90
-                    </span>
-                  </div>
-
-                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                    <div>
-                      <strong className="text-slate-900 font-bold block text-xs">Declaração de Matrícula / Vínculo Acadêmico</strong>
-                      <span className="text-slate-500 text-[11px] block">Comprovação imediata de matrícula ativa para faculdade ou empresa.</span>
-                    </div>
-                    <span className="bg-amber-100/80 text-amber-900 font-bold text-[11px] px-2.5 py-1 rounded-lg border border-amber-200 shrink-0">
-                      R$ 24,90
-                    </span>
-                  </div>
-
-                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                    <div>
-                      <strong className="text-slate-900 font-bold block text-xs">Histórico Escolar & Ementa Detalhada Assinada</strong>
-                      <span className="text-slate-500 text-[11px] block">Discriminação completa de matérias, horas e conceitos para averbação.</span>
-                    </div>
-                    <span className="bg-amber-100/80 text-amber-900 font-bold text-[11px] px-2.5 py-1 rounded-lg border border-amber-200 shrink-0">
-                      R$ 24,90
-                    </span>
-                  </div>
-
-                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                    <div>
-                      <strong className="text-slate-900 font-bold block text-xs">Envio Postal de Documento Impresso (Via Correios)</strong>
-                      <span className="text-slate-500 text-[11px] block">Entrega do certificado físico em papel especial selado no seu endereço.</span>
-                    </div>
-                    <span className="bg-amber-100/80 text-amber-900 font-bold text-[11px] px-2.5 py-1 rounded-lg border border-amber-200 shrink-0">
-                      R$ 39,90 - R$ 59,90
-                    </span>
-                  </div>
-
-                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                    <div>
-                      <strong className="text-slate-900 font-bold block text-xs">Segunda Via de Certificado ou Declaração</strong>
-                      <span className="text-slate-500 text-[11px] block">Reemissão de documentos solicitados anteriormente com atualização.</span>
-                    </div>
-                    <span className="bg-amber-100/80 text-amber-900 font-bold text-[11px] px-2.5 py-1 rounded-lg border border-amber-200 shrink-0">
-                      R$ 19,90
-                    </span>
-                  </div>
-
-                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                    <div>
-                      <strong className="text-slate-900 font-bold block text-xs">Tutoria Pedagógica / Suporte Prioritário</strong>
-                      <span className="text-slate-500 text-[11px] block">Acesso direto ao professor para correção de trabalhos e esclarecimento de dúvidas.</span>
-                    </div>
-                    <span className="bg-amber-100/80 text-amber-900 font-bold text-[11px] px-2.5 py-1 rounded-lg border border-amber-200 shrink-0">
-                      R$ 49,90
-                    </span>
-                  </div>
-                </div>
+                <button
+                  onClick={onOpenValidator}
+                  className="text-xs font-bold text-[#243042] hover:underline flex items-center gap-1 cursor-pointer pt-1"
+                >
+                  <span>Validar código de certificado</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
               </div>
 
             </div>
 
-            {/* Support box (Posicionado abaixo dos quadros de serviços) */}
+            {/* Support box */}
             <div className="bg-[#182333] text-white rounded-2xl p-5 border border-slate-700 shadow-sm space-y-3">
               <div className="flex items-center gap-2 text-[#FFC72C] text-xs font-bold uppercase tracking-wider">
                 <Sparkles className="w-4 h-4" />
                 <span>Suporte ao Aluno</span>
               </div>
               <p className="text-xs text-slate-300 leading-relaxed">
-                Precisa de ajuda com prazos de entrega, solicitar declaração de matrícula ou certificados?
+                Precisa de ajuda com prazos de entrega, declaração de matrícula ou emissão em papel moeda?
               </p>
               <a
                 href="https://wa.me/5511960319637"
@@ -1242,7 +847,7 @@ ${tccConsideracoes || '(Não informado)'}
                 <strong>{currentCourse.hours} horas</strong> de estudos orientados.
               </p>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-[#243042] max-w-lg mx-auto pt-3 border-t border-slate-200">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-slate-600 max-w-lg mx-auto pt-3 border-t border-slate-200">
                 <div>
                   <span className="block text-slate-400 font-medium text-[10px] uppercase">Carga Horária</span>
                   <span className="font-bold text-slate-800">{currentCourse.hours} Horas</span>
@@ -1288,128 +893,6 @@ ${tccConsideracoes || '(Não informado)'}
               </div>
             </div>
 
-          </div>
-        </div>
-      )}
-
-      {/* Catalog Modal: Matricular-se em Novos Cursos */}
-      {showCatalogModal && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xs animate-in fade-in"
-          onClick={() => setShowCatalogModal(false)}
-        >
-          <div
-            className="bg-[#182333] border-2 border-slate-700 text-white rounded-3xl max-w-4xl w-full p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-slate-700 pb-4">
-              <div>
-                <h3 className="font-extrabold text-lg sm:text-xl text-white flex items-center gap-2">
-                  <BookOpen className="w-5 h-5 text-[#FFC72C]" />
-                  <span>Catálogo Oficial de Treinamentos ESDHUBEM</span>
-                </h3>
-                <p className="text-xs text-slate-400 mt-0.5">
-                  Selecione e matricule-se gratuitamente nos cursos de capacitação e extensão.
-                </p>
-              </div>
-              <button
-                onClick={() => setShowCatalogModal(false)}
-                className="text-slate-400 hover:text-white text-xl font-bold p-1 cursor-pointer"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Grid of Courses */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {COURSES_DATA.map((course) => {
-                const isEnrolled = enrolledCourseIds.includes(course.id);
-                return (
-                  <div
-                    key={course.id}
-                    className="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden flex flex-col justify-between p-4 shadow-md"
-                  >
-                    <div className="space-y-3">
-                      <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-950">
-                        <img
-                          src={course.image}
-                          alt={course.title}
-                          className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
-                        />
-                        <span className="absolute top-2 left-2 text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-[#FFC72C] text-slate-950">
-                          {course.pillar === 'freepremium'
-                            ? 'Freepremium'
-                            : course.pillar === 'horas-complementares'
-                            ? 'Horas Compl.'
-                            : 'Formação Livre'}
-                        </span>
-                        <span className="absolute bottom-2 right-2 text-xs font-bold bg-slate-900/80 backdrop-blur-xs text-white px-2 py-0.5 rounded">
-                          {course.hours}h
-                        </span>
-                      </div>
-
-                      <div>
-                        <span className="text-[10px] text-[#FFC72C] font-semibold uppercase tracking-wider">
-                          {course.category}
-                        </span>
-                        <h4 className="font-bold text-base text-white line-clamp-1 mt-0.5">
-                          {course.title}
-                        </h4>
-                        <p className="text-xs text-slate-400 line-clamp-2 mt-1 leading-relaxed">
-                          {course.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="pt-4 mt-3 border-t border-slate-800 flex items-center justify-between gap-2">
-                      {isEnrolled ? (
-                        <>
-                          <span className="text-xs font-bold text-emerald-400 flex items-center gap-1">
-                            <CheckCircle2 className="w-4 h-4" /> Matriculado
-                          </span>
-                          <div className="flex gap-2">
-                            {enrolledCourseIds.length > 1 && (
-                              <button
-                                onClick={() => handleUnenroll(course.id)}
-                                className="px-2.5 py-1.5 rounded-xl border border-rose-500/40 hover:bg-rose-500/20 text-rose-300 text-xs font-semibold transition cursor-pointer"
-                                title="Cancelar inscrição"
-                              >
-                                Sair
-                              </button>
-                            )}
-                            <button
-                              onClick={() => {
-                                setSelectedCourseId(course.id);
-                                setActiveLessonIndex(0);
-                                setShowCatalogModal(false);
-                              }}
-                              className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-xs cursor-pointer"
-                            >
-                              Estudar Agora
-                            </button>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <span className="text-xs text-slate-400 font-medium">Inscrição Gratuita</span>
-                          <button
-                            onClick={() => {
-                              handleEnroll(course.id);
-                              setShowCatalogModal(false);
-                            }}
-                            className="px-4 py-2 rounded-xl bg-[#FFC72C] hover:bg-amber-400 text-slate-950 text-xs font-bold transition shadow-sm cursor-pointer flex items-center gap-1.5"
-                          >
-                            <Sparkles className="w-3.5 h-3.5" />
-                            <span>Matricular-se Grátis</span>
-                          </button>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
           </div>
         </div>
       )}
