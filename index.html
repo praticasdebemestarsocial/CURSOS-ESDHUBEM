@@ -1,50 +1,27 @@
 <!doctype html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Comunicação Assertiva com a Liderança</title>
-    <meta name="description" content="Plataforma PWA para capacitação executiva em alinhamento, negociação e feedback sem risco com gestores." />
-    
-    <!-- PWA & Mobile Capabilities -->
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#070d18" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Assertividade" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-    <link rel="alternate icon" type="image/png" href="/pwa-192x192.png" />
-
-    <!-- Open Graph / Social -->
-    <meta property="og:title" content="Comunicação Assertiva com a Liderança" />
-    <meta property="og:description" content="Como Alinhar, Negociar e Dar Feedback Sem Risco. Curso interativo com 13 aulas, estudos de caso e ferramentas práticas." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ESDHUBEM - Escola de Desenvolvimento Humano e Bem-estar</title>
+    <meta name="description" content="Cursos que você precisa para aprender Desenvolvimento Pessoal, Humano, Profissional, Ético e Relacional." />
+    <meta property="og:title" content="ESDHUBEM - Escola de Desenvolvimento Humano e Bem-estar" />
+    <meta property="og:description" content="Cursos que você precisa para aprender Desenvolvimento Pessoal, Humano, Profissional, Ético e Relacional." />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://praticasdebemestarsocial.github.io/esdhubem/logo-cursos.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:type" content="image/png" />
     <meta name="twitter:card" content="summary_large_image" />
-
-    <!-- Fonts: Inter (Legibilidade Superior para telas) & Plus Jakarta Sans / JetBrains Mono -->
+    <meta name="twitter:image" content="https://praticasdebemestarsocial.github.io/esdhubem/logo-cursos.png" />
+    <link rel="icon" type="image/png" href="/esdhubem/logo-cursos.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-[#070d18] text-slate-100 antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
+  <body class="bg-[#F8FAFC] text-slate-800 antialiased selection:bg-[#FFC72C]/30 selection:text-slate-900">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script>
-      // Register PWA Service Worker if supported
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then((registration) => {
-              console.log('[PWA] Service Worker registrado com sucesso:', registration.scope);
-            })
-            .catch((err) => {
-              console.warn('[PWA] Falha ao registrar Service Worker:', err);
-            });
-        });
-      }
-    </script>
   </body>
 </html>
 
