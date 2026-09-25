@@ -163,7 +163,7 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Bottom Bar: Navigation Links (Desktop/Laptop) */}
       <div className="hidden lg:block bg-[#182333]">
         <div className="max-w-[1600px] mx-auto px-3 sm:px-4 lg:px-6 overflow-x-auto scrollbar-none">
-          <nav className="flex items-center justify-center gap-3 lg:gap-4 xl:gap-5 h-11 text-xs xl:text-sm font-medium whitespace-nowrap">
+          <nav className="flex items-center justify-center gap-4 lg:gap-6 xl:gap-8 h-11 text-xs xl:text-sm font-medium whitespace-nowrap">
             <button
               onClick={() => onNavigate('inicio')}
               className={`transition-all py-1 cursor-pointer ${
@@ -185,27 +185,6 @@ export const Header: React.FC<HeaderProps> = ({
               <span>Categorias</span>
               <span className="bg-white/10 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">18</span>
             </button>
-
-            <button
-              onClick={() => onNavigate('politicas')}
-              className={`transition-all py-1 cursor-pointer ${
-                currentPage === 'politicas'
-                  ? 'text-[#FFC72C] font-bold border-b-2 border-[#FFC72C]'
-                  : 'text-white/80 hover:text-white hover:border-b-2 hover:border-white/30'
-              }`}
-            >
-              Políticas
-            </button>
-            <button
-              onClick={() => onNavigate('diretrizes-pedagogicas')}
-              className={`transition-all py-1 cursor-pointer ${
-                currentPage === 'diretrizes-pedagogicas'
-                  ? 'text-[#FFC72C] font-bold border-b-2 border-[#FFC72C]'
-                  : 'text-amber-300/90 hover:text-[#FFC72C] hover:border-b-2 hover:border-[#FFC72C]/50'
-              }`}
-            >
-              Diretrizes e Esclarecimento Pedagógico
-            </button>
             <button
               onClick={() => onNavigate('categoria:landing-pages-biolinks')}
               className={`transition-all py-1 cursor-pointer ${
@@ -215,16 +194,6 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               Sites & Biolinks
-            </button>
-            <button
-              onClick={() => onNavigate('artigos')}
-              className={`transition-all py-1 cursor-pointer ${
-                currentPage === 'artigos' || currentPage === 'artigo-detalhe'
-                  ? 'text-[#FFC72C] font-bold border-b-2 border-[#FFC72C]'
-                  : 'text-white/80 hover:text-white hover:border-b-2 hover:border-white/30'
-              }`}
-            >
-              Artigos Científicos
             </button>
             <button
               onClick={() => onNavigate('aplicativos')}
@@ -237,14 +206,14 @@ export const Header: React.FC<HeaderProps> = ({
               Apps & Dashboards
             </button>
             <button
-              onClick={() => onNavigate('blog')}
+              onClick={() => onNavigate('livraria')}
               className={`transition-all py-1 cursor-pointer ${
-                currentPage === 'blog' || currentPage === 'blog-post'
+                currentPage === 'livraria'
                   ? 'text-[#FFC72C] font-bold border-b-2 border-[#FFC72C]'
                   : 'text-white/80 hover:text-white hover:border-b-2 hover:border-white/30'
               }`}
             >
-              Blog
+              Livros
             </button>
             <button
               onClick={onOpenAbout}
@@ -256,32 +225,84 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* Second Menu Bar: Action Buttons Row (Right where the arrow points!) */}
-      <div className="hidden lg:block bg-[#111927] border-t border-b border-slate-700/60 py-1.5 shadow-inner">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-end gap-3">
-          <button
-            onClick={onOpenValidator}
-            className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs px-3.5 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer shrink-0 border border-white/10"
-          >
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Validar Certificado</span>
-          </button>
+      {/* Second Menu Bar: Sub-Menu Buttons (Políticas, Diretrizes, Artigos, Blog, Certificação) */}
+      <div className="hidden lg:block bg-[#111927] border-t border-b border-slate-700/60 py-2 shadow-inner">
+        <div className="max-w-[1600px] mx-auto px-4 flex items-center justify-between gap-3 overflow-x-auto scrollbar-none text-xs font-medium">
+          
+          {/* Left Button Group: Políticas, Diretrizes, Artigos Científicos, Blog */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => onNavigate('politicas')}
+              className={`px-3 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer border font-semibold ${
+                currentPage === 'politicas'
+                  ? 'bg-slate-200 text-slate-900 border-white font-bold'
+                  : 'bg-white/5 hover:bg-white/10 text-slate-200 border-white/10'
+              }`}
+            >
+              <span>Políticas</span>
+            </button>
 
-          <button
-            onClick={() => onNavigate('informacoes-legais')}
-            className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs px-3.5 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer shrink-0 border border-white/10"
-          >
-            <Scale className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Valor Legal dos Certificados</span>
-          </button>
+            <button
+              onClick={() => onNavigate('diretrizes-pedagogicas')}
+              className={`px-3 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer border font-semibold ${
+                currentPage === 'diretrizes-pedagogicas'
+                  ? 'bg-[#FFC72C] text-slate-950 border-[#FFC72C] font-bold shadow-sm'
+                  : 'bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border-amber-500/40'
+              }`}
+            >
+              <span>Diretrizes e Esclarecimento Pedagógico</span>
+            </button>
 
-          <button
-            onClick={() => onNavigate('regras-certificacao-merito')}
-            className="bg-[#FFC72C]/15 hover:bg-[#FFC72C]/25 text-[#FFC72C] border border-[#FFC72C]/40 font-bold text-xs px-3.5 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer shrink-0 shadow-xs hover:border-[#FFC72C]"
-          >
-            <Award className="w-3.5 h-3.5 text-[#FFC72C]" />
-            <span>Certificação & Escala de Mérito</span>
-          </button>
+            <button
+              onClick={() => onNavigate('artigos')}
+              className={`px-3 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer border font-semibold ${
+                currentPage === 'artigos' || currentPage === 'artigo-detalhe'
+                  ? 'bg-cyan-500 text-slate-950 border-cyan-400 font-bold'
+                  : 'bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border-cyan-500/40'
+              }`}
+            >
+              <span>Artigos Científicos</span>
+            </button>
+
+            <button
+              onClick={() => onNavigate('blog')}
+              className={`px-3 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer border font-semibold ${
+                currentPage === 'blog' || currentPage === 'blog-post'
+                  ? 'bg-amber-400 text-slate-950 border-amber-400 font-bold'
+                  : 'bg-white/5 hover:bg-white/10 text-slate-200 border-white/10'
+              }`}
+            >
+              <span>Blog</span>
+            </button>
+          </div>
+
+          {/* Right Button Group: Validar Certificado, Valor Legal, Escala de Mérito */}
+          <div className="flex items-center gap-2.5 shrink-0">
+            <button
+              onClick={onOpenValidator}
+              className="bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/40 font-bold text-xs px-3.5 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
+            >
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Validar Certificado</span>
+            </button>
+
+            <button
+              onClick={() => onNavigate('informacoes-legais')}
+              className="bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/40 font-bold text-xs px-3.5 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
+            >
+              <Scale className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Valor Legal dos Certificados</span>
+            </button>
+
+            <button
+              onClick={() => onNavigate('regras-certificacao-merito')}
+              className="bg-[#FFC72C]/15 hover:bg-[#FFC72C]/25 text-[#FFC72C] border border-[#FFC72C]/40 font-bold text-xs px-3.5 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer shrink-0 shadow-xs hover:border-[#FFC72C]"
+            >
+              <Award className="w-3.5 h-3.5 text-[#FFC72C]" />
+              <span>Certificação & Escala de Mérito</span>
+            </button>
+          </div>
+
         </div>
       </div>
 
@@ -306,30 +327,38 @@ export const Header: React.FC<HeaderProps> = ({
       {mobileMenuOpen && (
         <div className="lg:hidden bg-[#1E293B] border-t border-slate-700 px-4 py-4 space-y-3 shadow-2xl text-white">
           <button onClick={() => { onNavigate('inicio'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">Início</button>
-          <button onClick={() => { onNavigate('diretrizes-pedagogicas'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-bold text-amber-300 hover:bg-white/10">Diretrizes e Esclarecimento Pedagógico</button>
-          <button onClick={() => { onNavigate('blog'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">Blog</button>
           <button onClick={() => { onNavigate('categorias'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10 flex justify-between">
             <span>Categorias</span>
             <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded-full">18</span>
           </button>
-          <button onClick={() => { onNavigate('categoria:treinamentos-palestras-corporativas'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">Presencial nas Empresas</button>
-          <button onClick={() => { onNavigate('sala-de-aula'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10 flex justify-between text-[#FFC72C]">
-            <span>Sala de Aula</span>
-            <span className="text-[10px] bg-[#FFC72C] text-slate-950 font-black px-2 py-0.5 rounded-full">ALUNO</span>
-          </button>
-          <button onClick={() => { onNavigate('regras-certificacao-merito'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-bold hover:bg-white/10 text-[#FFC72C] flex items-center gap-2">
-            <Award className="w-4 h-4 text-[#FFC72C]" />
-            <span>Certificação & Escala de Mérito</span>
-          </button>
-          <button onClick={() => { onNavigate('politicas'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">Políticas</button>
           <button onClick={() => { onNavigate('categoria:landing-pages-biolinks'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10 text-emerald-400">Sites & Biolinks</button>
-          <button onClick={() => { onNavigate('artigos'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10 text-cyan-400">Artigos Científicos (Zenodo / DOI)</button>
           <button onClick={() => { onNavigate('aplicativos'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10 text-[#FFC72C]">Apps & Dashboards (MEI e ME)</button>
-          
-          <button onClick={() => { onOpenValidator(); setMobileMenuOpen(false); }} className="w-full text-center px-4 py-2.5 rounded-lg text-sm font-bold bg-white/10 hover:bg-white/20 text-white flex items-center justify-center gap-2 mt-4">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-            <span>Validar Certificado</span>
-          </button>
+          <button onClick={() => { onNavigate('livraria'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10 text-amber-300">Livros</button>
+          <button onClick={() => { onOpenAbout(); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">Sobre Nós</button>
+
+          <div className="pt-2 border-t border-slate-700 space-y-2">
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block px-3">Recursos & Diretrizes</span>
+            <button onClick={() => { onNavigate('diretrizes-pedagogicas'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-bold text-amber-300 hover:bg-white/10">Diretrizes e Esclarecimento Pedagógico</button>
+            <button onClick={() => { onNavigate('politicas'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">Políticas</button>
+            <button onClick={() => { onNavigate('artigos'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10 text-cyan-400">Artigos Científicos (Zenodo / DOI)</button>
+            <button onClick={() => { onNavigate('blog'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium hover:bg-white/10">Blog</button>
+          </div>
+
+          <div className="pt-2 border-t border-slate-700 space-y-2">
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block px-3">Validação & Certificados</span>
+            <button onClick={() => { onOpenValidator(); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-bold text-emerald-400 hover:bg-white/10 flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <span>Validar Certificado</span>
+            </button>
+            <button onClick={() => { onNavigate('informacoes-legais'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-bold text-cyan-400 hover:bg-white/10 flex items-center gap-2">
+              <Scale className="w-4 h-4 text-cyan-400" />
+              <span>Valor Legal dos Certificados</span>
+            </button>
+            <button onClick={() => { onNavigate('regras-certificacao-merito'); setMobileMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-lg text-sm font-bold text-[#FFC72C] hover:bg-white/10 flex items-center gap-2">
+              <Award className="w-4 h-4 text-[#FFC72C]" />
+              <span>Certificação & Escala de Mérito</span>
+            </button>
+          </div>
         </div>
       )}
     </header>
