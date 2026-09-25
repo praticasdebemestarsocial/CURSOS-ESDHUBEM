@@ -12,7 +12,8 @@ import {
   Bell,
   User,
   Info,
-  Award
+  Award,
+  Scale
 } from 'lucide-react';
 import esdhubemLogo from '../assets/esdhubem-logo.png';
 
@@ -174,16 +175,6 @@ export const Header: React.FC<HeaderProps> = ({
               Início
             </button>
             <button
-              onClick={() => onNavigate('blog')}
-              className={`transition-all py-1 cursor-pointer ${
-                currentPage === 'blog' || currentPage === 'blog-post'
-                  ? 'text-[#FFC72C] font-bold border-b-2 border-[#FFC72C]'
-                  : 'text-white/80 hover:text-white hover:border-b-2 hover:border-white/30'
-              }`}
-            >
-              Blog
-            </button>
-            <button
               onClick={() => onNavigate('categorias')}
               className={`transition-all py-1 cursor-pointer flex items-center gap-1.5 ${
                 currentPage === 'categorias'
@@ -235,6 +226,22 @@ export const Header: React.FC<HeaderProps> = ({
             >
               Apps & Dashboards
             </button>
+            <button
+              onClick={() => onNavigate('blog')}
+              className={`transition-all py-1 cursor-pointer ${
+                currentPage === 'blog' || currentPage === 'blog-post'
+                  ? 'text-[#FFC72C] font-bold border-b-2 border-[#FFC72C]'
+                  : 'text-white/80 hover:text-white hover:border-b-2 hover:border-white/30'
+              }`}
+            >
+              Blog
+            </button>
+            <button
+              onClick={onOpenAbout}
+              className="text-white/80 hover:text-white hover:border-b-2 hover:border-white/30 transition-all py-1 cursor-pointer"
+            >
+              Sobre Nós
+            </button>
             
             <div className="w-px h-6 bg-white/10 mx-1.5 shrink-0"></div>
 
@@ -244,6 +251,14 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
               Validar Certificado
+            </button>
+
+            <button
+              onClick={() => onNavigate('informacoes-legais')}
+              className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs px-3 py-1.5 rounded-md transition-all flex items-center gap-1.5 cursor-pointer shrink-0"
+            >
+              <Scale className="w-3.5 h-3.5 text-cyan-400" />
+              Valor Legal dos Certificados
             </button>
 
             <button
