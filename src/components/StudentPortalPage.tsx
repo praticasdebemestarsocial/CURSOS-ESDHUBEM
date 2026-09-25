@@ -24,7 +24,9 @@ import {
   ChevronRight,
   GraduationCap,
   Calendar,
-  QrCode
+  QrCode,
+  PlusCircle,
+  X
 } from 'lucide-react';
 
 interface StudentPortalPageProps {
@@ -38,23 +40,43 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
   onOpenValidator,
   initialCourseId = 'hc-1'
 }) => {
-  // Enrolled courses (prioritizing Comunicação Assertiva and popular courses)
-  const assertivaCourse = COURSES_DATA.find((c) => c.id === 'fp-assertiva');
-  const enrolledCourses = [
-    assertivaCourse || COURSES_DATA[0],
-    ...COURSES_DATA.filter((c) => c.id !== 'fp-assertiva').slice(0, 2)
-  ];
-  const [selectedCourseId, setSelectedCourseId] = useState(initialCourseId || 'fp-assertiva');
+  // Enrolled courses managed dynamically via localStorage
+  const [enrolledCourseIds, setEnrolledCourseIds] = useState<string[]>(() => {
+    try {
+      const saved = localStorage.getItem('esdhubem_enrolled_courses');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch (e) {
+      // fallback
+    }
+    return ['fp-assertiva']; // Default initial single enrollment
+  });
+
+  const enrolledCourses = COURSES_DATA.filter((c) => enrolledCourseIds.includes(c.id));
+
+  // Modal Catalog state
+  const [showCatalogModal, setShowCatalogModal] = useState(false);
+
+  // Selected course ID state
+  const [selectedCourseId, setSelectedCourseId] = useState<string>(() => {
+    if (initialCourseId && COURSES_DATA.some(c => c.id === initialCourseId)) {
+      return initialCourseId;
+    }
+    return enrolledCourses[0]?.id || 'fp-assertiva';
+  });
 
   useEffect(() => {
-    if (initialCourseId) {
+    if (initialCourseId && COURSES_DATA.some(c => c.id === initialCourseId)) {
       setSelectedCourseId(initialCourseId);
       setActiveLessonIndex(0);
     }
   }, [initialCourseId]);
 
+  // Fallback active course object
   const currentCourse =
-    COURSES_DATA.find((c) => c.id === selectedCourseId) || enrolledCourses[0];
+    COURSES_DATA.find((c) => c.id === selectedCourseId) || enrolledCourses[0] || COURSES_DATA[0];
 
   // Active module & lesson index
   const [activeLessonIndex, setActiveLessonIndex] = useState(0);
@@ -104,6 +126,41 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
   const handleSaveNotes = () => {
     setNotesSavedAlert(true);
     setTimeout(() => setNotesSavedAlert(false), 3000);
+  };
+
+  const handleEnroll = (courseId: string) => {
+    setEnrolledCourseIds((prev) => {
+      if (prev.includes(courseId)) return prev;
+      const next = [...prev, courseId];
+      try {
+        localStorage.setItem('esdhubem_enrolled_courses', JSON.stringify(next));
+      } catch (e) {
+        console.warn(e);
+      }
+      return next;
+    });
+    setSelectedCourseId(courseId);
+    setActiveLessonIndex(0);
+  };
+
+  const handleUnenroll = (courseId: string) => {
+    if (enrolledCourseIds.length <= 1) {
+      alert('Você precisa estar matriculado em pelo menos 1 curso.');
+      return;
+    }
+    setEnrolledCourseIds((prev) => {
+      const next = prev.filter((id) => id !== courseId);
+      try {
+        localStorage.setItem('esdhubem_enrolled_courses', JSON.stringify(next));
+      } catch (e) {
+        console.warn(e);
+      }
+      if (selectedCourseId === courseId) {
+        setSelectedCourseId(next[0]);
+        setActiveLessonIndex(0);
+      }
+      return next;
+    });
   };
 
   return (
@@ -165,7 +222,7 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
               </div>
               <div>
                 <p className="text-xs text-slate-400 uppercase font-semibold">Meus Cursos</p>
-                <p className="text-base font-bold text-white">3 em andamento</p>
+                <p className="text-base font-bold text-white">{enrolledCourses.length} {enrolledCourses.length === 1 ? 'em andamento' : 'em andamento'}</p>
               </div>
             </div>
 
@@ -202,7 +259,7 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
         </div>
       </div>
 
-      {/* Course Selection Tabs */}
+      {/* Course Selection Tabs (Dynamically renders enrolled courses) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <div>
@@ -210,21 +267,22 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
               Selecione o Treinamento em Estudo
             </h2>
             <p className="text-xs sm:text-sm text-slate-500">
-              Alterne entre suas matrículas ativas para retomar as aulas instantaneamente.
+              Alterne entre suas matrículas ativas ({enrolledCourses.length}) para retomar as aulas instantaneamente.
             </p>
           </div>
 
           <button
-            onClick={onBackToHome}
-            className="text-xs font-bold text-[#243042] hover:text-amber-600 flex items-center gap-1.5 transition-colors cursor-pointer"
+            onClick={() => setShowCatalogModal(true)}
+            className="text-xs font-bold text-[#243042] hover:text-amber-600 bg-slate-200/70 hover:bg-slate-200 px-3.5 py-2 rounded-xl border border-slate-300 flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
           >
+            <Sparkles className="w-4 h-4 text-amber-600" />
             <span>+ Matricular-se em outros cursos do catálogo</span>
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>
 
         {/* Tabs for enrolled courses */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+        <div className={`grid gap-3 mb-8 ${enrolledCourses.length === 1 ? 'grid-cols-1 max-w-md' : enrolledCourses.length === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-3'}`}>
           {enrolledCourses.map((c) => {
             const isSelected = c.id === currentCourse.id;
             const cCompleted = (completedLessons[c.id] || []).length;
@@ -908,6 +966,128 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
               </div>
             </div>
 
+          </div>
+        </div>
+      )}
+
+      {/* Catalog Modal: Matricular-se em Novos Cursos */}
+      {showCatalogModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xs animate-in fade-in"
+          onClick={() => setShowCatalogModal(false)}
+        >
+          <div
+            className="bg-[#182333] border-2 border-slate-700 text-white rounded-3xl max-w-4xl w-full p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-slate-700 pb-4">
+              <div>
+                <h3 className="font-extrabold text-lg sm:text-xl text-white flex items-center gap-2">
+                  <BookOpen className="w-5 h-5 text-[#FFC72C]" />
+                  <span>Catálogo Oficial de Treinamentos ESDHUBEM</span>
+                </h3>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Selecione e matricule-se gratuitamente nos cursos de capacitação e extensão.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowCatalogModal(false)}
+                className="text-slate-400 hover:text-white text-xl font-bold p-1 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Grid of Courses */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {COURSES_DATA.map((course) => {
+                const isEnrolled = enrolledCourseIds.includes(course.id);
+                return (
+                  <div
+                    key={course.id}
+                    className="bg-slate-900/90 rounded-2xl border border-slate-700/80 overflow-hidden flex flex-col justify-between p-4 shadow-md"
+                  >
+                    <div className="space-y-3">
+                      <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-950">
+                        <img
+                          src={course.image}
+                          alt={course.title}
+                          className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
+                        />
+                        <span className="absolute top-2 left-2 text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-[#FFC72C] text-slate-950">
+                          {course.pillar === 'freepremium'
+                            ? 'Freepremium'
+                            : course.pillar === 'horas-complementares'
+                            ? 'Horas Compl.'
+                            : 'Formação Livre'}
+                        </span>
+                        <span className="absolute bottom-2 right-2 text-xs font-bold bg-slate-900/80 backdrop-blur-xs text-white px-2 py-0.5 rounded">
+                          {course.hours}h
+                        </span>
+                      </div>
+
+                      <div>
+                        <span className="text-[10px] text-[#FFC72C] font-semibold uppercase tracking-wider">
+                          {course.category}
+                        </span>
+                        <h4 className="font-bold text-base text-white line-clamp-1 mt-0.5">
+                          {course.title}
+                        </h4>
+                        <p className="text-xs text-slate-400 line-clamp-2 mt-1 leading-relaxed">
+                          {course.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 mt-3 border-t border-slate-800 flex items-center justify-between gap-2">
+                      {isEnrolled ? (
+                        <>
+                          <span className="text-xs font-bold text-emerald-400 flex items-center gap-1">
+                            <CheckCircle2 className="w-4 h-4" /> Matriculado
+                          </span>
+                          <div className="flex gap-2">
+                            {enrolledCourseIds.length > 1 && (
+                              <button
+                                onClick={() => handleUnenroll(course.id)}
+                                className="px-2.5 py-1.5 rounded-xl border border-rose-500/40 hover:bg-rose-500/20 text-rose-300 text-xs font-semibold transition cursor-pointer"
+                                title="Cancelar inscrição"
+                              >
+                                Sair
+                              </button>
+                            )}
+                            <button
+                              onClick={() => {
+                                setSelectedCourseId(course.id);
+                                setActiveLessonIndex(0);
+                                setShowCatalogModal(false);
+                              }}
+                              className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition shadow-xs cursor-pointer"
+                            >
+                              Estudar Agora
+                            </button>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-xs text-slate-400 font-medium">Inscrição Gratuita</span>
+                          <button
+                            onClick={() => {
+                              handleEnroll(course.id);
+                              setShowCatalogModal(false);
+                            }}
+                            className="px-4 py-2 rounded-xl bg-[#FFC72C] hover:bg-amber-400 text-slate-950 text-xs font-bold transition shadow-sm cursor-pointer flex items-center gap-1.5"
+                          >
+                            <Sparkles className="w-3.5 h-3.5" />
+                            <span>Matricular-se Grátis</span>
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}
