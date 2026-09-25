@@ -860,6 +860,159 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
               </a>
             </div>
 
+            {/* Quadro Informativo: Serviços Gratuitos & Conveniência Opcional */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-6">
+              
+              {/* Seção 1: Serviços 100% Gratuitos */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between border-b border-emerald-100 pb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-black">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-extrabold text-slate-900 leading-tight">
+                        Serviços 100% Gratuitos
+                      </h4>
+                      <p className="text-[11px] text-emerald-700 font-medium">
+                        Sem custo de matrícula ou mensalidade
+                      </p>
+                    </div>
+                  </div>
+                  <span className="bg-emerald-100 text-emerald-800 font-extrabold text-xs px-2.5 py-1 rounded-full border border-emerald-200">
+                    R$ 0,00
+                  </span>
+                </div>
+
+                <div className="space-y-3 text-xs text-slate-700">
+                  <div className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-slate-900 font-bold block">Acesso Total ao Conteúdo Didático:</strong>
+                      <span className="text-slate-500 text-[11px] leading-relaxed block">
+                        Videoaulas, e-books em PDF, leituras recomendadas e questionários de fixação de todas as etapas.
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-slate-900 font-bold block">Inscrição e Matrícula Imediata:</strong>
+                      <span className="text-slate-500 text-[11px] leading-relaxed block">
+                        Cadastro em qualquer curso livre da plataforma sem taxas de adesão ou requisitos de aprovação de crédito.
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-slate-900 font-bold block">Painel do Aluno & Acompanhamento de Progresso:</strong>
+                      <span className="text-slate-500 text-[11px] leading-relaxed block">
+                        Visualização dinâmica da porcentagem de aulas concluídas e relatórios internos de desempenho.
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-slate-900 font-bold block">Suporte Técnico Básico:</strong>
+                      <span className="text-slate-500 text-[11px] leading-relaxed block">
+                        Atendimento para problemas de login, recuperação de senhas, erros de reprodução de vídeo ou navegação no site.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Seção 2: Serviços Opcionais de Conveniência */}
+              <div className="pt-4 border-t border-slate-200 space-y-4">
+                <div className="flex items-center justify-between border-b border-amber-100 pb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-black">
+                      <Award className="w-4 h-4 text-amber-600" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-extrabold text-slate-900 leading-tight">
+                        Serviços Opcionais de Conveniência
+                      </h4>
+                      <p className="text-[11px] text-slate-500 font-medium">
+                        Solicitados conforme necessidade do aluno
+                      </p>
+                    </div>
+                  </div>
+                  <span className="bg-amber-100 text-amber-900 font-extrabold text-[10px] uppercase px-2.5 py-1 rounded-full border border-amber-200 tracking-wider">
+                    CONVENIÊNCIA
+                  </span>
+                </div>
+
+                <div className="space-y-2.5 text-xs text-slate-700">
+                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div>
+                      <strong className="text-slate-900 font-bold block text-xs">Emissão de Certificado Oficial Digital (PDF + QR Code)</strong>
+                      <span className="text-slate-500 text-[11px] block">Com registro alfanumérico, código Hash antifraude e ementa no verso.</span>
+                    </div>
+                    <span className="bg-amber-100/80 text-amber-900 font-bold text-[11px] px-2.5 py-1 rounded-lg border border-amber-200 shrink-0">
+                      R$ 29,90 - R$ 49,90
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div>
+                      <strong className="text-slate-900 font-bold block text-xs">Declaração de Matrícula / Vínculo Acadêmico</strong>
+                      <span className="text-slate-500 text-[11px] block">Comprovação imediata de matrícula ativa para faculdade ou empresa.</span>
+                    </div>
+                    <span className="bg-amber-100/80 text-amber-900 font-bold text-[11px] px-2.5 py-1 rounded-lg border border-amber-200 shrink-0">
+                      R$ 24,90
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div>
+                      <strong className="text-slate-900 font-bold block text-xs">Histórico Escolar & Ementa Detalhada Assinada</strong>
+                      <span className="text-slate-500 text-[11px] block">Discriminação completa de matérias, horas e conceitos para averbação.</span>
+                    </div>
+                    <span className="bg-amber-100/80 text-amber-900 font-bold text-[11px] px-2.5 py-1 rounded-lg border border-amber-200 shrink-0">
+                      R$ 24,90
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div>
+                      <strong className="text-slate-900 font-bold block text-xs">Envio Postal de Documento Impresso (Via Correios)</strong>
+                      <span className="text-slate-500 text-[11px] block">Entrega do certificado físico em papel especial selado no seu endereço.</span>
+                    </div>
+                    <span className="bg-amber-100/80 text-amber-900 font-bold text-[11px] px-2.5 py-1 rounded-lg border border-amber-200 shrink-0">
+                      R$ 39,90 - R$ 59,90
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div>
+                      <strong className="text-slate-900 font-bold block text-xs">Segunda Via de Certificado ou Declaração</strong>
+                      <span className="text-slate-500 text-[11px] block">Reemissão de documentos solicitados anteriormente com atualização.</span>
+                    </div>
+                    <span className="bg-amber-100/80 text-amber-900 font-bold text-[11px] px-2.5 py-1 rounded-lg border border-amber-200 shrink-0">
+                      R$ 19,90
+                    </span>
+                  </div>
+
+                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div>
+                      <strong className="text-slate-900 font-bold block text-xs">Tutoria Pedagógica / Suporte Prioritário</strong>
+                      <span className="text-slate-500 text-[11px] block">Acesso direto ao professor para correção de trabalhos e esclarecimento de dúvidas.</span>
+                    </div>
+                    <span className="bg-amber-100/80 text-amber-900 font-bold text-[11px] px-2.5 py-1 rounded-lg border border-amber-200 shrink-0">
+                      R$ 49,90
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
           </div>
 
         </div>
