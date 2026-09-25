@@ -841,25 +841,6 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
 
             </div>
 
-            {/* Support box */}
-            <div className="bg-[#182333] text-white rounded-2xl p-5 border border-slate-700 shadow-sm space-y-3">
-              <div className="flex items-center gap-2 text-[#FFC72C] text-xs font-bold uppercase tracking-wider">
-                <Sparkles className="w-4 h-4" />
-                <span>Suporte ao Aluno</span>
-              </div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Precisa de ajuda com prazos de entrega, declaração de matrícula ou emissão em papel moeda?
-              </p>
-              <a
-                href="https://wa.me/5511960319637"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors"
-              >
-                <span>Falar via WhatsApp: (11) 960319637</span>
-              </a>
-            </div>
-
             {/* Quadro Informativo: Serviços Gratuitos & Conveniência Opcional */}
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-6">
               
@@ -1011,6 +992,25 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
                 </div>
               </div>
 
+            </div>
+
+            {/* Support box (Posicionado abaixo dos quadros de serviços) */}
+            <div className="bg-[#182333] text-white rounded-2xl p-5 border border-slate-700 shadow-sm space-y-3">
+              <div className="flex items-center gap-2 text-[#FFC72C] text-xs font-bold uppercase tracking-wider">
+                <Sparkles className="w-4 h-4" />
+                <span>Suporte ao Aluno</span>
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Precisa de ajuda com prazos de entrega, solicitar declaração de matrícula ou certificados?
+              </p>
+              <a
+                href="https://wa.me/5511960319637"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors"
+              >
+                <span>Falar via WhatsApp: (11) 960319637</span>
+              </a>
             </div>
 
           </div>
