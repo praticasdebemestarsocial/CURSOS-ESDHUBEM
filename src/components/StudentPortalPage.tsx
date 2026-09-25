@@ -240,7 +240,7 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
                 }}
                 className={`text-left p-4 rounded-2xl border transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-white border-[#243042] shadow-md ring-2 ring-[#243042]/10 text-slate-900'
+                    ? 'bg-gradient-to-br from-emerald-600 via-emerald-600 to-teal-700 border-emerald-400 text-white shadow-xl ring-2 ring-emerald-400/60 scale-[1.02]'
                     : 'bg-[#182333] hover:bg-slate-800/90 border-slate-700/80 text-white shadow-sm'
                 }`}
               >
@@ -248,11 +248,7 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
                   <span
                     className={`text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full ${
                       isSelected
-                        ? c.pillar === 'freepremium'
-                          ? 'bg-emerald-100 text-emerald-800'
-                          : c.pillar === 'horas-complementares'
-                          ? 'bg-amber-100 text-amber-800'
-                          : 'bg-slate-800 text-white'
+                        ? 'bg-[#FFC72C] text-slate-950 font-black shadow-xs'
                         : c.pillar === 'freepremium'
                         ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
                         : c.pillar === 'horas-complementares'
@@ -266,22 +262,22 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
                       ? 'Horas Compl.'
                       : 'Formação Livre'}
                   </span>
-                  <span className={`text-xs font-bold ${isSelected ? 'text-slate-500' : 'text-slate-400'}`}>{c.hours}h</span>
+                  <span className={`text-xs font-bold ${isSelected ? 'text-emerald-100 font-extrabold' : 'text-slate-400'}`}>{c.hours}h</span>
                 </div>
 
-                <p className={`text-sm font-bold line-clamp-1 mb-2 ${isSelected ? 'text-slate-900' : 'text-white'}`}>
+                <p className={`text-sm font-extrabold line-clamp-1 mb-2 text-white`}>
                   {c.title}
                 </p>
 
                 {/* Progress bar */}
                 <div className="space-y-1">
-                  <div className={`flex justify-between text-[11px] font-medium ${isSelected ? 'text-slate-500' : 'text-slate-300'}`}>
+                  <div className={`flex justify-between text-[11px] font-semibold ${isSelected ? 'text-emerald-100' : 'text-slate-300'}`}>
                     <span>{cCompleted} de {cTotal} aulas</span>
                     <span>{cPercent}%</span>
                   </div>
-                  <div className={`w-full rounded-full h-1.5 overflow-hidden ${isSelected ? 'bg-slate-200' : 'bg-slate-800'}`}>
+                  <div className={`w-full rounded-full h-1.5 overflow-hidden ${isSelected ? 'bg-emerald-950/60 border border-emerald-500/30' : 'bg-slate-800'}`}>
                     <div
-                      className={`h-full rounded-full transition-all duration-300 ${isSelected ? 'bg-[#243042]' : 'bg-[#FFC72C]'}`}
+                      className={`h-full rounded-full transition-all duration-300 ${isSelected ? 'bg-[#FFC72C] shadow-[0_0_8px_rgba(255,199,44,0.6)]' : 'bg-[#FFC72C]'}`}
                       style={{ width: `${cPercent}%` }}
                     />
                   </div>
@@ -783,21 +779,6 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
                     </div>
                   );
                 })}
-              </div>
-
-              {/* Bottom Quick Help */}
-              <div className="mt-5 pt-4 border-t border-slate-100 text-xs text-slate-500 space-y-2">
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Carga horária averbada ao completar 100% das aulas.</span>
-                </div>
-                <button
-                  onClick={onOpenValidator}
-                  className="text-xs font-bold text-[#243042] hover:underline flex items-center gap-1 cursor-pointer pt-1"
-                >
-                  <span>Solicitar a validação do certificado</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </button>
               </div>
 
             </div>
