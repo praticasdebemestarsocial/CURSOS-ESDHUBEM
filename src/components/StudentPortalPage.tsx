@@ -18,6 +18,7 @@ import {
   ExternalLink,
   MessageSquare,
   Save,
+  Send,
   Volume2,
   Maximize2,
   ShieldCheck,
@@ -98,7 +99,86 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
   const [notesSavedAlert, setNotesSavedAlert] = useState(false);
 
   // Active tab in bottom pane
-  const [activeBottomTab, setActiveBottomTab] = useState<'anotacoes' | 'materiais' | 'certificado' | 'duvidas'>('materiais');
+  const [activeBottomTab, setActiveBottomTab] = useState<'anotacoes' | 'materiais' | 'certificado' | 'tcc'>('materiais');
+
+  // TCC state
+  const [tccTitle, setTccTitle] = useState<string>(() => {
+    try {
+      return localStorage.getItem('esdhubem_tcc_title') || '';
+    } catch {
+      return '';
+    }
+  });
+  const [tccResumo, setTccResumo] = useState<string>(() => {
+    try {
+      return localStorage.getItem('esdhubem_tcc_resumo') || '';
+    } catch {
+      return '';
+    }
+  });
+  const [tccDesenvolvimento, setTccDesenvolvimento] = useState<string>(() => {
+    try {
+      return localStorage.getItem('esdhubem_tcc_desenvolvimento') || '';
+    } catch {
+      return '';
+    }
+  });
+  const [tccConsideracoes, setTccConsideracoes] = useState<string>(() => {
+    try {
+      return localStorage.getItem('esdhubem_tcc_consideracoes') || '';
+    } catch {
+      return '';
+    }
+  });
+
+  const [tccSavedAlert, setTccSavedAlert] = useState(false);
+  const [tccSentAlert, setTccSentAlert] = useState(false);
+
+  const handleSaveTcc = () => {
+    try {
+      localStorage.setItem('esdhubem_tcc_title', tccTitle);
+      localStorage.setItem('esdhubem_tcc_resumo', tccResumo);
+      localStorage.setItem('esdhubem_tcc_desenvolvimento', tccDesenvolvimento);
+      localStorage.setItem('esdhubem_tcc_consideracoes', tccConsideracoes);
+    } catch (e) {
+      console.warn(e);
+    }
+    setTccSavedAlert(true);
+    setTimeout(() => setTccSavedAlert(false), 3500);
+  };
+
+  const handleSendTcc = () => {
+    handleSaveTcc();
+    const email = 'esdhubem@proton.me';
+    const subject = encodeURIComponent(`TCC: ${tccTitle || 'Trabalho de Conclusão de Curso'} - ${studentName}`);
+    const bodyContent = `TRABALHO DE CONCLUSÃO DE CURSO (TCC) - ESDHUBEM
+==================================================
+ALUNO(A): ${studentName}
+CURSO: ${currentCourse.title}
+DATA: ${new Date().toLocaleDateString('pt-BR')}
+
+TÍTULO DO TCC:
+${tccTitle || '(Não informado)'}
+
+--------------------------------------------------
+RESUMO:
+${tccResumo || '(Não informado)'}
+
+--------------------------------------------------
+DESENVOLVIMENTO:
+${tccDesenvolvimento || '(Não informado)'}
+
+--------------------------------------------------
+CONSIDERAÇÕES FINAIS:
+${tccConsideracoes || '(Não informado)'}
+==================================================
+`;
+
+    const mailtoUrl = `mailto:${email}?subject=${subject}&body=${encodeURIComponent(bodyContent)}`;
+    window.location.href = mailtoUrl;
+    setTccSentAlert(true);
+    setTimeout(() => setTccSentAlert(false), 6000);
+  };
 
   // Student info
   const [studentName, setStudentName] = useState('Silviano S.');
@@ -530,15 +610,15 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
                 </button>
 
                 <button
-                  onClick={() => setActiveBottomTab('duvidas')}
+                  onClick={() => setActiveBottomTab('tcc')}
                   className={`pb-2 border-b-2 transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 ${
-                    activeBottomTab === 'duvidas'
+                    activeBottomTab === 'tcc'
                       ? 'border-[#243042] text-[#243042]'
                       : 'border-transparent text-slate-500 hover:text-slate-800'
                   }`}
                 >
-                  <MessageSquare className="w-4 h-4" />
-                  <span>Dúvidas com Tutor</span>
+                  <GraduationCap className="w-4 h-4 text-[#243042]" />
+                  <span>Trabalho de Conclusão de Curso</span>
                 </button>
               </div>
 
@@ -702,35 +782,124 @@ export const StudentPortalPage: React.FC<StudentPortalPageProps> = ({
                 </div>
               )}
 
-              {/* Tab 4: Dúvidas com o Tutor */}
-              {activeBottomTab === 'duvidas' && (
-                <div className="pt-5 space-y-4">
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-sm">
-                      Canal Direto com a Tutoria Pedagógica
-                    </h4>
-                    <p className="text-xs text-slate-500">
-                      Envie sua pergunta técnica ou acadêmica sobre o curso "{currentCourse.title}".
-                    </p>
+              {/* Tab 4: Trabalho de Conclusão de Curso (TCC) */}
+              {activeBottomTab === 'tcc' && (
+                <div className="pt-5 space-y-5">
+                  {/* Header & Actions */}
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                      <h4 className="font-bold text-slate-900 text-sm flex items-center gap-2">
+                        <GraduationCap className="w-4 h-4 text-[#243042]" />
+                        <span>Trabalho de Conclusão de Curso (TCC)</span>
+                      </h4>
+                      <p className="text-xs text-slate-500 mt-0.5">
+                        Preencha o título, resumo, desenvolvimento e considerações finais do seu trabalho acadêmico.
+                      </p>
+                    </div>
+
+                    {/* Buttons: Salvar TCC & Enviar TCC */}
+                    <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
+                      <button
+                        onClick={handleSaveTcc}
+                        className="flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg bg-[#243042] hover:bg-[#182333] text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs"
+                      >
+                        <Save className="w-3.5 h-3.5 text-[#FFC72C]" />
+                        <span>Salvar TCC</span>
+                      </button>
+
+                      <button
+                        onClick={handleSendTcc}
+                        className="flex-1 sm:flex-none px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs"
+                      >
+                        <Send className="w-3.5 h-3.5" />
+                        <span>Enviar TCC</span>
+                      </button>
+                    </div>
                   </div>
 
-                  <div className="space-y-3">
-                    <input
-                      type="text"
-                      placeholder="Título da sua dúvida..."
-                      className="w-full p-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#243042]"
-                    />
-                    <textarea
-                      rows={3}
-                      placeholder="Descreva sua dúvida com detalhes..."
-                      className="w-full p-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#243042]"
-                    />
-                    <button
-                      onClick={() => alert('Dúvida enviada ao tutor pedagógico! Você receberá a resposta em seu e-mail cadastrado.')}
-                      className="px-5 py-2.5 rounded-xl bg-[#243042] text-white text-xs font-bold hover:bg-[#182333] transition-colors cursor-pointer"
-                    >
-                      Enviar Dúvida ao Professor
-                    </button>
+                  {/* Feedback Alerts */}
+                  {tccSavedAlert && (
+                    <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 font-semibold flex items-center gap-2 animate-in fade-in">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <span>Rascunho do TCC salvo com sucesso!</span>
+                    </div>
+                  )}
+
+                  {tccSentAlert && (
+                    <div className="p-3.5 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-900 leading-relaxed space-y-1 animate-in fade-in">
+                      <div className="font-bold flex items-center gap-1.5 text-blue-950">
+                        <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                        <span>Seu cliente de e-mail foi aberto com os dados do TCC formatados!</span>
+                      </div>
+                      <p className="text-[11px] text-blue-800">
+                        Destinatário: <strong>esdhubem@proton.me</strong>. Por favor, confirme o envio através da sua caixa de e-mail.
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Fields Container */}
+                  <div className="space-y-4">
+                    {/* Título do TCC */}
+                    <div>
+                      <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                        Título do TCC
+                      </label>
+                      <input
+                        type="text"
+                        value={tccTitle}
+                        onChange={(e) => setTccTitle(e.target.value)}
+                        placeholder="Digite o título do seu Trabalho de Conclusão de Curso..."
+                        className="w-full p-3.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#243042] text-slate-800 font-semibold shadow-xs"
+                      />
+                    </div>
+
+                    {/* Resumo */}
+                    <div>
+                      <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                        Resumo
+                      </label>
+                      <textarea
+                        value={tccResumo}
+                        onChange={(e) => setTccResumo(e.target.value)}
+                        rows={3}
+                        placeholder="Escreva uma síntese do trabalho (objetivos, metodologia e resultados principais)..."
+                        className="w-full p-3.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#243042] text-slate-800 leading-relaxed shadow-xs"
+                      />
+                    </div>
+
+                    {/* Desenvolvimento */}
+                    <div>
+                      <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                        Desenvolvimento
+                      </label>
+                      <textarea
+                        value={tccDesenvolvimento}
+                        onChange={(e) => setTccDesenvolvimento(e.target.value)}
+                        rows={6}
+                        placeholder="Escreva o desenvolvimento, a fundamentação teórica e as análises do seu trabalho..."
+                        className="w-full p-3.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#243042] text-slate-800 leading-relaxed shadow-xs"
+                      />
+                    </div>
+
+                    {/* Considerações Finais */}
+                    <div>
+                      <label className="block text-xs font-bold text-slate-800 mb-1.5">
+                        Considerações Finais
+                      </label>
+                      <textarea
+                        value={tccConsideracoes}
+                        onChange={(e) => setTccConsideracoes(e.target.value)}
+                        rows={4}
+                        placeholder="Escreva as considerações finais e conclusões alcançadas..."
+                        className="w-full p-3.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#243042] text-slate-800 leading-relaxed shadow-xs"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Footer info note */}
+                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-[11px] text-slate-500 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1">
+                    <span>O TCC será enviado diretamente à banca avaliadora: <strong>esdhubem@proton.me</strong></span>
+                    <span className="font-semibold text-slate-400">ESDHUBEM • Tutoria Pedagógica</span>
                   </div>
                 </div>
               )}
